@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b988b931b40e5c43856f3ba3496b438, type: 3}
+  m_Name: Warrior
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: Warrior
+  <DisplayName>k__BackingField: 
+  Constitution:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Dexterity:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Strength:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Wisdom:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Intelligent:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Lucky:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Health:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Mana:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4

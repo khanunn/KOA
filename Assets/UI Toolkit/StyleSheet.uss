@@ -1,0 +1,15 @@
+.questDetail {
+    align-items: flex-start;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+}
+
+.questName {
+    -unity-font-style: bold;
+    font-size: 20px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-outline-width: 0;
+}
