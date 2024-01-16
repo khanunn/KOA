@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ using DG.Tweening;
 
 public class DialogueManager : MonoBehaviour
 {
+    private static DialogueManager instance;
     [SerializeField] TMP_Text NameText;
     [SerializeField] TMP_Text DialogText;
     [SerializeField] GameObject DialogObject;
@@ -17,6 +19,7 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] int CurrentDisplay = 0;
 
+
     private void OnEnable()
     {
         EventManager.instance.dialogueEvents.onDialogueStart += StartDialogue;
@@ -24,11 +27,17 @@ public class DialogueManager : MonoBehaviour
     }
     private void OnDisable()
     {
-
+        EventManager.instance.dialogueEvents.onDialogueStart -= StartDialogue;
+        EventManager.instance.dialogueEvents.onDialogueFinish -= FinishDialogue;
     }
 
     private void Start()
     {
+        if(instance != null)
+        {
+            Debug.LogError("DialogueManager > 1");
+        }
+        instance = this;
         /* NameText.text = DialogNames[CurrentDisplay];
         StartCoroutine(AnimateText(Dialog[CurrentDisplay]));
         NextButton.interactable = false;
