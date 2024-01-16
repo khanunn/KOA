@@ -56,7 +56,7 @@ public class StatManager : MonoBehaviour
             case StatKey.Wisdom: return statContainer.Wisdom;
             case StatKey.Intelligent: return statContainer.Intelligent;
             case StatKey.Lucky: return statContainer.Lucky;
-            default: return statContainer.Health;
+            default: return statContainer.v_hp_max;
         }
     }
 }
