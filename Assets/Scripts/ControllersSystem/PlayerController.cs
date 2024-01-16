@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackDistance;
     [SerializeField] private ParticleSystem attackEffect;
-    bool playerBusy = false;
+    private bool playerBusy = false;
     Interactable target;
     //=====================================================//
     [Header("Movement")]

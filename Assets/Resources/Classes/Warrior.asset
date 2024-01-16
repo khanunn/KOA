@@ -68,21 +68,3 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  Health:
-    StatID: 
-    <BaseStatValue>k__BackingField: 0
-    <BaseStatModifier>k__BackingField:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  Mana:
-    StatID: 
-    <BaseStatValue>k__BackingField: 0
-    <BaseStatModifier>k__BackingField:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4

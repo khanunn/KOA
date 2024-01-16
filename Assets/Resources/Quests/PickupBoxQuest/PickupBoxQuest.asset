@@ -22,3 +22,5 @@ MonoBehaviour:
   goldReward: 0
   rubyReward: 0
   expReward: 5000
+  <DialogueInfoSOStart>k__BackingField: {fileID: 0}
+  <DialogueInfoSOFinish>k__BackingField: {fileID: 0}

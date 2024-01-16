@@ -7,6 +7,7 @@ public class QuestPoint : MonoBehaviour
 {
     [Header("Dialogue")]
     //[SerializeField] private DialogueInfoSO dialogueInfoSO;
+    //[SerializeField] private DialogueInfoSO dialogueInfoSO;
     [Header("Quest")]
     [SerializeField] private QuestInfoSO questInfoForPoint;
     [Header("Config")]
@@ -19,6 +20,7 @@ public class QuestPoint : MonoBehaviour
     private Interactable target;
     public GameObject canvas;
     private UIController uIController;
+    private DialogueInfoSO[] questDialog;
 
     private void Awake()
     {
@@ -53,12 +55,14 @@ public class QuestPoint : MonoBehaviour
             EventManager.instance.questEvents.StartQuest(questId);
             //Debug.Log("Quest ID from QuestPoint: " + questId);
             uIController.SetQuestToUI(questId);
-            //canvas.SetActive(true);
+            canvas.SetActive(true);
+            EventManager.instance.dialogueEvents.DialogueStart(questInfoForPoint.DialogueInfoSOStart);
         }
         else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
             EventManager.instance.questEvents.FinishQuest(questId);
             canvas.SetActive(false);
+            EventManager.instance.dialogueEvents.DialogueFinish(questInfoForPoint.DialogueInfoSOFinish);
         }
     }
     private void QuestStateChange(Quest quest)

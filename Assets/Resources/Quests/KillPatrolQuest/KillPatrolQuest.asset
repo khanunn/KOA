@@ -21,3 +21,5 @@ MonoBehaviour:
   goldReward: 1
   rubyReward: 1
   expReward: 2000
+  <DialogueInfoSOStart>k__BackingField: {fileID: 11400000, guid: 26e74003dff16b94caf61435aa1115e6, type: 2}
+  <DialogueInfoSOFinish>k__BackingField: {fileID: 11400000, guid: 3c176999532a5954da07367c0bc24cf2, type: 2}

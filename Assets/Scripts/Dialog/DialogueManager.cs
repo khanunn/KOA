@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class DialogSystem : MonoBehaviour
+
+public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI NameText;
-    [SerializeField] TextMeshProUGUI DialogText;
+    [SerializeField] TMP_Text NameText;
+    [SerializeField] TMP_Text DialogText;
     [SerializeField] GameObject DialogObject;
     [SerializeField] Button NextButton;
     public List<string> DialogNames = new List<string>();
@@ -16,13 +17,23 @@ public class DialogSystem : MonoBehaviour
 
     [SerializeField] int CurrentDisplay = 0;
 
+    private void OnEnable()
+    {
+        EventManager.instance.dialogueEvents.onDialogueStart += StartDialogue;
+        EventManager.instance.dialogueEvents.onDialogueFinish += FinishDialogue;
+    }
+    private void OnDisable()
+    {
+
+    }
+
     private void Start()
     {
-        NameText.text = DialogNames[CurrentDisplay];
+        /* NameText.text = DialogNames[CurrentDisplay];
         StartCoroutine(AnimateText(Dialog[CurrentDisplay]));
         NextButton.interactable = false;
         CurrentDisplay++;
-        print(Dialog.Count);
+        print(Dialog.Count); */
     }
 
     public void NextDialog()
@@ -71,5 +82,22 @@ public class DialogSystem : MonoBehaviour
             yield return new WaitForSeconds(0.05f); // Adjust the delay as needed
         }
         NextButton.interactable = true;
+    }
+
+    private void StartDialogue(DialogueInfoSO info)
+    {
+        Dialog.AddRange(info.messageText);
+        DialogNames.AddRange(info.nameText);
+
+        //Dialog = info.messageText;
+        NameText.text = DialogNames[CurrentDisplay];
+        StartCoroutine(AnimateText(Dialog[CurrentDisplay]));
+        NextButton.interactable = false;
+        CurrentDisplay++;
+        print(Dialog.Count);
+    }
+    private void FinishDialogue(DialogueInfoSO info)
+    {
+
     }
 }
