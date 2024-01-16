@@ -8,12 +8,15 @@ public class PlayerSkill : MonoBehaviour
     [Header("Skill Settings")]
     Animator animator;
     [SerializeField] int Skill_ID;
-    bool isSkillPlaying = false;
+    [SerializeField] bool isSkillPlaying = false;
 
     [Header("Equipment Settings")]
     public bool IsWeapon = false;
     [SerializeField] SkinnedMeshRenderer Sword;
     [SerializeField] SkinnedMeshRenderer Shield;
+
+    [Header("Player Setting")]
+    [SerializeField] PlayerController Player;
 
     private void Start()
     {
@@ -21,19 +24,23 @@ public class PlayerSkill : MonoBehaviour
     }
 
     void SkillSystem()
-    {
+    {        
         if (!isSkillPlaying)
         {
             if (IsWeapon) // Have Sword
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetKeyUp(KeyCode.Alpha1))
                 {
+                    Debug.Log(isSkillPlaying);
+                    isSkillPlaying = true;
                     StartSkill(0);
                     Invoke("ResetSkill", 0.1f);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha2))
+                if (Input.GetKeyUp(KeyCode.Alpha2))
                 {
+                    Debug.Log(isSkillPlaying);
+                    isSkillPlaying = true;
                     StartSkill(1);
                     Invoke("ResetSkill", 0.1f);
                 }
@@ -41,20 +48,20 @@ public class PlayerSkill : MonoBehaviour
 
             if (!IsWeapon) // Bare hand
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetKeyUp(KeyCode.Alpha1))
                 {
                     StartSkill(0);
                     Invoke("ResetSkill", 0.1f);
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyUp(KeyCode.Alpha3))
             {
                 StartSkill(3);
                 Invoke("ResetSkill", 0.1f);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (Input.GetKeyUp(KeyCode.Alpha4))
             {
                 StartSkill(4);
                 Invoke("ResetSkill", 0.1f);
@@ -64,13 +71,15 @@ public class PlayerSkill : MonoBehaviour
 
     private void ResetSkill()
     {
-        animator.SetInteger("Skill_ID", -1);
+        animator.SetInteger("Skill_ID", -1);        
     }
 
     void StartSkill(int skillId)
     {
         isSkillPlaying = true;
-        animator.SetInteger("Skill_ID", skillId);
+        Player.StopSequence();
+        //animator.SetInteger("Skill_ID", skillId);
+        animator.Play(skillId.ToString() + "- Sword");
         Debug.Log(skillId.ToString());
     }
 
@@ -93,10 +102,19 @@ public class PlayerSkill : MonoBehaviour
         }
 
         // Check if the animation has finished
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill"))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
         {
             isSkillPlaying = false;
-
+            //ResetSkill();
         }
+
+        if(isSkillPlaying)
+        {
+            if(Input.GetKey(KeyCode.Mouse1))
+            {
+                Player.StopSequence();
+            }
+        }
+
     }
 }

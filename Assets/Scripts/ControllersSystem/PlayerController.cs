@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem clickEffect;
     [SerializeField] private LayerMask clickLayer;
     [SerializeField] private float lookRotationSpeed;
+
+    //Disable Movement Player for using Skill
+    public bool CanWalk = true;
+
+
     //====================================================//
     [Header("Damage")]
     [SerializeField] private int punchDamage;
@@ -123,80 +129,83 @@ public class PlayerController : MonoBehaviour
     //============================เคลื่อนที่ตัวละคร==========================//
     private void ClickToMove()
     {
-        //Debug.Log("Click Success");
-        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
-
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
+        if(CanWalk)
         {
-            if (hit.transform.CompareTag("Interactable"))
+            //Debug.Log("Click Success");
+            if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
+
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
             {
-                //เช็คเฉพาะถ้าเป้าหมายเป็น NPC ก่อนหน้านี้ ให้ ResetBusy เพื่อป้องกันไม่ให้ Attack รัวๆถ้าเป้าหมายเป็น Enemy
-                if (target != null && target.interactionType == InteractableType.NPC)
+                if (hit.transform.CompareTag("Interactable"))
                 {
-                    ResetBusy();
-                }
-                target = hit.transform.GetComponent<Interactable>();
-                Debug.Log("PlayerController Target : " + target);
+                    //เช็คเฉพาะถ้าเป้าหมายเป็น NPC ก่อนหน้านี้ ให้ ResetBusy เพื่อป้องกันไม่ให้ Attack รัวๆถ้าเป้าหมายเป็น Enemy
+                    if (target != null && target.interactionType == InteractableType.NPC)
+                    {
+                        ResetBusy();
+                    }
+                    target = hit.transform.GetComponent<Interactable>();
+                    Debug.Log("PlayerController Target : " + target);
 
-                switch (target.interactionType)
-                {
-                    case InteractableType.ENEMY:
-                        targetDistance = attackDistance;
-                        break;
-                    case InteractableType.ITEM_QUEST:
-                        targetDistance = pickupDistance;
-                        break;
-                    case InteractableType.NPC:
-                        targetDistance = talkDistance;
-                        break;
-                    case InteractableType.ITEM_INVENTORY:
-                        targetDistance = pickupDistance;
-                        break;
-
-                }
-
-                if (clickEffect != null)
-                {
-                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
-                }
-            }
-            else
-            {
-                //AnimMove(false,true); //เดิน
-                agent.SetDestination(hit.point);
-
-                if (target != null)
-                {
-                    Debug.Log("target: " + target);
                     switch (target.interactionType)
                     {
-                        case InteractableType.NPC:
-                            ResetBusy();
-                            SendNpc(false);
-                            ResetTarget();
-                            break;
                         case InteractableType.ENEMY:
-                            ResetBusy();
-                            ResetTarget();
+                            targetDistance = attackDistance;
                             break;
                         case InteractableType.ITEM_QUEST:
-                            ResetBusy();
-                            ResetTarget();
+                            targetDistance = pickupDistance;
+                            break;
+                        case InteractableType.NPC:
+                            targetDistance = talkDistance;
                             break;
                         case InteractableType.ITEM_INVENTORY:
-                            ResetBusy();
-                            ResetTarget();
+                            targetDistance = pickupDistance;
                             break;
+
+                    }
+
+                    if (clickEffect != null)
+                    {
+                        Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
                     }
                 }
-
-                if (clickEffect != null)
+                else
                 {
-                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
+                    //AnimMove(false,true); //เดิน
+                    agent.SetDestination(hit.point);
+
+                    if (target != null)
+                    {
+                        Debug.Log("target: " + target);
+                        switch (target.interactionType)
+                        {
+                            case InteractableType.NPC:
+                                ResetBusy();
+                                SendNpc(false);
+                                ResetTarget();
+                                break;
+                            case InteractableType.ENEMY:
+                                ResetBusy();
+                                ResetTarget();
+                                break;
+                            case InteractableType.ITEM_QUEST:
+                                ResetBusy();
+                                ResetTarget();
+                                break;
+                            case InteractableType.ITEM_INVENTORY:
+                                ResetBusy();
+                                ResetTarget();
+                                break;
+                        }
+                    }
+
+                    if (clickEffect != null)
+                    {
+                        Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
+                    }
                 }
             }
-        }
+        }        
     }
     #region หันหน้าไปยังทิศทางของเป้าหมาย
     void FaceToTarget()
@@ -261,41 +270,44 @@ public class PlayerController : MonoBehaviour
     //==============================เข้าถึงระยะ============================//
     void ReachDistance()
     {
-        agent.SetDestination(transform.position);
-        FaceToTarget();
-        if (playerBusy)
+        if(CanWalk)
         {
-            return;
-        }
+            agent.SetDestination(transform.position);
+            FaceToTarget();
+            if (playerBusy)
+            {
+                return;
+            }
 
-        playerBusy = true;
+            playerBusy = true;
 
-        switch (target.interactionType)
-        {
-            case InteractableType.ENEMY:
-                AnimAttack(true);
-                Invoke(nameof(SendAttack), attackDelay);
-                Invoke(nameof(ResetBusy), attackSpeed);
-                break;
-            case InteractableType.ITEM_QUEST:
-                //Debug.Log("Interacted Item");
-                animator.SetBool(PICKUP, true);
-                PickupItem();
-                target.InteracItem();
-                ResetTarget();
-                Invoke(nameof(ResetBusy), 0.5f);
-                break;
-            case InteractableType.NPC:
-                Debug.Log("Interacted NPC");
-                break;
-            case InteractableType.ITEM_INVENTORY:
-                animator.SetBool(PICKUP, true);
-                SendItem();
-                target.InteracItem();
-                ResetTarget();
-                Invoke(nameof(ResetBusy), 0.5f);
-                break;
-        }
+            switch (target.interactionType)
+            {
+                case InteractableType.ENEMY:
+                    AnimAttack(true);
+                    Invoke(nameof(SendAttack), attackDelay);
+                    Invoke(nameof(ResetBusy), attackSpeed);
+                    break;
+                case InteractableType.ITEM_QUEST:
+                    //Debug.Log("Interacted Item");
+                    animator.SetBool(PICKUP, true);
+                    PickupItem();
+                    target.InteracItem();
+                    ResetTarget();
+                    Invoke(nameof(ResetBusy), 0.5f);
+                    break;
+                case InteractableType.NPC:
+                    Debug.Log("Interacted NPC");
+                    break;
+                case InteractableType.ITEM_INVENTORY:
+                    animator.SetBool(PICKUP, true);
+                    SendItem();
+                    target.InteracItem();
+                    ResetTarget();
+                    Invoke(nameof(ResetBusy), 0.5f);
+                    break;
+            }
+        }        
     }
     void SendNpc(bool near)
     {
@@ -400,4 +412,12 @@ public class PlayerController : MonoBehaviour
         EventManager.instance.healthEvents.HealthChange(playerCurrentHealth);
         Debug.Log(playerCurrentHealth);
     } */
+
+
+    // Dragon's Part
+
+    public void StopSequence()
+    {
+        agent.SetDestination(transform.position);
+    }
 }
