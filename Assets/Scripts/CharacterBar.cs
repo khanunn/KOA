@@ -2,15 +2,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class CharacterBar : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private int health;
     [SerializeField] private int healthMax;
+    [Space(20)]
+    [Header("Mana")]
+    [SerializeField] private int mana;
+    [SerializeField] private int manaMax;
     [Header("Config")]
     [SerializeField] private TMP_Text textHp;
     [SerializeField] private Image healthBar;
+    [Space(5)]
+    [SerializeField] private TMP_Text textMp;
+    [SerializeField] private Image manaBar;
+    [Space(5)]
     [SerializeField] private GameObject player;
+
     private Actor myActor;
 
     private void Awake()

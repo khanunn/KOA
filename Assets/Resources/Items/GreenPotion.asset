@@ -15,6 +15,6 @@ MonoBehaviour:
   <id>k__BackingField: GreenPotion
   displayName: Green Potion
   value: 50
-  icon: {fileID: 21300000, guid: ea9306e1aa95eb8439400efefff9f8db, type: 3}
+  icon: {fileID: 21300000, guid: 2e516aa89b08cd74a8b67bd01ec8482f, type: 3}
   itemType: 1
   itemStatus: 0

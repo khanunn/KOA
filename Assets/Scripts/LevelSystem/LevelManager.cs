@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour
     private void UpdateUI()
     {
         experienceBar.fillAmount = ((float)experience / (float)requireExperience);
-        textLevel.text = "Level: " + level;
+        textLevel.text = level.ToString();
         textExperience.text = experience + "/" + requireExperience + " Exp";
     }
 }
