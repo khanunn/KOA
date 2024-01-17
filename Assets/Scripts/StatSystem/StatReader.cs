@@ -6,6 +6,7 @@ public class StatReader : MonoBehaviour
 {
     public StatManager statManager;
     public StatKey statKey;
+    private Stat stat;
 
     public TMP_Text statText;
     public TMP_Text differenceText;
@@ -28,7 +29,7 @@ public class StatReader : MonoBehaviour
     {
         //Debug.Log("Stat Key: " + statKey);
         //statText = gameObject.GetComponent<TMP_Text>();
-        Stat stat = statManager.GetStat(statKey);
+        stat = statManager.GetStat(statKey);
         //Debug.Log("Stat Key : " + stat.statKey);
         currentValue = stat.statValue;
         currentLevel = statManager.levelManager.level;
@@ -40,7 +41,7 @@ public class StatReader : MonoBehaviour
         if (currentLevel != level)
         {
             currentLevel = level;
-            Stat stat = statManager.GetStat(statKey);
+            stat = statManager.GetStat(statKey);
             int difference = stat.statValue - currentValue;
 
             while (difference > 0)
@@ -127,7 +128,7 @@ public class StatReader : MonoBehaviour
 
     private void ResetUpdateText()
     {
-        Stat stat = statManager.GetStat(statKey);
+        stat = statManager.GetStat(statKey);
         statText.text = statKey.ToString() + ": " + stat.statValue;
         differenceText.text = "";
     }

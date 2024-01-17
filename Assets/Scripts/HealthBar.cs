@@ -22,11 +22,13 @@ public class HealthBar : MonoBehaviour
     {
         EventManager.instance.healthEvents.onHealthChange += SetHealth;
         EventManager.instance.healthEvents.onHealthGained += UpHealth;
+        EventManager.instance.healthEvents.onHealthMaxChange += SetMaxHealth;
     }
     private void OnDisable()
     {
         EventManager.instance.healthEvents.onHealthChange -= SetHealth;
         EventManager.instance.healthEvents.onHealthGained -= UpHealth;
+        EventManager.instance.healthEvents.onHealthMaxChange -= SetMaxHealth;
     }
     private void Start()
     {
@@ -62,4 +64,9 @@ public class HealthBar : MonoBehaviour
         EventManager.instance.healthEvents.HealthChange(playerCurrentHealth);
         Debug.Log(playerCurrentHealth);
     } */
+    private void SetMaxHealth(int value)
+    {
+        healthMax = value;
+        UpdateUI(health);
+    }
 }

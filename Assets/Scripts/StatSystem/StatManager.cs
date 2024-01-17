@@ -17,6 +17,10 @@ public class StatManager : MonoBehaviour
     {
         SetStat();
     }
+    private void Start()
+    {
+        EventManager.instance.statEvents.SendStat(this);
+    }
     public void SetStat()
     {
         if (statContainer == null)
@@ -38,6 +42,9 @@ public class StatManager : MonoBehaviour
         IncreaseStatRandomly(statContainer.Wisdom, classInfoSO.Wisdom, maxIncrease);
         IncreaseStatRandomly(statContainer.Intelligent, classInfoSO.Intelligent, maxIncrease);
         IncreaseStatRandomly(statContainer.Lucky, classInfoSO.Lucky, maxIncrease);
+
+        IncreaseStatRandomly(statContainer.v_hp_max, classInfoSO.v_hp_max, maxIncrease);
+        IncreaseStatRandomly(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
     }
 
     private void IncreaseStatRandomly(Stat stat, StatBase statBase, int maxIncrease)
@@ -56,6 +63,8 @@ public class StatManager : MonoBehaviour
             case StatKey.Wisdom: return statContainer.Wisdom;
             case StatKey.Intelligent: return statContainer.Intelligent;
             case StatKey.Lucky: return statContainer.Lucky;
+            case StatKey.v_hp_max: return statContainer.v_hp_max;
+            case StatKey.v_mp_max: return statContainer.v_mp_max;
             default: return statContainer.v_hp_max;
         }
     }

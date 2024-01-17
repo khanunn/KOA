@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
         level++;
         CalculateRequireExp();
         EventManager.instance.playerEvents.PlayerLevelChange(level);
+        EventManager.instance.statEvents.LevelUpStat();
     }
     private void ExperienceUp(int value)
     {

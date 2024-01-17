@@ -11,6 +11,14 @@ public class HealthEvents
             onHealthChange(health);
         }
     }
+    public event Action<int> onHealthMaxChange;
+    public void HealthMaxChange(int health)
+    {
+        if (onHealthMaxChange != null)
+        {
+            onHealthMaxChange(health);
+        }
+    }
     public event Action<int> onHealthGained;
     public void HealthGained(int health)
     {

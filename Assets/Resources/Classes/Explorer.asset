@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b988b931b40e5c43856f3ba3496b438, type: 3}
   m_Name: Explorer
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: Explorer
-  <DisplayName>k__BackingField: Explorer Class
+  Id: Explorer
+  DisplayName: 
   Constitution:
     StatID: con
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 1
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -43,7 +43,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   Dexterity:
     StatID: dex
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 1
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -70,7 +70,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   Strength:
     StatID: str
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 1
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -97,7 +97,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   Wisdom:
     StatID: wis
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 1
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -124,7 +124,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   Intelligent:
     StatID: int
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 1
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -151,7 +151,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   Lucky:
     StatID: luc
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 1
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -173,6 +173,168 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_hp_max:
+    StatID: hp
+    <BaseStatValue>k__BackingField: 100
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_mp_max:
+    StatID: mp
+    <BaseStatValue>k__BackingField: 100
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_hp_recovery:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_mp_recovery:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_patk:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_matk:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_pdef:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_mdef:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_acc:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_evade:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_crit_change:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_crit_dam:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_pdam:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  v_mdam:
+    StatID: 
+    <BaseStatValue>k__BackingField: 0
+    <BaseStatModifier>k__BackingField:
+      serializedVersion: 2
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
