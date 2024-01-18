@@ -7,8 +7,8 @@ public class PlayerSkill : MonoBehaviour
 {
     [Header("Skill Settings")]
     Animator animator;
-    [SerializeField] int Skill_ID;
-    [SerializeField] bool isSkillPlaying = false;
+    [SerializeField] private int Skill_ID;
+    [field: SerializeField] public bool isSkillPlaying { get; private set; }
 
     [Header("Equipment Settings")]
     public bool IsWeapon = false;
@@ -17,27 +17,33 @@ public class PlayerSkill : MonoBehaviour
 
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
+    //==========================================================//
+    MeshCollider meshCollider;
 
     private void Start()
     {
         animator = this.GetComponent<Animator>();
+        Player = this.GetComponent<PlayerController>();
+        meshCollider = GetComponentInChildren<MeshCollider>();
+        //Debug.Log(meshCollider);
     }
 
     void SkillSystem()
-    {        
-        if (!isSkillPlaying)
+    {
+        if (!isSkillPlaying && Player.target != null)
         {
             if (IsWeapon) // Have Sword
             {
+                Debug.Log(Player.target.interactionType);
                 if (Input.GetKeyUp(KeyCode.Alpha1))
-                {                    
+                {
                     isSkillPlaying = true;
                     StartSkill(1);
                     Invoke("ResetSkill", 0.1f);
                 }
 
                 if (Input.GetKeyUp(KeyCode.Alpha2))
-                {                    
+                {
                     isSkillPlaying = true;
                     StartSkill(2);
                     Invoke("ResetSkill", 0.1f);
@@ -69,7 +75,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void ResetSkill()
     {
-        animator.SetInteger("Skill_ID", -1);        
+        animator.SetInteger("Skill_ID", -1);
     }
 
     void StartSkill(int skillId)
@@ -78,14 +84,14 @@ public class PlayerSkill : MonoBehaviour
         Player.StopSequence(); //using to player stop moving
         //animator.SetInteger("Skill_ID", skillId);
 
-        if(IsWeapon)
+        if (IsWeapon)
         {
             animator.Play(skillId.ToString());
         }
-        if(!IsWeapon)
+        if (!IsWeapon)
         {
             animator.Play(skillId.ToString());
-        }     
+        }
     }
 
     private void Update()
@@ -113,13 +119,13 @@ public class PlayerSkill : MonoBehaviour
             //ResetSkill();
         }
 
-        if(isSkillPlaying)
+        /* if (isSkillPlaying)
         {
-            if(Input.GetKey(KeyCode.Mouse1))
+            if (Input.GetKey(KeyCode.Mouse1))
             {
                 Player.StopSequence();
             }
-        }
+        } */
 
     }
 }

@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider capsuleCollider;
     private bool playerDie;
     private Actor playerActor;
+    private PlayerSkill playerSkill;
     //=====================================================//
     [Header("Attack")]
     [SerializeField] private float attackSpeed;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private ParticleSystem attackEffect;
     private bool playerBusy = false;
-    Interactable target;
+    public Interactable target { get; private set; }
     //=====================================================//
     [Header("Movement")]
     [SerializeField] private ParticleSystem clickEffect;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
         input = new CustomAction();
         AssignInput();
         playerActor = GetComponent<Actor>();
+        playerSkill = GetComponent<PlayerSkill>();
     }
     // Start is called before the first frame update
     void Start()
@@ -129,7 +131,7 @@ public class PlayerController : MonoBehaviour
     //============================เคลื่อนที่ตัวละคร==========================//
     private void ClickToMove()
     {
-        if(CanWalk)
+        if (CanWalk)
         {
             //Debug.Log("Click Success");
             if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-        }        
+        }
     }
     #region หันหน้าไปยังทิศทางของเป้าหมาย
     void FaceToTarget()
@@ -263,14 +265,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            agent.SetDestination(target.transform.position);
+            if (CanWalk) { agent.SetDestination(target.transform.position); }
         }
     }
 
     //==============================เข้าถึงระยะ============================//
     void ReachDistance()
     {
-        if(CanWalk)
+        if (CanWalk)
         {
             agent.SetDestination(transform.position);
             FaceToTarget();
@@ -307,7 +309,7 @@ public class PlayerController : MonoBehaviour
                     Invoke(nameof(ResetBusy), 0.5f);
                     break;
             }
-        }        
+        }
     }
     void SendNpc(bool near)
     {

@@ -276,5 +276,15 @@ public class PatrolController : MonoBehaviour
         EventManager.instance.healthEvents.HealthChange(damaged);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        MeshCollider meshCollider = other.GetComponent<MeshCollider>();
+        if (meshCollider != null)
+        {
+            Debug.Log("MeshCollider" + meshCollider.tag);
+            // ทำสิ่งที่คุณต้องการเมื่อมี MeshCollider เข้ามาใน Trigger Collider ของวัตถุนี้
+        }
+    }
+
 
 }
