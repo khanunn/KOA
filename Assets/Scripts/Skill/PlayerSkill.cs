@@ -30,18 +30,16 @@ public class PlayerSkill : MonoBehaviour
             if (IsWeapon) // Have Sword
             {
                 if (Input.GetKeyUp(KeyCode.Alpha1))
-                {
-                    Debug.Log(isSkillPlaying);
+                {                    
                     isSkillPlaying = true;
-                    StartSkill(0);
+                    StartSkill(1);
                     Invoke("ResetSkill", 0.1f);
                 }
 
                 if (Input.GetKeyUp(KeyCode.Alpha2))
-                {
-                    Debug.Log(isSkillPlaying);
+                {                    
                     isSkillPlaying = true;
-                    StartSkill(1);
+                    StartSkill(2);
                     Invoke("ResetSkill", 0.1f);
                 }
             }
@@ -77,10 +75,17 @@ public class PlayerSkill : MonoBehaviour
     void StartSkill(int skillId)
     {
         isSkillPlaying = true;
-        Player.StopSequence();
+        Player.StopSequence(); //using to player stop moving
         //animator.SetInteger("Skill_ID", skillId);
-        animator.Play(skillId.ToString() + "- Sword");
-        Debug.Log(skillId.ToString());
+
+        if(IsWeapon)
+        {
+            animator.Play(skillId.ToString());
+        }
+        if(!IsWeapon)
+        {
+            animator.Play(skillId.ToString());
+        }     
     }
 
     private void Update()
