@@ -18,27 +18,27 @@ public enum EquipmentRarity
 [CreateAssetMenu(fileName = "EquipmentInfoSO", menuName = "ScriptableObject/EquipmentInfoSO", order = 1)]
 public class EquipmentInfoSO : ScriptableObject
 {
-    [field: SerializeField] public string id { get; private set; }
+    [field: Header("Genaral")]
+    [field: SerializeField] public EquipmentSlot EquipmentSlot { get; private set; }
+    [field: SerializeField] public EquipmentType EquipmentType { get; private set; }
+    [field: SerializeField] public EquipmentRarity EquipmentRarity { get; private set; }
 
-    [Header("Genaral")]
-    public string displayName;
-    public int value;
-    //public Sprite icon;
-    public EquipmentSlot equipmentSlot;
-    public EquipmentType equipmentType;
-    public EquipmentRarity equipmentRarity;
+    [field: Header("Property")]
+    [field: SerializeField] public StatKey MainStat { get; private set; }
+    [field: SerializeField] public int MainValue { get; private set; }
+    [field: Space(5)]
+    [field: SerializeField] public StatKey SubStat { get; private set; }
+    [field: SerializeField] public int SubValue { get; private set; }
 
 
 
-    private void OnValidate()
+    /* private void OnValidate()
     {
         //Debug.Log("OnValidate");
 #if UNITY_EDITOR
-        id = this.name;
+        Id = this.name;
         UnityEditor.EditorUtility.SetDirty(this);
-        /* var icon = Resources.LoadAll<Sprite>("Items/icons/");
-        //Resources.UnloadAsset(icon); */
 #endif
-    }
+    } */
 }
 

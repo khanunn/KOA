@@ -9,9 +9,9 @@ public class DemoEquipment : MonoBehaviour
     [SerializeField] private ItemInfoSO itemInfoSO;
 
     void OnDrawGizmos()
-    {        
-        Gizmos.color = Color.yellow;   
-        Gizmos.DrawWireSphere(transform.position, 1f);      
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 1f);
     }
     private void Update()
     {
@@ -23,7 +23,7 @@ public class DemoEquipment : MonoBehaviour
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(transform.position, hit.point);
 
-                if (itemInfoSO.value == 1)
+                if (itemInfoSO.Value == 1)
                 {
                     EquipmentSetting.ItemID[0] = 1;
                 }

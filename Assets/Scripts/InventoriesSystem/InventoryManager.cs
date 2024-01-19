@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+enum ItemList
+{
+
+}
 
 public class InventoryManager : MonoBehaviour
 {
@@ -10,12 +16,14 @@ public class InventoryManager : MonoBehaviour
     public List<ItemInfoSO> items = new List<ItemInfoSO>();
     public GameObject inventoryItem;
     public Transform itemContent;
-    private ItemInfoSO itemInfoSO;
+
+
+    /* private ItemInfoSO itemInfoSO;
     private InventoryController controller;
     private void Awake()
     {
         controller = GetComponent<InventoryController>();
-    }
+    } */
     private void OnEnable()
     {
         EventManager.instance.itemEvents.onRemoveItem += RemoveItem;
@@ -34,16 +42,26 @@ public class InventoryManager : MonoBehaviour
     }
     private void AddItem(ItemInfoSO itemInfoSO)
     {
-        ItemName itemType = itemInfoSO.itemType;
-        if (itemAmounts.ContainsKey(itemType)) { return; }
+        /* switch (itemInfoSO.ScriptableObject)
+        {
+            case EquipmentInfoSO equipmentInfoSO:
+                Debug.Log(equipmentInfoSO.EquipmentSlot);
+                Debug.Log(equipmentInfoSO.EquipmentType);
+                Debug.Log(equipmentInfoSO.EquipmentRarity);
+                break;
+            default:
+                break;
+        } */
+        ItemName itemName = itemInfoSO.ItemName;
+        if (itemAmounts.ContainsKey(itemName)) { return; }
         else
         {
-            itemAmounts.Add(itemType, 0);
+            itemAmounts.Add(itemName, 0);
         }
 
         if (items.Contains(itemInfoSO))
         {
-            Debug.Log("ไอเทมนี้ถูกเพิ่มไปยังกระเป๋าแล้ว: " + itemInfoSO.id);
+            Debug.Log("ไอเทมนี้ถูกเพิ่มไปยังกระเป๋าแล้ว: " + itemInfoSO.Id);
             return;
         }
         else
@@ -56,14 +74,14 @@ public class InventoryManager : MonoBehaviour
     private void RemoveItem(ItemInfoSO itemInfoSO)
     {
         //SetItemsFlag(itemInfoSO);
-        ItemName itemType = itemInfoSO.itemType;
+        ItemName itemName = itemInfoSO.ItemName;
         items.Remove(itemInfoSO);
-        itemAmounts.Remove(itemType);
+        itemAmounts.Remove(itemName);
     }
     private void SetItemsFlag(ItemInfoSO itemInfoSO)
     {
-        ItemName itemType = itemInfoSO.itemType;
-        itemAmounts[itemType] = 0;
+        ItemName itemName = itemInfoSO.ItemName;
+        itemAmounts[itemName] = 0;
     }
 
     private void Listname()
@@ -72,17 +90,17 @@ public class InventoryManager : MonoBehaviour
 
         foreach (ItemInfoSO item in items)
         {
-            if (idToInventory.ContainsKey(item.id))
+            if (idToInventory.ContainsKey(item.Id))
             {
-                Debug.LogWarning("Found Dupplicate item ID : " + item.id);
+                Debug.LogWarning("Found Dupplicate item ID : " + item.Id);
                 return;
             }
             else
             {
-                idToInventory.Add(item.id, new Inventory(item));
-                Debug.Log("Add ID To Inventory: " + item.id);
+                idToInventory.Add(item.Id, new Inventory(item));
+                Debug.Log("Add ID To Inventory: " + item.Id);
                 //takeItemId = item.id;
-                itemInfoSO = item;
+                //itemInfoSO = item;
             }
         }
     }
@@ -95,8 +113,8 @@ public class InventoryManager : MonoBehaviour
         foreach (ItemInfoSO item in items)
         {
             itemClickHandler.ItemInfoSO = item;
-            itemName.text = item.name;
-            itemIcon.sprite = item.icon;
+            //itemName.text = item.ItemName.ToString();
+            itemIcon.sprite = item.Icon;
         }
     }
 
@@ -106,7 +124,7 @@ public class InventoryManager : MonoBehaviour
         {
             TMP_Text itemNameText = child.Find("ItemName").GetComponent<TMP_Text>();
 
-            if (itemNameText.text == itemName.id)
+            if (itemNameText.text == itemName.Id)
             {
                 TMP_Text itemAmount = child.Find("ItemAmount").GetComponent<TMP_Text>();
                 itemAmount.text = amount.ToString();
@@ -116,28 +134,41 @@ public class InventoryManager : MonoBehaviour
 
     private void UpdateItemAmount(ItemInfoSO itemInfoSO, int amount)
     {
-        ItemName itemType = itemInfoSO.itemType;
-        itemAmounts[itemType] += amount;
-        UpdateItemText(itemInfoSO, itemAmounts[itemType]);
+        ItemName itemName = itemInfoSO.ItemName;
+        itemAmounts[itemName] += amount;
+        UpdateItemText(itemInfoSO, itemAmounts[itemName]);
     }
 
     private void UseItemAmount(GameObject objInventory, ItemInfoSO itemInfoSO, int amount)
     {
-        ItemName itemType = itemInfoSO.itemType;
+        ItemName itemName = itemInfoSO.ItemName;
 
-        itemAmounts[itemType] -= amount;
-        EventManager.instance.healthEvents.HealthGained(itemInfoSO.value);
-        Debug.Log("Drink " + itemInfoSO.name + " Value: " + itemInfoSO.value);
+        itemAmounts[itemName] -= amount;
+        switch (itemInfoSO.ScriptableObject)
+        {
+            case EquipmentInfoSO equip:
+                Debug.Log(equip.EquipmentSlot);
+                Debug.Log(equip.EquipmentType);
+                Debug.Log(equip.EquipmentRarity);
+                EventManager.instance.equipmentEvents.AddEquip(equip);
+                break;
+            default:
+                EventManager.instance.healthEvents.HealthGained(itemInfoSO.Value);
+                Debug.Log("Drink " + itemInfoSO.name + " Value: " + itemInfoSO.Value);
+                break;
+        }
+        /* EventManager.instance.healthEvents.HealthGained(itemInfoSO.Value);
+        Debug.Log("Drink " + itemInfoSO.name + " Value: " + itemInfoSO.Value); */
 
-        if (itemAmounts[itemType] <= 0)
+        if (itemAmounts[itemName] <= 0)
         {
             Destroy(objInventory);
             RemoveItem(itemInfoSO);
-            itemAmounts.Remove(itemType);
+            itemAmounts.Remove(itemName);
         }
         else
         {
-            UpdateItemText(itemInfoSO, itemAmounts[itemType]);
+            UpdateItemText(itemInfoSO, itemAmounts[itemName]);
         }
     }
 

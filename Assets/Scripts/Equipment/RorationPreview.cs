@@ -1,13 +1,15 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 
 
-public class RorationPreview : MonoBehaviour
+public class RorationPreview : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] Slider rotationSlider;
     [SerializeField] GameObject rotationDummy;
@@ -15,8 +17,10 @@ public class RorationPreview : MonoBehaviour
     [SerializeField] private float rotationSpeed = 2f;
     private Vector3 lastMousePosition;
 
+    public TMP_Text feedbackText;
+
     private Rect rotationArea = new Rect(0.225f, 0.225f, 0.325f, 0.325f);
-    
+
     void Update()
     {
         // Check for left mouse button click
@@ -54,5 +58,28 @@ public class RorationPreview : MonoBehaviour
         rotationDummy.transform.Rotate(0, transform.rotation.y - 10, 0);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // เมื่อมีการสัมผัส Pointer กับ Button
+        feedbackText.text = "Mouse over the button";
+        // เพิ่มโค้ดที่ต้องการทำเมื่อ PointerEnter
+    }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // เมื่อ Pointer ออกจาก Button
+        feedbackText.text = "Mouse exit the button";
+        // เพิ่มโค้ดที่ต้องการทำเมื่อ PointerExit
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        feedbackText.text = "Mouse Down the button";
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        feedbackText.text = "Mouse Up the button";
+    }
 }
+

@@ -16,6 +16,7 @@ public class EventManager : MonoBehaviour
     public CurrencyEvents currencyEvents;
     public StatEvents statEvents;
     public DialogueEvents dialogueEvents;
+    public EquipmentEvents equipmentEvents;
     private void Awake()
     {
         if (instance != null)
@@ -36,6 +37,7 @@ public class EventManager : MonoBehaviour
         currencyEvents = new CurrencyEvents();
         statEvents = new StatEvents();
         dialogueEvents = new DialogueEvents();
+        equipmentEvents = new EquipmentEvents();
         //Debug.Log("EventManagers Success");
     }
 }

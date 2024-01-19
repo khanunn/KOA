@@ -7,13 +7,6 @@ public class InventoryController : MonoBehaviour
 {
     public GameObject inventory;
     private bool inventorySwitch;
-    /* [Header("Current Item")]
-    public int currentPotionRed;
-    public int currentPotionGreen;
-    public int currentPotionBlue;
-    public int currentMatCharcoal;
-    public int currentMatIron;
-    public int currentMatRuby; */
 
     [Header("Optional Item")]
     private InventoryManager inventoryManager;
@@ -88,7 +81,7 @@ public class InventoryController : MonoBehaviour
     {
         objInstant = Instantiate(itemOptional, transformViewport);
         objInstant.transform.position = transform.position + new Vector3(positionOptional.x, positionOptional.y, 0);
-        switch (info.itemStatus)
+        switch (info.ItemStatus)
         {
             case ItemStatus.NOT_AVAILABLE:
                 GameObject buttonUse = objInstant.transform.Find("ButtonUse").gameObject;
