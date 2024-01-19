@@ -17,6 +17,9 @@ public class SettingMenu : MonoBehaviour
     [SerializeField] bool ShowfpsText = false;
     float deltaTime;
 
+    [Header("Settings")]
+    [SerializeField] GameObject SettingPanal;
+
     private void Start()
     {
         Resolution = Screen.resolutions; //Put all aviable resolutuion in this variable
@@ -89,5 +92,10 @@ public class SettingMenu : MonoBehaviour
             float fps = 1.0f / deltaTime;            
             fpsText.GetComponent<TextMeshProUGUI>().text = "FPS: " + Mathf.Ceil(fps).ToString();
         }  
+
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            SettingPanal.SetActive(true);
+        }
     }
 }

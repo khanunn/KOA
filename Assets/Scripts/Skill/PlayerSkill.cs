@@ -17,6 +17,7 @@ public class PlayerSkill : MonoBehaviour
 
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
+    [SerializeField] GameObject VFX;
 
     private void Start()
     {
@@ -76,16 +77,8 @@ public class PlayerSkill : MonoBehaviour
     {
         isSkillPlaying = true;
         Player.StopSequence(); //using to player stop moving
-        //animator.SetInteger("Skill_ID", skillId);
-
-        if(IsWeapon)
-        {
-            animator.Play(skillId.ToString());
-        }
-        if(!IsWeapon)
-        {
-            animator.Play(skillId.ToString());
-        }     
+        //animator.SetInteger("Skill_ID", skillId);     
+        animator.Play(skillId.ToString());                     
     }
 
     private void Update()
