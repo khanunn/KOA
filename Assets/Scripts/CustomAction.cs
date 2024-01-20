@@ -361,6 +361,34 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""dbb924ff-5715-432e-8b85-9edd21b265d6"",
+            ""actions"": [
+                {
+                    ""name"": ""Equipment"",
+                    ""type"": ""Button"",
+                    ""id"": ""b03eddc1-6679-486d-a9e5-51bd62bfaf06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e802a886-8cdf-4e24-9ce6-3767c1bfba94"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equipment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -383,6 +411,9 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         m_Main_PartyInfo = m_Main.FindAction("PartyInfo", throwIfNotFound: true);
         m_Main_Friends = m_Main.FindAction("Friends", throwIfNotFound: true);
         m_Main_Macro = m_Main.FindAction("Macro", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Equipment = m_UI.FindAction("Equipment", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -606,6 +637,52 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         }
     }
     public MainActions @Main => new MainActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_Equipment;
+    public struct UIActions
+    {
+        private @CustomAction m_Wrapper;
+        public UIActions(@CustomAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Equipment => m_Wrapper.m_UI_Equipment;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @Equipment.started += instance.OnEquipment;
+            @Equipment.performed += instance.OnEquipment;
+            @Equipment.canceled += instance.OnEquipment;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @Equipment.started -= instance.OnEquipment;
+            @Equipment.performed -= instance.OnEquipment;
+            @Equipment.canceled -= instance.OnEquipment;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IMainActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -624,5 +701,9 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         void OnPartyInfo(InputAction.CallbackContext context);
         void OnFriends(InputAction.CallbackContext context);
         void OnMacro(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnEquipment(InputAction.CallbackContext context);
     }
 }
