@@ -31,6 +31,7 @@ public class InventoryManager : MonoBehaviour
         EventManager.instance.itemEvents.onListNameItem += Listname;
         EventManager.instance.pickupEvents.onUpdateItem += UpdateItemAmount;
         EventManager.instance.itemEvents.onUseItem += UseItemAmount;
+        EventManager.instance.equipmentEvents.onRemoveEquip += AddItem;
     }
     private void OnDisable()
     {
@@ -39,6 +40,7 @@ public class InventoryManager : MonoBehaviour
         EventManager.instance.itemEvents.onListNameItem -= Listname;
         EventManager.instance.pickupEvents.onUpdateItem -= UpdateItemAmount;
         EventManager.instance.itemEvents.onUseItem -= UseItemAmount;
+        EventManager.instance.equipmentEvents.onRemoveEquip -= AddItem;
     }
     private void AddItem(ItemInfoSO itemInfoSO)
     {
@@ -150,7 +152,7 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log(equip.EquipmentSlot);
                 Debug.Log(equip.EquipmentType);
                 Debug.Log(equip.EquipmentRarity);
-                EventManager.instance.equipmentEvents.AddEquip(equip);
+                EventManager.instance.equipmentEvents.AddEquip(equip, itemInfoSO);
                 break;
             default:
                 EventManager.instance.healthEvents.HealthGained(itemInfoSO.Value);
@@ -171,5 +173,4 @@ public class InventoryManager : MonoBehaviour
             UpdateItemText(itemInfoSO, itemAmounts[itemName]);
         }
     }
-
 }

@@ -1,11 +1,14 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EquipmentManager : MonoBehaviour
 {
-    public List<EquipmentInfoSO> equips = new List<EquipmentInfoSO>();
+    public List<ItemInfoSO> equips = new List<ItemInfoSO>();
     public GameObject equipmentItem;
     public Transform equipmentContent;
+    public List<GameObject> equipmentContents = new List<GameObject>();
     private void OnEnable()
     {
         EventManager.instance.equipmentEvents.onAddEquip += AddEquip;
@@ -18,31 +21,39 @@ public class EquipmentManager : MonoBehaviour
         EventManager.instance.equipmentEvents.onRemoveEquip -= RemoveEquip;
         EventManager.instance.equipmentEvents.onListEquip -= ListEquip;
     }
-    private void AddEquip(EquipmentInfoSO equipmentInfo)
+    private void AddEquip(EquipmentInfoSO equipmentInfo, ItemInfoSO itemInfoSO)
     {
         EquipmentSlot equipmentSlot = equipmentInfo.EquipmentSlot;
-        equips.Add(equipmentInfo);
-        //InstantiateItem();
+        equips.Add(itemInfoSO);
+        InstantiateEquipment(equipmentInfo.EquipmentSlot, itemInfoSO);
     }
-    private void RemoveEquip(EquipmentInfoSO equipment)
+    private void RemoveEquip(ItemInfoSO itemInfoSO)
     {
-
+        equips.Remove(itemInfoSO);
     }
     private void ListEquip(EquipmentInfoSO equipment)
     {
 
     }
-    /* private void InstantiateItem()
+    private void InstantiateEquipment(EquipmentSlot equipmentSlot, ItemInfoSO itemInfo)
     {
-        GameObject obj = Instantiate(equipmentItem, equipmentContent);
-        ItemClickHandler itemClickHandler = obj.GetComponent<ItemClickHandler>();
-        TMP_Text itemName = obj.transform.Find("ItemName").GetComponent<TMP_Text>();
-        var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-        foreach (EquipmentInfoSO equip in equips)
+        foreach (GameObject contentObject in equipmentContents)
         {
-            itemClickHandler.ItemInfoSO = item;
-            itemName.text = equip.name;
-            itemIcon.sprite = item.Icon;
+            EquipmentContent content = contentObject.GetComponent<EquipmentContent>();
+            Transform contentTransform = contentObject.GetComponent<Transform>();
+            //Debug.Log("Slot: " + content.EquipmentSlot + "Transform: " + contentTransform);
+            if (content.EquipmentSlot == equipmentSlot)
+            {
+                GameObject obj = Instantiate(equipmentItem, contentTransform);
+                ItemClickHandler itemClickHandler = obj.GetComponent<ItemClickHandler>();
+                var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+                foreach (ItemInfoSO equip in equips)
+                {
+                    itemClickHandler.ItemInfoSO = equip;
+                    //itemName.text = item.ItemName.ToString();
+                    itemIcon.sprite = equip.Icon;
+                }
+            }
         }
-    } */
+    }
 }

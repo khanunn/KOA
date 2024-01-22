@@ -2,20 +2,20 @@ using System;
 
 public class EquipmentEvents
 {
-    public event Action<EquipmentInfoSO> onAddEquip;
-    public void AddEquip(EquipmentInfoSO equip)
+    public event Action<EquipmentInfoSO, ItemInfoSO> onAddEquip;
+    public void AddEquip(EquipmentInfoSO equip, ItemInfoSO item)
     {
         if (onAddEquip != null)
         {
-            onAddEquip(equip);
+            onAddEquip(equip, item);
         }
     }
-    public event Action<EquipmentInfoSO> onRemoveEquip;
-    public void RemoveEquip(EquipmentInfoSO equip)
+    public event Action<ItemInfoSO> onRemoveEquip;
+    public void RemoveEquip(ItemInfoSO item)
     {
         if (onRemoveEquip != null)
         {
-            onRemoveEquip(equip);
+            onRemoveEquip(item);
         }
     }
 
@@ -25,6 +25,42 @@ public class EquipmentEvents
         if (onListEquip != null)
         {
             onListEquip(equip);
+        }
+    }
+
+    public event Action onDummyIPointerEnter;
+    public void DummyIPointerEnter()
+    {
+        if (onDummyIPointerEnter != null)
+        {
+            onDummyIPointerEnter();
+        }
+    }
+
+    public event Action onDummyIPointerExit;
+    public void DummyIPointerExit()
+    {
+        if (onDummyIPointerExit != null)
+        {
+            onDummyIPointerExit();
+        }
+    }
+
+    public event Action onSlotIPointerEnter;
+    public void SlotIPointerEnter()
+    {
+        if (onSlotIPointerEnter != null)
+        {
+            onSlotIPointerEnter();
+        }
+    }
+
+    public event Action onSlotIPointerExit;
+    public void SlotIPointerExit()
+    {
+        if (onSlotIPointerExit != null)
+        {
+            onSlotIPointerExit();
         }
     }
 }

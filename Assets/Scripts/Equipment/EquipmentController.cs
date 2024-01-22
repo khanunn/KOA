@@ -1,78 +1,170 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class EquipmentController : MonoBehaviour 
+public class EquipmentController : MonoBehaviour
 {
 
     private Vector2 lastMousePosition;
     public float rotationSpeed = 0.5f;
     public GameObject rotationDummy;
 
+    private bool isDummyPointer;
+    private bool isSlotPointer;
+    private bool isClickDummy;
+    private bool isClicking = false;
+    private float clickTime = 0f;
+    private float doubleClickTimeThreshold = 0.3f; // ปรับตามความต้องการ
+
     CustomAction input;
+
     void OnEnable()
     {
         input.Enable();
+        EventManager.instance.equipmentEvents.onDummyIPointerEnter += DummyIPointerEnter;
+        EventManager.instance.equipmentEvents.onDummyIPointerExit += DummyIPointerExit;
+        EventManager.instance.equipmentEvents.onSlotIPointerEnter += SlotIPointerEnter;
+        EventManager.instance.equipmentEvents.onSlotIPointerExit += SlotIPointerExit;
     }
 
     void OnDisable()
     {
         input.Disable();
+        EventManager.instance.equipmentEvents.onDummyIPointerEnter -= DummyIPointerEnter;
+        EventManager.instance.equipmentEvents.onDummyIPointerExit -= DummyIPointerExit;
+        EventManager.instance.equipmentEvents.onSlotIPointerEnter -= SlotIPointerEnter;
+        EventManager.instance.equipmentEvents.onSlotIPointerExit -= SlotIPointerExit;
     }
-
-    private void Awake() {
-        input = new CustomAction();
-        AssignInput();
-        
-    }
-    
     void AssignInput()
     {
-        input.UI.Equipment.started += ctx => ClickToRotate();
+        input.UI.Equipment.started += ctx => StartToRotate();
+        input.UI.Equipment.canceled += ctx => CancleToRotate();
+        input.UI.Equipment.performed += ctx => DoubleClickUnEquip();
     }
 
-    private void ClickToRotate()
+    private void Awake()
     {
-        Debug.Log("started rotate");
+        input = new CustomAction();
+        AssignInput();
+
+    }
+    private void Start()
+    {
+        //equipBtn = GameObject.Find("Equipment").GetComponent<DoubleClickHandler>();
+    }
+    private void Update()
+    {
+        DummyPreview();
+        CooldownDoubleClick();
     }
 
-    /* private void OnEnable()
+    private void DummyPreview()
     {
-        // Subscribe to mouse events
-        InputSystem.onMouse.AddListeners(OnMouseClick, OnMouseDrag);
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe from mouse events
-        InputSystem.onMouse.RemoveListeners(OnMouseClick, OnMouseDrag);
-    }
-
-    private void OnMouseClick(MouseControl control, MousePhase phase)
-    {
-        if (phase == MousePhase.Down && control.button == MouseButton.Left)
+        if (isClickDummy)
         {
-            // Store the initial mouse position
-            lastMousePosition = control.position.ReadValue();
+            // Check for left mouse button click
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                // Store the initial mouse position
+                Vector3 lastMousePosition = Mouse.current.position.ReadValue();
+            }
+
+            // Check for left mouse button drag
+            if (Mouse.current.leftButton.isPressed)
+            {
+                // Calculate the delta movement of the mouse
+                Vector3 currentMousePosition = Mouse.current.position.ReadValue();
+                Vector3 mouseDelta = currentMousePosition - (Vector3)lastMousePosition;
+
+                // Rotate the GameObject based on the mouse movement
+                float rotationX = mouseDelta.y * rotationSpeed;
+                float rotationY = -mouseDelta.x * rotationSpeed;
+
+                rotationDummy.transform.Rotate(Vector3.up, rotationY, Space.World);
+                lastMousePosition = currentMousePosition;
+            }
         }
     }
 
-    private void OnMouseDrag(MouseControl control, MousePhase phase)
+
+    private void StartToRotate()
     {
-        if (phase == MousePhase.Move && control.button == MouseButton.Left)
+        //Debug.Log("started rotate");
+        if (isDummyPointer)
         {
-            // Calculate the delta movement of the mouse
-            Vector2 mouseDelta = control.position.ReadValue() - lastMousePosition;
-
-            // Rotate the GameObject based on the mouse movement
-            float rotationX = mouseDelta.y * rotationSpeed;
-            float rotationY = -mouseDelta.x * rotationSpeed;
-
-            rotationDummy.transform.Rotate(Vector3.up, rotationY, Space.World);
-            //transform.Rotate(Vector3.right, rotationX, Space.World);
-
-            // Store the current mouse position for the next frame
-            lastMousePosition = control.position.ReadValue();
+            isClickDummy = true;
         }
-    } */
+    }
+    private void CancleToRotate()
+    {
+        //Debug.Log("cancled rotate");
+        if (!isDummyPointer)
+        {
+            if (isClickDummy)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(rotationDummy.transform.rotation.x, rotationDummy.transform.rotation.x, -180));
+                rotationDummy.transform.rotation = lookRotation;
+            }
+
+            isClickDummy = false;
+        }
+    }
+
+    private void DoubleClickUnEquip()
+    {
+        if (isClicking)
+        {
+            DoubleClickAction();
+            isClicking = false;
+            clickTime = 0f;
+        }
+        else
+        {
+            isClicking = true;
+        }
+    }
+    private void CooldownDoubleClick()
+    {
+        if (isClicking)
+        {
+            clickTime += Time.deltaTime;
+
+            if (clickTime > doubleClickTimeThreshold)
+            {
+                isClicking = false;
+                clickTime = 0f;
+            }
+        }
+    }
+
+    private void DoubleClickAction()
+    {
+        if (isSlotPointer)
+        {
+            Debug.Log("Double Click");
+        }
+    }
+
+    private void DummyIPointerEnter()
+    {
+        Debug.Log("Enter Dummy on Controller");
+        isDummyPointer = true;
+    }
+    private void DummyIPointerExit()
+    {
+        Debug.Log("Exit Dummy on Controller");
+        isDummyPointer = false;
+    }
+    private void SlotIPointerEnter()
+    {
+        Debug.Log("Enter Slot on Controller");
+        isSlotPointer = true;
+    }
+    private void SlotIPointerExit()
+    {
+        Debug.Log("Enter Slot on Controller");
+        isSlotPointer = false;
+    }
 }
+
 

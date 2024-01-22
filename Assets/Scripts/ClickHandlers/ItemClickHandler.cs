@@ -19,13 +19,31 @@ public class ItemClickHandler : MonoBehaviour
     public void OpenOptionalItem()
     {
         string item = itemName.text;
-        EventManager.instance.inputEvents.InventoryItemOptional(item, itemTransform, ItemInfoSO);
-        EventManager.instance.inputEvents.ItemOptionalDrop(this.gameObject, ItemInfoSO);
+        switch (ItemInfoSO.ScriptableObject)
+        {
+            default:
+                EventManager.instance.inputEvents.InventoryItemOptional(item, itemTransform, ItemInfoSO);
+                EventManager.instance.inputEvents.ItemOptionalDrop(this.gameObject, ItemInfoSO);
+                break;
+        }
+
         Debug.Log("item: " + item + " OpenOptionOpened");
     }
 
     public void CloseOptionalItem()
     {
         EventManager.instance.inputEvents.InventoryItemOptionalClose();
+    }
+    public void OpenOptionalEquip()
+    {
+        //string equip = itemName.text;
+        switch (ItemInfoSO.ScriptableObject)
+        {
+            default:
+                EventManager.instance.equipmentEvents.RemoveEquip(ItemInfoSO);
+                break;
+        }
+
+        //Debug.Log("equip: " + equip + " OpenOptionOpened");
     }
 }
