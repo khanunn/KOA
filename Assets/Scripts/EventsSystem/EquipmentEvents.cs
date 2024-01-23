@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class EquipmentEvents
 {
@@ -10,12 +11,12 @@ public class EquipmentEvents
             onAddEquip(equip, item);
         }
     }
-    public event Action<ItemInfoSO> onRemoveEquip;
-    public void RemoveEquip(ItemInfoSO item)
+    public event Action<ItemInfoSO, GameObject> onRemoveEquip;
+    public void RemoveEquip(ItemInfoSO item, GameObject obj)
     {
         if (onRemoveEquip != null)
         {
-            onRemoveEquip(item);
+            onRemoveEquip(item, obj);
         }
     }
 

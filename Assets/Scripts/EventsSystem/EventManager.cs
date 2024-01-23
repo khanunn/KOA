@@ -21,7 +21,8 @@ public class EventManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Found Game Manager > 1 in scene");
+            Destroy(this.gameObject);
+            Debug.LogError("Found Event Manager > 1 in scene");
             return;
         }
         instance = this;

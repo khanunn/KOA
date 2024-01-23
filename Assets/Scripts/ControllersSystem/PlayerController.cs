@@ -391,7 +391,7 @@ public class PlayerController : MonoBehaviour
     private void SendItem()
     {
         target.myItem.OnTakeItem();
-        EventManager.instance.itemEvents.ListNameItem();
+        //EventManager.instance.itemEvents.ListNameItem();
         //EventManager.instance.itemEvents.AddItem(itemInfoSO);
     }
 

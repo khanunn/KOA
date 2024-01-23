@@ -28,19 +28,17 @@ public class InventoryManager : MonoBehaviour
     {
         EventManager.instance.itemEvents.onRemoveItem += RemoveItem;
         EventManager.instance.itemEvents.onAddItem += AddItem;
-        EventManager.instance.itemEvents.onListNameItem += Listname;
+        //EventManager.instance.itemEvents.onListNameItem += Listname;
         EventManager.instance.pickupEvents.onUpdateItem += UpdateItemAmount;
         EventManager.instance.itemEvents.onUseItem += UseItemAmount;
-        EventManager.instance.equipmentEvents.onRemoveEquip += AddItem;
     }
     private void OnDisable()
     {
         EventManager.instance.itemEvents.onAddItem -= AddItem;
         EventManager.instance.itemEvents.onRemoveItem -= RemoveItem;
-        EventManager.instance.itemEvents.onListNameItem -= Listname;
+        //EventManager.instance.itemEvents.onListNameItem -= Listname;
         EventManager.instance.pickupEvents.onUpdateItem -= UpdateItemAmount;
         EventManager.instance.itemEvents.onUseItem -= UseItemAmount;
-        EventManager.instance.equipmentEvents.onRemoveEquip -= AddItem;
     }
     private void AddItem(ItemInfoSO itemInfoSO)
     {
@@ -55,7 +53,26 @@ public class InventoryManager : MonoBehaviour
                 break;
         } */
         ItemName itemName = itemInfoSO.ItemName;
-        if (itemAmounts.ContainsKey(itemName)) { return; }
+        switch (itemInfoSO.scriptableObject)
+        {
+            case EquipmentInfoSO:
+                Debug.Log("Add Equipment On Inventory");
+                items.Add(itemInfoSO);
+                InstantiateItem();
+                break;
+            default:
+                if (itemAmounts.ContainsKey(itemName)) { return; }
+                else
+                {
+                    itemAmounts.Add(itemName, 0);
+                    SetItemsFlag(itemInfoSO);
+                    items.Add(itemInfoSO);
+                    InstantiateItem();
+                }
+
+                break;
+        }
+        /* if (itemAmounts.ContainsKey(itemName)) { return; }
         else
         {
             itemAmounts.Add(itemName, 0);
@@ -71,7 +88,7 @@ public class InventoryManager : MonoBehaviour
             SetItemsFlag(itemInfoSO);
             items.Add(itemInfoSO);
             InstantiateItem();
-        }
+        } */
     }
     private void RemoveItem(ItemInfoSO itemInfoSO)
     {
@@ -86,7 +103,7 @@ public class InventoryManager : MonoBehaviour
         itemAmounts[itemName] = 0;
     }
 
-    private void Listname()
+    /* private void Listname()
     {
         Dictionary<string, Inventory> idToInventory = new Dictionary<string, Inventory>();
 
@@ -105,7 +122,7 @@ public class InventoryManager : MonoBehaviour
                 //itemInfoSO = item;
             }
         }
-    }
+    } */
     private void InstantiateItem()
     {
         GameObject obj = Instantiate(inventoryItem, itemContent);
@@ -115,18 +132,18 @@ public class InventoryManager : MonoBehaviour
         foreach (ItemInfoSO item in items)
         {
             itemClickHandler.ItemInfoSO = item;
-            //itemName.text = item.ItemName.ToString();
+            itemName.text = item.DisplayName;
             itemIcon.sprite = item.Icon;
         }
     }
 
-    private void UpdateItemText(ItemInfoSO itemName, int amount)
+    private void UpdateItemText(ItemInfoSO itemInfo, int amount)
     {
         foreach (Transform child in itemContent)
         {
             TMP_Text itemNameText = child.Find("ItemName").GetComponent<TMP_Text>();
 
-            if (itemNameText.text == itemName.Id)
+            if (itemNameText.text == itemInfo.DisplayName)
             {
                 TMP_Text itemAmount = child.Find("ItemAmount").GetComponent<TMP_Text>();
                 itemAmount.text = amount.ToString();
@@ -144,25 +161,36 @@ public class InventoryManager : MonoBehaviour
     private void UseItemAmount(GameObject objInventory, ItemInfoSO itemInfoSO, int amount)
     {
         ItemName itemName = itemInfoSO.ItemName;
-
-        itemAmounts[itemName] -= amount;
-        switch (itemInfoSO.ScriptableObject)
+        switch (itemInfoSO.scriptableObject)
         {
             case EquipmentInfoSO equip:
-                Debug.Log(equip.EquipmentSlot);
+                /* Debug.Log(equip.EquipmentSlot);
                 Debug.Log(equip.EquipmentType);
-                Debug.Log(equip.EquipmentRarity);
+                Debug.Log(equip.EquipmentRarity); */
                 EventManager.instance.equipmentEvents.AddEquip(equip, itemInfoSO);
+                Destroy(objInventory);
+                RemoveItem(itemInfoSO);
                 break;
             default:
+                itemAmounts[itemName] -= amount;
                 EventManager.instance.healthEvents.HealthGained(itemInfoSO.Value);
                 Debug.Log("Drink " + itemInfoSO.name + " Value: " + itemInfoSO.Value);
+                if (itemAmounts[itemName] <= 0)
+                {
+                    Destroy(objInventory);
+                    RemoveItem(itemInfoSO);
+                    itemAmounts.Remove(itemName);
+                }
+                else
+                {
+                    UpdateItemText(itemInfoSO, itemAmounts[itemName]);
+                }
                 break;
         }
         /* EventManager.instance.healthEvents.HealthGained(itemInfoSO.Value);
         Debug.Log("Drink " + itemInfoSO.name + " Value: " + itemInfoSO.Value); */
 
-        if (itemAmounts[itemName] <= 0)
+        /* if (itemAmounts[itemName] <= 0)
         {
             Destroy(objInventory);
             RemoveItem(itemInfoSO);
@@ -171,6 +199,6 @@ public class InventoryManager : MonoBehaviour
         else
         {
             UpdateItemText(itemInfoSO, itemAmounts[itemName]);
-        }
+        } */
     }
 }

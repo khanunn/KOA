@@ -13,6 +13,15 @@ public class ItemController : MonoBehaviour
         Tutorial.instance.SetTextTutorial("2.Talk to NPC with ? mark on head");
         EventManager.instance.itemEvents.AddItem(itemInfoSO);
         Debug.Log("AddItem TO Event: " + itemInfoSO);
-        EventManager.instance.pickupEvents.UpdateItem(itemInfoSO, amountGain);
+        switch (itemInfoSO.scriptableObject)
+        {
+            case EquipmentInfoSO:
+                Debug.Log("Take Equipment");
+                break;
+            default:
+                EventManager.instance.pickupEvents.UpdateItem(itemInfoSO, amountGain);
+                break;
+        }
+
     }
 }

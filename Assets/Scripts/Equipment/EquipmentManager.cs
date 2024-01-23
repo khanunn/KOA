@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,13 +24,48 @@ public class EquipmentManager : MonoBehaviour
     }
     private void AddEquip(EquipmentInfoSO equipmentInfo, ItemInfoSO itemInfoSO)
     {
-        EquipmentSlot equipmentSlot = equipmentInfo.EquipmentSlot;
+        foreach (ItemInfoSO equip in equips.ToList())
+        {
+            switch (equip.scriptableObject)
+            {
+                case EquipmentInfoSO isInsertedEquip:
+                    if (isInsertedEquip.EquipmentSlot == equipmentInfo.EquipmentSlot)
+                    {
+                        EventManager.instance.itemEvents.AddItem(equip);
+                        equips.Remove(equip);
+                        equips.Add(itemInfoSO);
+                        return;
+                        /* if (equips.Contains(itemInfoSO))
+                        {
+                            //equip = itemInfoSO;
+                            equip.scriptableObject = equipmentInfo;
+                            itemInfoSO.scriptableObject = isInsertedEquip;
+                            EventManager.instance.itemEvents.AddItem(itemInfoSO);
+                            Debug.Log("Swap Change");
+                            return;
+                        }
+                        else
+                        {
+                            EventManager.instance.itemEvents.AddItem(equip);
+                            equips.Remove(equip);
+                            equips.Add(itemInfoSO);
+                            return;
+                        } */
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
         equips.Add(itemInfoSO);
         InstantiateEquipment(equipmentInfo.EquipmentSlot, itemInfoSO);
     }
-    private void RemoveEquip(ItemInfoSO itemInfoSO)
+    private void RemoveEquip(ItemInfoSO itemInfoSO, GameObject gameObject)
     {
         equips.Remove(itemInfoSO);
+        Destroy(gameObject);
     }
     private void ListEquip(EquipmentInfoSO equipment)
     {

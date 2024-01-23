@@ -19,7 +19,7 @@ public class ItemClickHandler : MonoBehaviour
     public void OpenOptionalItem()
     {
         string item = itemName.text;
-        switch (ItemInfoSO.ScriptableObject)
+        switch (ItemInfoSO.scriptableObject)
         {
             default:
                 EventManager.instance.inputEvents.InventoryItemOptional(item, itemTransform, ItemInfoSO);
@@ -37,10 +37,11 @@ public class ItemClickHandler : MonoBehaviour
     public void OpenOptionalEquip()
     {
         //string equip = itemName.text;
-        switch (ItemInfoSO.ScriptableObject)
+        switch (ItemInfoSO.scriptableObject)
         {
             default:
-                EventManager.instance.equipmentEvents.RemoveEquip(ItemInfoSO);
+                EventManager.instance.equipmentEvents.RemoveEquip(ItemInfoSO, this.gameObject);
+                EventManager.instance.itemEvents.AddItem(ItemInfoSO);
                 break;
         }
 
