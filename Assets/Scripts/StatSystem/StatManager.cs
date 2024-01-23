@@ -65,6 +65,10 @@ public class StatManager : MonoBehaviour
             case StatKey.Lucky: return statContainer.Lucky;
             case StatKey.v_hp_max: return statContainer.v_hp_max;
             case StatKey.v_mp_max: return statContainer.v_mp_max;
+            case StatKey.v_hp_recovery: return statContainer.v_hp_recovery;
+            case StatKey.v_mp_recovery: return statContainer.v_mp_recovery;
+            case StatKey.v_patk: return statContainer.v_patk;
+            case StatKey.v_matk: return statContainer.v_matk;
             default: return statContainer.v_hp_max;
         }
     }

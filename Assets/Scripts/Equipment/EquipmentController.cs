@@ -16,7 +16,10 @@ public class EquipmentController : MonoBehaviour
     private float clickTime = 0f;
     private float doubleClickTimeThreshold = 0.3f; // ปรับตามความต้องการ
 
-    CustomAction input;
+    private CustomAction input;
+
+    public GameObject equipment;
+    private bool equipmentSwitch;
 
     void OnEnable()
     {
@@ -37,9 +40,10 @@ public class EquipmentController : MonoBehaviour
     }
     void AssignInput()
     {
-        input.UI.Equipment.started += ctx => StartToRotate();
-        input.UI.Equipment.canceled += ctx => CancleToRotate();
-        input.UI.Equipment.performed += ctx => DoubleClickUnEquip();
+        input.Equipment.Preview.started += ctx => StartToRotate();
+        input.Equipment.Preview.canceled += ctx => CancleToRotate();
+        input.Equipment.Preview.performed += ctx => DoubleClickUnEquip();
+        input.Equipment.Window.performed += ctx => SwitchEquipment();
     }
 
     private void Awake()
@@ -164,6 +168,19 @@ public class EquipmentController : MonoBehaviour
     {
         Debug.Log("Enter Slot on Controller");
         isSlotPointer = false;
+    }
+    private void SwitchEquipment()
+    {
+        if (!equipmentSwitch)
+        {
+            equipment.SetActive(true);
+            equipmentSwitch = true;
+        }
+        else
+        {
+            equipment.SetActive(false);
+            equipmentSwitch = false;
+        }
     }
 }
 

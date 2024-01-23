@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @CustomAction: IInputActionCollection2, IDisposable
+public partial class @CustomAction : IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
     public @CustomAction()
@@ -363,13 +363,22 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""UI"",
+            ""name"": ""Equipment"",
             ""id"": ""dbb924ff-5715-432e-8b85-9edd21b265d6"",
             ""actions"": [
                 {
-                    ""name"": ""Equipment"",
+                    ""name"": ""Preview"",
                     ""type"": ""Button"",
                     ""id"": ""b03eddc1-6679-486d-a9e5-51bd62bfaf06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Window"",
+                    ""type"": ""Button"",
+                    ""id"": ""0bc5f07a-7d15-413d-b4b3-5f1136864fe4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -384,7 +393,18 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Equipment"",
+                    ""action"": ""Preview"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8ad6946-b2f0-4c34-b519-f2f35f1162b9"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Window"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -411,9 +431,10 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         m_Main_PartyInfo = m_Main.FindAction("PartyInfo", throwIfNotFound: true);
         m_Main_Friends = m_Main.FindAction("Friends", throwIfNotFound: true);
         m_Main_Macro = m_Main.FindAction("Macro", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Equipment = m_UI.FindAction("Equipment", throwIfNotFound: true);
+        // Equipment
+        m_Equipment = asset.FindActionMap("Equipment", throwIfNotFound: true);
+        m_Equipment_Preview = m_Equipment.FindAction("Preview", throwIfNotFound: true);
+        m_Equipment_Window = m_Equipment.FindAction("Window", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -638,51 +659,59 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
     }
     public MainActions @Main => new MainActions(this);
 
-    // UI
-    private readonly InputActionMap m_UI;
-    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_Equipment;
-    public struct UIActions
+    // Equipment
+    private readonly InputActionMap m_Equipment;
+    private List<IEquipmentActions> m_EquipmentActionsCallbackInterfaces = new List<IEquipmentActions>();
+    private readonly InputAction m_Equipment_Preview;
+    private readonly InputAction m_Equipment_Window;
+    public struct EquipmentActions
     {
         private @CustomAction m_Wrapper;
-        public UIActions(@CustomAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Equipment => m_Wrapper.m_UI_Equipment;
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public EquipmentActions(@CustomAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Preview => m_Wrapper.m_Equipment_Preview;
+        public InputAction @Window => m_Wrapper.m_Equipment_Window;
+        public InputActionMap Get() { return m_Wrapper.m_Equipment; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
-        public void AddCallbacks(IUIActions instance)
+        public static implicit operator InputActionMap(EquipmentActions set) { return set.Get(); }
+        public void AddCallbacks(IEquipmentActions instance)
         {
-            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
-            @Equipment.started += instance.OnEquipment;
-            @Equipment.performed += instance.OnEquipment;
-            @Equipment.canceled += instance.OnEquipment;
+            if (instance == null || m_Wrapper.m_EquipmentActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_EquipmentActionsCallbackInterfaces.Add(instance);
+            @Preview.started += instance.OnPreview;
+            @Preview.performed += instance.OnPreview;
+            @Preview.canceled += instance.OnPreview;
+            @Window.started += instance.OnWindow;
+            @Window.performed += instance.OnWindow;
+            @Window.canceled += instance.OnWindow;
         }
 
-        private void UnregisterCallbacks(IUIActions instance)
+        private void UnregisterCallbacks(IEquipmentActions instance)
         {
-            @Equipment.started -= instance.OnEquipment;
-            @Equipment.performed -= instance.OnEquipment;
-            @Equipment.canceled -= instance.OnEquipment;
+            @Preview.started -= instance.OnPreview;
+            @Preview.performed -= instance.OnPreview;
+            @Preview.canceled -= instance.OnPreview;
+            @Window.started -= instance.OnWindow;
+            @Window.performed -= instance.OnWindow;
+            @Window.canceled -= instance.OnWindow;
         }
 
-        public void RemoveCallbacks(IUIActions instance)
+        public void RemoveCallbacks(IEquipmentActions instance)
         {
-            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_EquipmentActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IUIActions instance)
+        public void SetCallbacks(IEquipmentActions instance)
         {
-            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_EquipmentActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_EquipmentActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public UIActions @UI => new UIActions(this);
+    public EquipmentActions @Equipment => new EquipmentActions(this);
     public interface IMainActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -702,8 +731,9 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         void OnFriends(InputAction.CallbackContext context);
         void OnMacro(InputAction.CallbackContext context);
     }
-    public interface IUIActions
+    public interface IEquipmentActions
     {
-        void OnEquipment(InputAction.CallbackContext context);
+        void OnPreview(InputAction.CallbackContext context);
+        void OnWindow(InputAction.CallbackContext context);
     }
 }

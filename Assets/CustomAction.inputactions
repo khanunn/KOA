@@ -341,13 +341,22 @@
             ]
         },
         {
-            "name": "UI",
+            "name": "Equipment",
             "id": "dbb924ff-5715-432e-8b85-9edd21b265d6",
             "actions": [
                 {
-                    "name": "Equipment",
+                    "name": "Preview",
                     "type": "Button",
                     "id": "b03eddc1-6679-486d-a9e5-51bd62bfaf06",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Window",
+                    "type": "Button",
+                    "id": "0bc5f07a-7d15-413d-b4b3-5f1136864fe4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -362,7 +371,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Equipment",
+                    "action": "Preview",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8ad6946-b2f0-4c34-b519-f2f35f1162b9",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Window",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

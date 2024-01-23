@@ -10,17 +10,27 @@ public class EquipmentManager : MonoBehaviour
     public GameObject equipmentItem;
     public Transform equipmentContent;
     public List<GameObject> equipmentContents = new List<GameObject>();
+
+    private Stat patk, pdef;
+    private StatManager statManager;
     private void OnEnable()
     {
         EventManager.instance.equipmentEvents.onAddEquip += AddEquip;
         EventManager.instance.equipmentEvents.onRemoveEquip += RemoveEquip;
         EventManager.instance.equipmentEvents.onListEquip += ListEquip;
+        EventManager.instance.statEvents.onSendStat += StartStatus;
     }
     private void OnDisable()
     {
         EventManager.instance.equipmentEvents.onAddEquip -= AddEquip;
         EventManager.instance.equipmentEvents.onRemoveEquip -= RemoveEquip;
         EventManager.instance.equipmentEvents.onListEquip -= ListEquip;
+        EventManager.instance.statEvents.onSendStat -= StartStatus;
+    }
+    private void Start()
+    {
+        patk = statManager.GetStat(StatKey.v_patk);
+        pdef = statManager.GetStat(StatKey.v_pdef);
     }
     private void AddEquip(EquipmentInfoSO equipmentInfo, ItemInfoSO itemInfoSO)
     {
@@ -33,7 +43,11 @@ public class EquipmentManager : MonoBehaviour
                     {
                         EventManager.instance.itemEvents.AddItem(equip);
                         equips.Remove(equip);
+                        OffStat(equip);
+
                         equips.Add(itemInfoSO);
+                        OnStat(itemInfoSO);
+
                         return;
                         /* if (equips.Contains(itemInfoSO))
                         {
@@ -60,11 +74,13 @@ public class EquipmentManager : MonoBehaviour
         }
 
         equips.Add(itemInfoSO);
+        OnStat(itemInfoSO);
         InstantiateEquipment(equipmentInfo.EquipmentSlot, itemInfoSO);
     }
     private void RemoveEquip(ItemInfoSO itemInfoSO, GameObject gameObject)
     {
         equips.Remove(itemInfoSO);
+        OffStat(itemInfoSO);
         Destroy(gameObject);
     }
     private void ListEquip(EquipmentInfoSO equipment)
@@ -91,5 +107,39 @@ public class EquipmentManager : MonoBehaviour
                 }
             }
         }
+    }
+    private void OnStat(ItemInfoSO info)
+    {
+        ScriptableObject script = info.scriptableObject;
+        switch (script)
+        {
+            case EquipmentInfoSO equip:
+                if (equip.MainStat == StatKey.v_patk)
+                {
+                    patk.statValue += equip.MainValue;
+                    Debug.Log("patk: " + patk.statValue);
+                }
+                break;
+        }
+        EventManager.instance.statEvents.ShowStat();
+    }
+    private void OffStat(ItemInfoSO info)
+    {
+        ScriptableObject script = info.scriptableObject;
+        switch (script)
+        {
+            case EquipmentInfoSO equip:
+                if (equip.MainStat == StatKey.v_patk)
+                {
+                    patk.statValue -= equip.MainValue;
+                    Debug.Log("patk: " + patk.statValue);
+                }
+                break;
+        }
+        EventManager.instance.statEvents.ShowStat();
+    }
+    private void StartStatus(StatManager myStat)
+    {
+        statManager = myStat;
     }
 }
