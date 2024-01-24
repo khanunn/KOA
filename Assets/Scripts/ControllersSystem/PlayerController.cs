@@ -329,6 +329,8 @@ public class PlayerController : MonoBehaviour
         if (target == null) return;
         physicDamage = statController.v_patk.statValue;
         target.myActor.TakeDamage(physicDamage);
+        Vector3 position = target.transform.position;
+        EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);
         SendEnemy();
     }
     //==========================================//

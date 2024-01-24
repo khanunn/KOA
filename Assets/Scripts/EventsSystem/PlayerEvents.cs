@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 public class PlayerEvents
 {
     public event Action<int> onPlayerLevelChange;
@@ -42,6 +43,15 @@ public class PlayerEvents
         if (onPlayerDamaged != null)
         {
             onPlayerDamaged(damaged);
+        }
+    }
+
+    public event Action<Vector3, string, Color> onAttackPopUp;
+    public void AttackPopUp(Vector3 pos, string str, Color color)
+    {
+        if (onAttackPopUp != null)
+        {
+            onAttackPopUp(pos, str, color);
         }
     }
 }
