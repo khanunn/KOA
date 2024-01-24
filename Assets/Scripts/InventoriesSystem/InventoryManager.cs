@@ -137,7 +137,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void UpdateItemText(ItemInfoSO itemInfo, int amount)
+    private void UpdateItemText(ItemInfoSO itemInfo, int dicAmount)
     {
         foreach (Transform child in itemContent)
         {
@@ -146,7 +146,7 @@ public class InventoryManager : MonoBehaviour
             if (itemNameText.text == itemInfo.DisplayName)
             {
                 TMP_Text itemAmount = child.Find("ItemAmount").GetComponent<TMP_Text>();
-                itemAmount.text = amount.ToString();
+                itemAmount.text = dicAmount.ToString();
             }
         }
     }

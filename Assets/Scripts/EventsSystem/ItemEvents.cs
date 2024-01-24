@@ -38,5 +38,4 @@ public class ItemEvents
             onUseItem(objInventory, item, amount);
         }
     }
-
 }

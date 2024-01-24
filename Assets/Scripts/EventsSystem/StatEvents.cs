@@ -12,12 +12,20 @@ public class StatEvents
         }
     }
 
-    public event Action<StatManager> onSendStat;
-    public void SendStat(StatManager stat)
+    public event Action<StatManager> onSendStatManager;
+    public void SendStatManager(StatManager stat)
     {
-        if (onSendStat != null)
+        if (onSendStatManager != null)
         {
-            onSendStat(stat);
+            onSendStatManager(stat);
+        }
+    }
+    public event Action<StatController> onSendStatController;
+    public void SendStatController(StatController stat)
+    {
+        if (onSendStatController != null)
+        {
+            onSendStatController(stat);
         }
     }
 

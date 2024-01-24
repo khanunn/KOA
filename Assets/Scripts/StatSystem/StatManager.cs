@@ -19,7 +19,7 @@ public class StatManager : MonoBehaviour
     }
     private void Start()
     {
-        EventManager.instance.statEvents.SendStat(this);
+        EventManager.instance.statEvents.SendStatManager(this);
     }
     public void SetStat()
     {

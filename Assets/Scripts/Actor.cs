@@ -20,13 +20,13 @@ public class Actor : MonoBehaviour
     private void OnEnable()
     {
         EventManager.instance.healthEvents.onHealthGained += UpHealth;
-        EventManager.instance.statEvents.onSendStat += StartStatus;
+        EventManager.instance.statEvents.onSendStatManager += StartStatus;
         EventManager.instance.statEvents.onLevelUpStat += UpdateStatus;
     }
     private void OnDisable()
     {
         EventManager.instance.healthEvents.onHealthGained -= UpHealth;
-        EventManager.instance.statEvents.onSendStat -= StartStatus;
+        EventManager.instance.statEvents.onSendStatManager -= StartStatus;
         EventManager.instance.statEvents.onLevelUpStat -= UpdateStatus;
     }
 

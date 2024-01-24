@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool playerDie;
     private Actor playerActor;
     private PlayerSkill playerSkill;
+    private StatController statController;
     //=====================================================//
     [Header("Attack")]
     [SerializeField] private float attackSpeed;
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     //====================================================//
     [Header("Damage")]
-    [SerializeField] private int punchDamage;
+    [SerializeField] private int physicDamage;
     [SerializeField] private int meleeDamage;
     //====================================================//
     [Header("Health")]
@@ -89,11 +90,17 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         input.Enable();
+        EventManager.instance.statEvents.onSendStatController += StartStatus;
     }
 
     void OnDisable()
     {
         input.Disable();
+        EventManager.instance.statEvents.onSendStatController -= StartStatus;
+    }
+    private void StartStatus(StatController myStat)
+    {
+        statController = myStat;
     }
 
     public void InteractableChange(QuestPoint npc)
@@ -320,7 +327,8 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
-        target.myActor.TakeDamage(punchDamage);
+        physicDamage = statController.v_patk.statValue;
+        target.myActor.TakeDamage(physicDamage);
         SendEnemy();
     }
     //==========================================//

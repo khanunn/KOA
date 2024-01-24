@@ -13,25 +13,28 @@ public class EquipmentManager : MonoBehaviour
 
     private Stat patk, pdef;
     private StatManager statManager;
+    private List<ItemClickHandler> itemClickHandlers = new List<ItemClickHandler>();
+
     private void OnEnable()
     {
         EventManager.instance.equipmentEvents.onAddEquip += AddEquip;
         EventManager.instance.equipmentEvents.onRemoveEquip += RemoveEquip;
         EventManager.instance.equipmentEvents.onListEquip += ListEquip;
-        EventManager.instance.statEvents.onSendStat += StartStatus;
+        EventManager.instance.statEvents.onSendStatManager += StartStatus;
     }
     private void OnDisable()
     {
         EventManager.instance.equipmentEvents.onAddEquip -= AddEquip;
         EventManager.instance.equipmentEvents.onRemoveEquip -= RemoveEquip;
         EventManager.instance.equipmentEvents.onListEquip -= ListEquip;
-        EventManager.instance.statEvents.onSendStat -= StartStatus;
+        EventManager.instance.statEvents.onSendStatManager -= StartStatus;
     }
     private void Start()
     {
         patk = statManager.GetStat(StatKey.v_patk);
         pdef = statManager.GetStat(StatKey.v_pdef);
     }
+
     private void AddEquip(EquipmentInfoSO equipmentInfo, ItemInfoSO itemInfoSO)
     {
         foreach (ItemInfoSO equip in equips.ToList())
@@ -41,34 +44,9 @@ public class EquipmentManager : MonoBehaviour
                 case EquipmentInfoSO isInsertedEquip:
                     if (isInsertedEquip.EquipmentSlot == equipmentInfo.EquipmentSlot)
                     {
-                        EventManager.instance.itemEvents.AddItem(equip);
-                        equips.Remove(equip);
-                        OffStat(equip);
-
-                        equips.Add(itemInfoSO);
-                        OnStat(itemInfoSO);
-
+                        HandleEquipReplacement(equip, itemInfoSO);
                         return;
-                        /* if (equips.Contains(itemInfoSO))
-                        {
-                            //equip = itemInfoSO;
-                            equip.scriptableObject = equipmentInfo;
-                            itemInfoSO.scriptableObject = isInsertedEquip;
-                            EventManager.instance.itemEvents.AddItem(itemInfoSO);
-                            Debug.Log("Swap Change");
-                            return;
-                        }
-                        else
-                        {
-                            EventManager.instance.itemEvents.AddItem(equip);
-                            equips.Remove(equip);
-                            equips.Add(itemInfoSO);
-                            return;
-                        } */
                     }
-
-                    break;
-                default:
                     break;
             }
         }
@@ -77,6 +55,25 @@ public class EquipmentManager : MonoBehaviour
         OnStat(itemInfoSO);
         InstantiateEquipment(equipmentInfo.EquipmentSlot, itemInfoSO);
     }
+
+    private void HandleEquipReplacement(ItemInfoSO existingEquip, ItemInfoSO newEquip)
+    {
+        EventManager.instance.itemEvents.AddItem(existingEquip);
+        equips.Remove(existingEquip);
+        OffStat(existingEquip);
+
+        equips.Add(newEquip);
+        OnStat(newEquip);
+
+        foreach (var item in itemClickHandlers)
+        {
+            if (item.ItemInfoSO == existingEquip)
+            {
+                item.ItemInfoSO = newEquip;
+            }
+        }
+    }
+
     private void RemoveEquip(ItemInfoSO itemInfoSO, GameObject gameObject)
     {
         equips.Remove(itemInfoSO);
@@ -102,6 +99,7 @@ public class EquipmentManager : MonoBehaviour
                 foreach (ItemInfoSO equip in equips)
                 {
                     itemClickHandler.ItemInfoSO = equip;
+                    itemClickHandlers.Add(itemClickHandler);
                     //itemName.text = item.ItemName.ToString();
                     itemIcon.sprite = equip.Icon;
                 }
