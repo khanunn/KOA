@@ -39,6 +39,7 @@ public class ShopManager : MonoBehaviour
 
         foreach (var item in SellableObject)
         {
+            Debug.Log(item.name);
             //temp GameObject in BaseItem
             GameObject Icon = BaseItem[index].transform.GetChild(0).gameObject;
             GameObject ItemName = BaseItem[index].transform.GetChild(1).gameObject;
@@ -93,15 +94,15 @@ public class ShopManager : MonoBehaviour
         Dictionary<ItemName, int> ClonePlayerItem = inventoryManager.GetPlayerItem(); 
 
         foreach (ItemName key in new List<ItemName>(ClonePlayerItem.Keys))
-        {       
+        {
             //Check if the player has this item or not &
             if (key == SellableObject[ItemID].itemType)
             {
                 //Check if itemAmount need to more than 0       
-                if (ClonePlayerItem[key] > 0)
+                 if (ClonePlayerItem[key] > 0)
                 {
                     Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].value));
-                    Debug.Log("Sell: " + SellableObject[ItemID]);                 
+                    Debug.Log("Sell: " + SellableObject[ItemID]);
 
                     //Calculate Money in CurrencyManager
                     PlayerMoney.gold += SellableObject[ItemID].value;
@@ -112,10 +113,10 @@ public class ShopManager : MonoBehaviour
                 {
                     UnBuyAblePanal.SetActive(true);
                     break;
-                }                
-            }                            
-        } 
-       
+                }
+            }
+        }
+
     }
 
     // Start is called before the first frame update

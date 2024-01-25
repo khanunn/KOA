@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
@@ -114,11 +115,23 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void UpdateItemAmount(ItemInfoSO itemInfoSO, int amount)
+    public void UpdateItemAmount(ItemInfoSO itemInfoSO, int amount)
     {
         ItemName itemType = itemInfoSO.itemType;
-        itemAmounts[itemType] += amount;
+        itemAmounts[itemType] += amount; //Can use for sell -1 and buy +1
         UpdateItemText(itemInfoSO, itemAmounts[itemType]);
+
+        if (itemAmounts[itemType] <= 0)
+        {
+            foreach (Transform child in itemContent)
+            {
+                if (child.GetComponent<ItemClickHandler>().ItemInfoSO.itemType == itemInfoSO.itemType)
+                {
+                    Destroy(child.gameObject);
+                    RemoveItem(itemInfoSO);
+                }
+            }
+        }       
     }
 
     private void UseItemAmount(GameObject objInventory, ItemInfoSO itemInfoSO, int amount)
@@ -139,6 +152,11 @@ public class InventoryManager : MonoBehaviour
         {
             UpdateItemText(itemInfoSO, itemAmounts[itemType]);
         }
+    }
+
+    public Dictionary<ItemName, int> GetPlayerItem()
+    {
+        return itemAmounts;
     }
 
 }
