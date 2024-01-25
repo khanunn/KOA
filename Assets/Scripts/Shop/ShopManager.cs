@@ -13,7 +13,7 @@ using System.Xml;
 public class ShopManager : MonoBehaviour
 {
     [Header("Buy Settings")]
-    [SerializeField] ItemInfoSO[] SellableObject;    
+    [SerializeField] ItemInfoSO[] SellableObject;
     [SerializeField] int[] EnableToBuy;
     [SerializeField] GameObject[] BaseItem;
 
@@ -25,9 +25,9 @@ public class ShopManager : MonoBehaviour
     [SerializeField] GameObject ShopPanal;
     [SerializeField] GameObject BuyAblePanal;
     [SerializeField] GameObject UnBuyAblePanal;
-    
 
-    async void GenerateItem()
+
+    private async void GenerateItem()
     {
         var index = 0;
 
@@ -56,8 +56,8 @@ public class ShopManager : MonoBehaviour
 
             //Set Parameter
             Icon.GetComponent<Image>().sprite = prefab;
-            ItemName.GetComponent<TextMeshProUGUI>().text = item.displayName;
-            Price.GetComponent<TextMeshProUGUI>().text = "Cost: " + item.value.ToString();
+            ItemName.GetComponent<TextMeshProUGUI>().text = item.DisplayName;
+            Price.GetComponent<TextMeshProUGUI>().text = "Cost: " + item.Value.ToString();
 
 
             var ID = index; //Solve Index outbound Bug 
@@ -65,19 +65,19 @@ public class ShopManager : MonoBehaviour
             SellButton.GetComponent<Button>().onClick.AddListener(() => SellItem(ID));
 
             index++; //Shift to another            
-        }     
+        }
     }
 
     public void BuyItem(int ItemID)
     {
-        Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].value));        
-        if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].value)
+        Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Value));
+        if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].Value)
         {
             BuyAblePanal.SetActive(true);
             EnableToBuy[ItemID] -= 1;
 
             //Calculate Money in CurrencyManager
-            PlayerMoney.gold -= SellableObject[ItemID].value;           
+            PlayerMoney.gold -= SellableObject[ItemID].Value;
 
             //Send to inventory here
             EventManager.instance.itemEvents.AddItem(SellableObject[ItemID]);
@@ -91,21 +91,21 @@ public class ShopManager : MonoBehaviour
     public void SellItem(int ItemID)
     {
         //Clone Player item in inventory from Inventory Manager
-        Dictionary<ItemName, int> ClonePlayerItem = inventoryManager.GetPlayerItem(); 
+        Dictionary<ItemName, int> ClonePlayerItem = inventoryManager.GetPlayerItem();
 
         foreach (ItemName key in new List<ItemName>(ClonePlayerItem.Keys))
         {
             //Check if the player has this item or not &
-            if (key == SellableObject[ItemID].itemType)
+            if (key == SellableObject[ItemID].ItemName)
             {
                 //Check if itemAmount need to more than 0       
-                 if (ClonePlayerItem[key] > 0)
+                if (ClonePlayerItem[key] > 0)
                 {
-                    Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].value));
+                    Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Value));
                     Debug.Log("Sell: " + SellableObject[ItemID]);
 
                     //Calculate Money in CurrencyManager
-                    PlayerMoney.gold += SellableObject[ItemID].value;
+                    PlayerMoney.gold += SellableObject[ItemID].Value;
                     inventoryManager.UpdateItemAmount(SellableObject[ItemID], -1);
                     BuyAblePanal.SetActive(true);
                 }
@@ -121,13 +121,13 @@ public class ShopManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {       
-        GenerateItem();        
+    {
+        GenerateItem();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

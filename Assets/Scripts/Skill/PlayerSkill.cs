@@ -1,128 +1,3 @@
-/*using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class PlayerSkill : MonoBehaviour
-{
-    [Header("Skill Settings")]
-    Animator animator;
-    [SerializeField] private int Skill_ID;
-    [field: SerializeField] public bool isSkillPlaying { get; private set; }
-
-    [Header("Equipment Settings")]
-    public bool IsWeapon = false;
-    [SerializeField] SkinnedMeshRenderer Sword;
-    [SerializeField] SkinnedMeshRenderer Shield;
-
-    [Header("Player Setting")]
-    [SerializeField] PlayerController Player;
-    //==========================================================//
-    MeshCollider meshCollider;
-    [SerializeField] GameObject VFX;
-
-    private void Start()
-    {
-        animator = this.GetComponent<Animator>();
-        Player = this.GetComponent<PlayerController>();
-        meshCollider = GetComponentInChildren<MeshCollider>();
-        //Debug.Log(meshCollider);
-    }
-
-    void SkillSystem()
-    {
-        if (!isSkillPlaying && Player.target != null)
-        {
-            if (IsWeapon) // Have Sword
-            {
-                Debug.Log(Player.target.interactionType);
-                if (Input.GetKeyUp(KeyCode.Alpha1))
-                {
-                    isSkillPlaying = true;
-                    StartSkill(1);
-                    Invoke("ResetSkill", 0.1f);
-                }
-
-                if (Input.GetKeyUp(KeyCode.Alpha2))
-                {
-                    isSkillPlaying = true;
-                    StartSkill(2);
-                    Invoke("ResetSkill", 0.1f);
-                }
-            }
-
-            if (!IsWeapon) // Bare hand
-            {
-                if (Input.GetKeyUp(KeyCode.Alpha1))
-                {
-                    StartSkill(0);
-                    Invoke("ResetSkill", 0.1f);
-                }
-            }
-
-            if (Input.GetKeyUp(KeyCode.Alpha3))
-            {
-                StartSkill(3);
-                Invoke("ResetSkill", 0.1f);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Alpha4))
-            {
-                StartSkill(4);
-                Invoke("ResetSkill", 0.1f);
-            }
-        }
-    }
-
-    private void ResetSkill()
-    {
-        animator.SetInteger("Skill_ID", -1);
-    }
-
-    void StartSkill(int skillId)
-    {
-        isSkillPlaying = true;
-        Player.StopSequence(); //using to player stop moving
-        //animator.SetInteger("Skill_ID", skillId);     
-        animator.Play(skillId.ToString());                     
-    }
-
-    private void Update()
-    {
-        SkillSystem();
-
-        Skill_ID = animator.GetInteger("Skill_ID");
-        animator.SetBool("IsWeapon", IsWeapon);
-
-        if (IsWeapon)
-        {
-            Sword.enabled = true;
-            Shield.enabled = true;
-        }
-        else
-        {
-            Sword.enabled = false;
-            Shield.enabled = false;
-        }
-
-        // Check if the animation has finished
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
-        {
-            isSkillPlaying = false;
-            //ResetSkill();
-        }
-
-        /* if (isSkillPlaying)
-        {
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                Player.StopSequence();
-            }
-        } */
-
-    }
-}
-*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -145,7 +20,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
-    [SerializeField] float [] Cooldown;
+    [SerializeField] float[] Cooldown;
 
     private Dictionary<int, float> skillCooldowns = new Dictionary<int, float>();
 
@@ -228,7 +103,7 @@ public class PlayerSkill : MonoBehaviour
             //Bring it into child and set pos at player
             CreateVFX.transform.SetParent(VFX.transform);
             CreateVFX.transform.localPosition = new Vector3(0, 0, 0);
-           // CreateVFX.transform.rotation = Player.transform.rotation;
+            // CreateVFX.transform.rotation = Player.transform.rotation;
         }
 
         // Get the AnimationClip from the Animator's runtimeAnimatorController    
