@@ -138,80 +138,77 @@ public class PlayerController : MonoBehaviour
     //============================เคลื่อนที่ตัวละคร==========================//
     private void ClickToMove()
     {
-        if (CanWalk)
+        //Debug.Log("Click Success");
+        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
         {
-            //Debug.Log("Click Success");
-            if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
-
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
+            if (hit.transform.CompareTag("Interactable"))
             {
-                if (hit.transform.CompareTag("Interactable"))
+                //เช็คเฉพาะถ้าเป้าหมายเป็น NPC ก่อนหน้านี้ ให้ ResetBusy เพื่อป้องกันไม่ให้ Attack รัวๆถ้าเป้าหมายเป็น Enemy
+                if (target != null && target.interactionType == InteractableType.NPC)
                 {
-                    //เช็คเฉพาะถ้าเป้าหมายเป็น NPC ก่อนหน้านี้ ให้ ResetBusy เพื่อป้องกันไม่ให้ Attack รัวๆถ้าเป้าหมายเป็น Enemy
-                    if (target != null && target.interactionType == InteractableType.NPC)
-                    {
-                        ResetBusy();
-                    }
-                    target = hit.transform.GetComponent<Interactable>();
-                    Debug.Log("PlayerController Target : " + target);
+                    ResetBusy();
+                }
+                target = hit.transform.GetComponent<Interactable>();
+                Debug.Log("PlayerController Target : " + target);
 
+                switch (target.interactionType)
+                {
+                    case InteractableType.ENEMY:
+                        targetDistance = attackDistance;
+                        break;
+                    case InteractableType.ITEM_QUEST:
+                        targetDistance = pickupDistance;
+                        break;
+                    case InteractableType.NPC:
+                        targetDistance = talkDistance;
+                        break;
+                    case InteractableType.ITEM_INVENTORY:
+                        targetDistance = pickupDistance;
+                        break;
+
+                }
+
+                if (clickEffect != null)
+                {
+                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
+                }
+            }
+            else
+            {
+                //AnimMove(false,true); //เดิน
+                agent.SetDestination(hit.point);
+
+                if (target != null)
+                {
+                    Debug.Log("target: " + target);
                     switch (target.interactionType)
                     {
+                        case InteractableType.NPC:
+                            ResetBusy();
+                            SendNpc(false);
+                            ResetTarget();
+                            break;
                         case InteractableType.ENEMY:
-                            targetDistance = attackDistance;
+                            ResetBusy();
+                            ResetTarget();
                             break;
                         case InteractableType.ITEM_QUEST:
-                            targetDistance = pickupDistance;
-                            break;
-                        case InteractableType.NPC:
-                            targetDistance = talkDistance;
+                            ResetBusy();
+                            ResetTarget();
                             break;
                         case InteractableType.ITEM_INVENTORY:
-                            targetDistance = pickupDistance;
+                            ResetBusy();
+                            ResetTarget();
                             break;
-
-                    }
-
-                    if (clickEffect != null)
-                    {
-                        Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
                     }
                 }
-                else
+
+                if (clickEffect != null)
                 {
-                    //AnimMove(false,true); //เดิน
-                    agent.SetDestination(hit.point);
-
-                    if (target != null)
-                    {
-                        Debug.Log("target: " + target);
-                        switch (target.interactionType)
-                        {
-                            case InteractableType.NPC:
-                                ResetBusy();
-                                SendNpc(false);
-                                ResetTarget();
-                                break;
-                            case InteractableType.ENEMY:
-                                ResetBusy();
-                                ResetTarget();
-                                break;
-                            case InteractableType.ITEM_QUEST:
-                                ResetBusy();
-                                ResetTarget();
-                                break;
-                            case InteractableType.ITEM_INVENTORY:
-                                ResetBusy();
-                                ResetTarget();
-                                break;
-                        }
-                    }
-
-                    if (clickEffect != null)
-                    {
-                        Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
-                    }
+                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
                 }
             }
         }
