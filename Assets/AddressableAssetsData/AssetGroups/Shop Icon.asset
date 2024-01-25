@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Shop Icon
+  m_EditorClassIdentifier: 
+  m_GroupName: Shop Icon
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 70cd100a07106b940a07fb12883b414d
+  m_SerializeEntries:
+  - m_GUID: ea9306e1aa95eb8439400efefff9f8db
+    m_Address: Assets/Icons/2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a38e0c362c83a047983d02b417b0980
+    m_Address: Assets/Icons/1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8925c87a7beb94c4bb8da70f92affebc
+    m_Address: Assets/Icons/0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 62f7dd2a7fda27d4b9bb281e7b8ba8e2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 169e84ffdd69d794f83470826d886f06, type: 2}
+    - {fileID: 11400000, guid: 17004c9cac1e4d34bb7af6b077a5a474, type: 2}

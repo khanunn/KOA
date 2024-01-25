@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 enum ItemList
@@ -151,11 +152,26 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void UpdateItemAmount(ItemInfoSO itemInfoSO, int amount)
+    public void UpdateItemAmount(ItemInfoSO itemInfoSO, int amount)
     {
         ItemName itemName = itemInfoSO.ItemName;
         itemAmounts[itemName] += amount;
         UpdateItemText(itemInfoSO, itemAmounts[itemName]);
+        ItemName itemType = itemInfoSO.ItemName;
+        itemAmounts[itemType] += amount; //Can use for sell -1 and buy +1
+        UpdateItemText(itemInfoSO, itemAmounts[itemType]);
+
+        if (itemAmounts[itemType] <= 0)
+        {
+            foreach (Transform child in itemContent)
+            {
+                if (child.GetComponent<ItemClickHandler>().ItemInfoSO.ItemName == itemInfoSO.ItemName)
+                {
+                    Destroy(child.gameObject);
+                    RemoveItem(itemInfoSO);
+                }
+            }
+        }
     }
 
     private void UseItemAmount(GameObject objInventory, ItemInfoSO itemInfoSO, int amount)
@@ -201,4 +217,10 @@ public class InventoryManager : MonoBehaviour
             UpdateItemText(itemInfoSO, itemAmounts[itemName]);
         } */
     }
+
+    public Dictionary<ItemName, int> GetPlayerItem()
+    {
+        return itemAmounts;
+    }
+
 }

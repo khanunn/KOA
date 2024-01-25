@@ -24,8 +24,8 @@ public class CurrencyManager : MonoBehaviour
         this.gold += gold;
         textGold.text = "Gold " + this.gold.ToString();
     }
-    /* private void UpdateUI(int value)
+    private void Update()
     {
-        textGold.text = value.ToString();
-    } */
+        textGold.text = "Gold " + this.gold.ToString();
+    }
 }
