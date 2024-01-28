@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
             EventManager.instance.inputEvents.InventoryItemOptionalClose();
             return;
         } */
-        SendInventory();
+        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
@@ -400,11 +400,6 @@ public class PlayerController : MonoBehaviour
         target.myItem.OnTakeItem();
         //EventManager.instance.itemEvents.ListNameItem();
         //EventManager.instance.itemEvents.AddItem(itemInfoSO);
-    }
-
-    private void SendInventory()
-    {
-        //EventManager.instance.inputEvents.InventoryItemClose();
     }
     public void SetPlayerDie(bool die)
     {

@@ -17,15 +17,15 @@ public class CurrencyManager : MonoBehaviour
     }
     private void Start()
     {
-        textGold.text = "Gold " + gold;
+        textGold.text = "" + gold;
     }
     private void GoldGained(int gold)
     {
         this.gold += gold;
-        textGold.text = "Gold " + this.gold.ToString();
+        textGold.text = "" + this.gold.ToString();
     }
     private void Update()
     {
-        textGold.text = "Gold " + this.gold.ToString();
+        textGold.text = "" + this.gold.ToString();
     }
 }

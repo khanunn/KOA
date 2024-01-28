@@ -43,16 +43,6 @@ public class InventoryManager : MonoBehaviour
     }
     private void AddItem(ItemInfoSO itemInfoSO)
     {
-        /* switch (itemInfoSO.ScriptableObject)
-        {
-            case EquipmentInfoSO equipmentInfoSO:
-                Debug.Log(equipmentInfoSO.EquipmentSlot);
-                Debug.Log(equipmentInfoSO.EquipmentType);
-                Debug.Log(equipmentInfoSO.EquipmentRarity);
-                break;
-            default:
-                break;
-        } */
         ItemName itemName = itemInfoSO.ItemName;
         switch (itemInfoSO.scriptableObject)
         {
@@ -154,9 +144,6 @@ public class InventoryManager : MonoBehaviour
 
     public void UpdateItemAmount(ItemInfoSO itemInfoSO, int amount)
     {
-        ItemName itemName = itemInfoSO.ItemName;
-        itemAmounts[itemName] += amount;
-        UpdateItemText(itemInfoSO, itemAmounts[itemName]);
         ItemName itemType = itemInfoSO.ItemName;
         itemAmounts[itemType] += amount; //Can use for sell -1 and buy +1
         UpdateItemText(itemInfoSO, itemAmounts[itemType]);
