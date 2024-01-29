@@ -6,7 +6,7 @@ public class KillPatrolQuestStep : QuestStep
 {
     [SerializeField] private int patrolsKilled;
     [SerializeField] private int patrolsKillToComplete;
-    public UIController uIController;
+    //public UIController uIController;
 
     private void OnEnable()
     {

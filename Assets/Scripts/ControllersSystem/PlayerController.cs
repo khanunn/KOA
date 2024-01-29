@@ -103,10 +103,10 @@ public class PlayerController : MonoBehaviour
         statController = myStat;
     }
 
-    public void InteractableChange(QuestPoint npc)
+    public void InteractableChange(GameObject npc)
     {
         target = npc.GetComponent<Interactable>();
-        //Debug.Log("target from player: " + npc + "Type: " + target.interactionType);
+        Debug.Log("target from player: " + npc + "Type: " + target.interactionType);
     }
 
     //==================ยกเลิกการโจมตีเป้าหมาย=============================//
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
                             SendNpc(false);
                             ResetTarget();
                             break;
-                        case InteractableType.ENEMY:
+                        /* case InteractableType.ENEMY:
                             ResetBusy();
                             ResetTarget();
                             break;
@@ -200,6 +200,10 @@ public class PlayerController : MonoBehaviour
                             ResetTarget();
                             break;
                         case InteractableType.ITEM_INVENTORY:
+                            ResetBusy();
+                            ResetTarget();
+                            break; */
+                        default:
                             ResetBusy();
                             ResetTarget();
                             break;
