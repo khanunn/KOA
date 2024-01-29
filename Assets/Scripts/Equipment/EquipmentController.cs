@@ -182,6 +182,12 @@ public class EquipmentController : MonoBehaviour
             equipmentSwitch = false;
         }
     }
+
+    public void ExitButton()
+    {
+        equipment.SetActive(false);
+        equipmentSwitch = false;
+    }
 }
 
 
