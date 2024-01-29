@@ -11,7 +11,7 @@ public class EquipmentController : MonoBehaviour
 
     private bool isDummyPointer;
     private bool isSlotPointer;
-    private bool isClickDummy;
+    public bool IsClickDummy { get; private set; }
     private bool isClicking = false;
     private float clickTime = 0f;
     private float doubleClickTimeThreshold = 0.3f; // ปรับตามความต้องการ
@@ -64,7 +64,7 @@ public class EquipmentController : MonoBehaviour
 
     private void DummyPreview()
     {
-        if (isClickDummy)
+        if (IsClickDummy)
         {
             // Check for left mouse button click
             if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -96,7 +96,7 @@ public class EquipmentController : MonoBehaviour
         //Debug.Log("started rotate");
         if (isDummyPointer)
         {
-            isClickDummy = true;
+            IsClickDummy = true;
         }
     }
     private void CancleToRotate()
@@ -104,13 +104,13 @@ public class EquipmentController : MonoBehaviour
         //Debug.Log("cancled rotate");
         if (!isDummyPointer)
         {
-            if (isClickDummy)
+            if (IsClickDummy)
             {
                 Quaternion lookRotation = Quaternion.LookRotation(new Vector3(rotationDummy.transform.rotation.x, rotationDummy.transform.rotation.x, -180));
                 rotationDummy.transform.rotation = lookRotation;
             }
 
-            isClickDummy = false;
+            IsClickDummy = false;
         }
     }
 
@@ -151,22 +151,22 @@ public class EquipmentController : MonoBehaviour
 
     private void DummyIPointerEnter()
     {
-        Debug.Log("Enter Dummy on Controller");
+        // Debug.Log("Enter Dummy on Controller");
         isDummyPointer = true;
     }
     private void DummyIPointerExit()
     {
-        Debug.Log("Exit Dummy on Controller");
+        //Debug.Log("Exit Dummy on Controller");
         isDummyPointer = false;
     }
     private void SlotIPointerEnter()
     {
-        Debug.Log("Enter Slot on Controller");
+        //Debug.Log("Enter Slot on Controller");
         isSlotPointer = true;
     }
     private void SlotIPointerExit()
     {
-        Debug.Log("Enter Slot on Controller");
+        //Debug.Log("Enter Slot on Controller");
         isSlotPointer = false;
     }
     private void SwitchEquipment()

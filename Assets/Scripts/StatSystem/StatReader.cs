@@ -9,6 +9,7 @@ public class StatReader : MonoBehaviour
     private Stat stat;
 
     public TMP_Text statText;
+    public TMP_Text valueText;
     public TMP_Text differenceText;
 
     private int currentValue;
@@ -33,7 +34,23 @@ public class StatReader : MonoBehaviour
         //Debug.Log("Stat Key : " + stat.statKey);
         currentValue = stat.statValue;
         currentLevel = statManager.levelManager.level;
-        statText.text = statKey.ToString() + " : " + stat.statValue;
+        SetText();
+        valueText.text = stat.statValue.ToString();
+    }
+    private void SetText()
+    {
+        switch (statKey)
+        {
+            case StatKey.v_patk:
+                statText.text = "Physic Attack";
+                break;
+            case StatKey.v_matk:
+                statText.text = "Magic Attack";
+                break;
+            default:
+                statText.text = statKey.ToString();
+                break;
+        }
     }
 
     private void UpdateStatText(int level)
@@ -56,7 +73,9 @@ public class StatReader : MonoBehaviour
                 currentValue--;
             }
 
-            statText.text = $"{statKey}: {currentValue}";
+            //statText.text = $"{statKey}";
+            SetText();
+            valueText.text = $"{currentValue}";
         }
     }
 
@@ -129,7 +148,8 @@ public class StatReader : MonoBehaviour
     private void ResetUpdateText()
     {
         stat = statManager.GetStat(statKey);
-        statText.text = statKey.ToString() + ": " + stat.statValue;
+        SetText();
+        valueText.text = stat.statValue.ToString();
         differenceText.text = "";
     }
 }

@@ -64,7 +64,7 @@ public class CharacterBar : MonoBehaviour
     private void UpdateUI(int value)
     {
         healthBar.fillAmount = ((float)health / (float)healthMax);
-        textHp.text = value.ToString();
+        textHp.text = value.ToString() + "/" + healthMax;
     }
     /* public void SetPlayerHealth(int amount)
     {

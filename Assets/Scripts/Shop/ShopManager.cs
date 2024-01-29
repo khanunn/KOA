@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Serialization;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +38,7 @@ public class ShopManager : MonoBehaviour
 
         foreach (var item in SellableObject)
         {
-            Debug.Log(item.name);
+            //Debug.Log(item.name);
             //temp GameObject in BaseItem
             GameObject Icon = BaseItem[index].transform.GetChild(0).gameObject;
             GameObject ItemName = BaseItem[index].transform.GetChild(1).gameObject;
@@ -47,9 +46,9 @@ public class ShopManager : MonoBehaviour
             GameObject BuyButton = BaseItem[index].transform.GetChild(3).gameObject;
             GameObject SellButton = BaseItem[index].transform.GetChild(4).gameObject;
 
-            Debug.Log(BuyButton);
+            //Debug.Log(BuyButton);
             //Load Sprite
-            var op = Addressables.LoadAssetAsync<Sprite>($"Assets/Icons/{index}.png");
+            var op = Addressables.LoadAssetAsync<Sprite>($"Assets/Icons/icon/Potion/{index}.png");
             var prefab = await op.Task;
 
             //BaseIcon[index] = prefab;
@@ -57,7 +56,7 @@ public class ShopManager : MonoBehaviour
             //Set Parameter
             Icon.GetComponent<Image>().sprite = prefab;
             ItemName.GetComponent<TextMeshProUGUI>().text = item.DisplayName;
-            Price.GetComponent<TextMeshProUGUI>().text = "Cost: " + item.Value.ToString();
+            Price.GetComponent<TextMeshProUGUI>().text = "Cost: " + item.Price.ToString();
 
 
             var ID = index; //Solve Index outbound Bug 
@@ -70,14 +69,14 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(int ItemID)
     {
-        Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Value));
-        if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].Value)
+        Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Price));
+        if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].Price)
         {
             BuyAblePanal.SetActive(true);
             EnableToBuy[ItemID] -= 1;
 
             //Calculate Money in CurrencyManager
-            PlayerMoney.gold -= SellableObject[ItemID].Value;
+            PlayerMoney.gold -= SellableObject[ItemID].Price;
 
             //Send to inventory here
             EventManager.instance.itemEvents.AddItem(SellableObject[ItemID]);
@@ -101,11 +100,11 @@ public class ShopManager : MonoBehaviour
                 //Check if itemAmount need to more than 0       
                 if (ClonePlayerItem[key] > 0)
                 {
-                    Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Value));
+                    Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Price));
                     Debug.Log("Sell: " + SellableObject[ItemID]);
 
                     //Calculate Money in CurrencyManager
-                    PlayerMoney.gold += SellableObject[ItemID].Value;
+                    PlayerMoney.gold += SellableObject[ItemID].Price;
                     inventoryManager.UpdateItemAmount(SellableObject[ItemID], -1);
                     BuyAblePanal.SetActive(true);
                 }

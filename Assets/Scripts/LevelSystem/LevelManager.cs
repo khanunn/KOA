@@ -13,7 +13,8 @@ public class LevelManager : MonoBehaviour
     [Header("Config")]
     [SerializeField] private LevelInfoSO levelInfoSO;
     [SerializeField] private TMP_Text textExperience;
-    [SerializeField] private TMP_Text textLevel;
+    [SerializeField] private TMP_Text textLevelCharacterInterface;
+    [SerializeField] private TMP_Text textLevelEquipment;
     [SerializeField] private Image experienceBar;
 
     public ClassInfoSO classInfoSO;
@@ -60,7 +61,8 @@ public class LevelManager : MonoBehaviour
     private void UpdateUI()
     {
         experienceBar.fillAmount = ((float)experience / (float)requireExperience);
-        textLevel.text = level.ToString();
-        textExperience.text = experience + "/" + requireExperience + " Exp";
+        textLevelCharacterInterface.text = level.ToString();
+        textLevelEquipment.text = level.ToString();
+        textExperience.text = experience + "/" + requireExperience;
     }
 }

@@ -32,6 +32,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 918bf950486033f4697128d413f846ad
+    m_Address: Assets/Icons/icon/Potion/0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f02f140715a73c545b23549aafd693d3
+    m_Address: Assets/Icons/icon/Potion/1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e516aa89b08cd74a8b67bd01ec8482f
+    m_Address: Assets/Icons/icon/Potion/2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62f7dd2a7fda27d4b9bb281e7b8ba8e2, type: 2}
   m_SchemaSet:

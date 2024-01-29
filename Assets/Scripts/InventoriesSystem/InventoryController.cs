@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class InventoryController : MonoBehaviour
 {
     public GameObject inventory;
     private bool inventorySwitch;
@@ -19,23 +19,11 @@ public class InventoryController : MonoBehaviour, IPointerDownHandler, IDragHand
     [Header("Config")]
     [SerializeField] private Vector3 positionOptional;
 
-    [Header("DragAble")]
-    private RectTransform rectTransform;
-    private Canvas canvas;
-    private CanvasGroup canvasGroup;
 
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
         itemContent = inventoryManager.itemContent;
-    }
-    private void Start()
-    {
-        rectTransform = inventory.GetComponent<RectTransform>();
-        canvas = inventory.GetComponentInParent<Canvas>();
-        canvasGroup = inventory.GetComponent<CanvasGroup>();
-        
-        Debug.Log(rectTransform + ""+canvas +""+canvasGroup);
     }
 
     private void OnEnable()
@@ -108,23 +96,5 @@ public class InventoryController : MonoBehaviour, IPointerDownHandler, IDragHand
     {
         if (objInstant == null) return;
         Destroy(objInstant);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        canvasGroup.blocksRaycasts = false;
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out Vector3 worldPoint))
-        {
-            rectTransform.position = worldPoint;
-        }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        canvasGroup.blocksRaycasts = true;
     }
 }
