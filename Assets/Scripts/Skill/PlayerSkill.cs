@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,12 +22,17 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
     [SerializeField] float[] Cooldown;
+    private MeshCollider meshCollider;
 
     private Dictionary<int, float> skillCooldowns = new Dictionary<int, float>();
 
+    private void Awake() {
+        animator = this.GetComponent<Animator>();
+        meshCollider = this.GetComponentInChildren<MeshCollider>();
+    }
     private void Start()
     {
-        animator = this.GetComponent<Animator>();
+        meshCollider.enabled = false;
     }
 
     void SkillSystem()
@@ -87,6 +93,7 @@ public class PlayerSkill : MonoBehaviour
 
     async void StartSkill(int skillId)
     {
+        meshCollider.enabled = true;
         isSkillPlaying = true;
         Player.StopSequence(); //using to player stop moving
 
@@ -123,6 +130,7 @@ public class PlayerSkill : MonoBehaviour
     private void DestroyVFX()
     {
         isSkillPlaying = false;
+        
         foreach (Transform child in VFX.transform)
         {
             // Destroy all components attached to the child GameObject
@@ -152,6 +160,7 @@ public class PlayerSkill : MonoBehaviour
         if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
         {
             isSkillPlaying = false;
+            meshCollider.enabled = false;
             //ResetSkill();
 
         }
@@ -163,5 +172,10 @@ public class PlayerSkill : MonoBehaviour
                 Player.StopSequence();
             }
         }
+    }
+
+    private void SendAttackSkill()
+    {
+        
     }
 }
