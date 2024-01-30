@@ -7,6 +7,22 @@ public class QuestIcon : MonoBehaviour
     [SerializeField] private GameObject inProgressIcon;
     [SerializeField] private GameObject canFinishIcon;
 
+    private Camera cam;
+
+    private void Awake()
+    {
+        cam = Camera.main;
+    }
+    private void Update()
+    {
+        SetDirectionToCamera();
+    }
+    private void SetDirectionToCamera()
+    {
+        transform.forward = cam.transform.forward;
+    }
+
+
     public void SetState(QuestState newState, bool startPoint, bool finishPoint)
     {
         notStartIcon.SetActive(false);
