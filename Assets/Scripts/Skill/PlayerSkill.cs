@@ -117,8 +117,8 @@ public class PlayerSkill : MonoBehaviour
     }
 }
 */
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -130,6 +130,7 @@ public class PlayerSkill : MonoBehaviour
     Animator animator;
     [SerializeField] int Skill_ID;
     [SerializeField] bool isSkillPlaying = false;
+    [SerializeField] SkillSlotManager slotManager;
 
     [Header("Equipment Settings")]
     public bool IsWeapon = false;
@@ -139,63 +140,73 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
-    [SerializeField] float [] Cooldown;
 
-    private Dictionary<int, float> skillCooldowns = new Dictionary<int, float>();
+    public float[] MaxCooldown; //Set Max CD
+    public float[] skillCooldowns; //using for Count CD
+    public int[] CurrentSkill; // List all aviable skill
 
-    private void Start()
+    public SkillInfoSO[] SkillData; // List all aviable skill
+
+
+    IEnumerator CooldownTimer()
     {
-        animator = this.GetComponent<Animator>();
+        while (true)
+        {
+            for (int i = 0; i < skillCooldowns.Length; i++)
+            {
+                if (skillCooldowns[i] > 0)
+                {
+                    skillCooldowns[i] -= Time.deltaTime;                    
+                    slotManager.UnActiveSlot(i);
+                    if (skillCooldowns[i] < 0)
+                        skillCooldowns[i] = 0;
+                }
+                else slotManager.ActiveSlot(i);
+            }
+            yield return null;
+        }
     }
 
     void SkillSystem()
     {
         if (!isSkillPlaying)
-        {
-            if (IsWeapon) // Have Sword
+        {                      
+            if (Input.GetKeyUp(KeyCode.Alpha1))
             {
-                if (Input.GetKeyUp(KeyCode.Alpha1))
-                {
-                    TryStartSkill(1);
-                }
-
-                if (Input.GetKeyUp(KeyCode.Alpha2))
-                {
-                    TryStartSkill(2);
-                }
+                TryStartSkill(CurrentSkill[0],0);
+                Debug.Log(CurrentSkill[0]);
             }
 
-            if (!IsWeapon) // Bare hand
+            if (Input.GetKeyUp(KeyCode.Alpha2))
             {
-                if (Input.GetKeyUp(KeyCode.Alpha1))
-                {
-                    TryStartSkill(0);
-                }
-            }
+                TryStartSkill(CurrentSkill[1],1);
+                Debug.Log(CurrentSkill[1]);
+            }                   
 
             if (Input.GetKeyUp(KeyCode.Alpha3))
             {
-                TryStartSkill(3);
+                TryStartSkill(CurrentSkill[2],2);
+                Debug.Log(CurrentSkill[2]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha4))
             {
-                TryStartSkill(4);
+                TryStartSkill(CurrentSkill[3],3);
+                Debug.Log(CurrentSkill[3]);
             }
         }
     }
 
-    private void TryStartSkill(int skillId)
+    private void TryStartSkill(int skillId,int ButtonID)
     {
         // Check if the skill is not on cooldown
-        if (!skillCooldowns.ContainsKey(skillId) || Time.time >= skillCooldowns[skillId])
+        if (skillCooldowns[ButtonID] == 0)
         {
             isSkillPlaying = true;
-            StartSkill(skillId);
+            StartSkill(skillId);            
             Invoke("ResetSkill", 0.01f);
-
             // Set cooldown for the skill
-            skillCooldowns[skillId] = Time.time + Cooldown[skillId];
+            skillCooldowns[ButtonID] = MaxCooldown[ButtonID];
         }
     }
 
@@ -221,9 +232,9 @@ public class PlayerSkill : MonoBehaviour
 
             //Bring it into child and set pos at player
             CreateVFX.transform.SetParent(VFX.transform);
-            
+
             CreateVFX.transform.localPosition = new Vector3(0, 0, 0);
-           // CreateVFX.transform.rotation = Player.transform.rotation;
+            //CreateVFX.transform.rotation = Player.transform.rotation;
         }
 
         // Get the AnimationClip from the Animator's runtimeAnimatorController    
@@ -250,9 +261,42 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
+  /*  private void LoadScriptObject()
+    {
+        SkillData;
+    }*/
+
+
+    private void Start()
+    {
+        animator = this.GetComponent<Animator>();
+        StartCoroutine(CooldownTimer());
+
+        if (IsWeapon) { skillCooldowns = new float[4]; }
+        else skillCooldowns = new float[3];
+    }
+
     private void Update()
     {
         SkillSystem();
+
+        //use for hard code set skill
+        int[] UnWeaponSkillSet = { 0, 3, 4 };
+        int[] WeaponSkillSet = { 1, 2, 3, 4 };        
+
+        float[] UnWeaponSkillMaxSetCD = { 3, 5, 7 };
+        float[] WeaponSkillMaxSetCD = { 3, 3, 5, 7,};
+
+        if (IsWeapon)
+        {
+            CurrentSkill = WeaponSkillSet;
+            MaxCooldown = WeaponSkillMaxSetCD;
+        }
+        else
+        {
+            CurrentSkill = UnWeaponSkillSet;            
+            MaxCooldown = UnWeaponSkillMaxSetCD;
+        }
 
         Skill_ID = animator.GetInteger("Skill_ID");
         animator.SetBool("IsWeapon", IsWeapon);
@@ -285,3 +329,4 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 }
+

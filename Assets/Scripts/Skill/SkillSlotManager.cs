@@ -1,0 +1,87 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
+
+public class SkillSlotManager : MonoBehaviour
+{
+    public GameObject[] SkillSlot = new GameObject[6];
+    [SerializeField] PlayerSkill PlayerSkill;
+    [SerializeField] float[] CD;    
+
+    void SettingCoolDown()
+    {
+        var Index = 0;
+        foreach (var item in SkillSlot)
+        {            
+            GameObject SkillText = item.transform.GetChild(1).gameObject; 
+
+            if (Index <= PlayerSkill.CurrentSkill.Length) //to prevent index out bound
+            {
+                SkillText.GetComponent<TextMeshProUGUI>().text = PlayerSkill.MaxCooldown[Index].ToString();
+            }            
+            Index++;
+        }
+    }
+
+    void SettingSlot()
+    {
+        var Index = 0;
+        //For Debug and Test 0: yellow 1: Blue 2: LightBlue 3: green 4: Red
+
+        foreach (var item in SkillSlot)
+        {
+            GameObject SkillImg = item.transform.GetChild(0).gameObject; 
+
+            if (Index <= PlayerSkill.CurrentSkill.Length)
+            {
+                SkillImg.GetComponent<Button>().interactable = true;
+            }
+            else SkillImg.GetComponent<Button>().interactable = false;
+
+            Index++;
+        }
+    }
+
+
+    public void UnActiveSlot(int id)
+    {       
+        GameObject SkillImg = SkillSlot[id].transform.GetChild(0).gameObject;        
+        SkillImg.GetComponent<Button>().interactable = false;   
+    }
+
+    public void ActiveSlot(int id)
+    {
+        GameObject SkillImg = SkillSlot[id].transform.GetChild(0).gameObject;
+        GameObject SkillText = SkillSlot[id].transform.GetChild(1).gameObject;
+        SkillText.GetComponent<TextMeshProUGUI>().text = PlayerSkill.MaxCooldown[id].ToString();
+        SkillImg.GetComponent<Button>().interactable = true; 
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        SkillSlot = new GameObject[6];
+        //Set Skill Slot to Arraylist
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            SkillSlot[i] = transform.GetChild(i).gameObject;
+        }
+        SettingSlot();
+        SettingCoolDown();
+    
+    }   
+
+    // Update is called once per frame
+    void Update()
+    {
+        for (int i = 0;i < PlayerSkill.skillCooldowns.Length; i++)
+        {
+            GameObject SkillText = SkillSlot[i].transform.GetChild(1).gameObject;
+            float temp = (float)Math.Round(PlayerSkill.skillCooldowns[i], 1);
+            SkillText.GetComponent<TextMeshProUGUI>().text = temp.ToString();
+        }      
+    }
+}

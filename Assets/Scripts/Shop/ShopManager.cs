@@ -39,7 +39,7 @@ public class ShopManager : MonoBehaviour
 
         foreach (var item in SellableObject)
         {
-            Debug.Log(item.name);
+            //Debug.Log(item.name);
             //temp GameObject in BaseItem
             GameObject Icon = BaseItem[index].transform.GetChild(0).gameObject;
             GameObject ItemName = BaseItem[index].transform.GetChild(1).gameObject;
@@ -47,7 +47,7 @@ public class ShopManager : MonoBehaviour
             GameObject BuyButton = BaseItem[index].transform.GetChild(3).gameObject;
             GameObject SellButton = BaseItem[index].transform.GetChild(4).gameObject;
 
-            Debug.Log(BuyButton);
+            //Debug.Log(BuyButton);
             //Load Sprite
             var op = Addressables.LoadAssetAsync<Sprite>($"Assets/Icons/{index}.png");
             var prefab = await op.Task;
@@ -70,7 +70,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(int ItemID)
     {
-        Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Value));
+        //Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Value));
         if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].Value)
         {
             BuyAblePanal.SetActive(true);
@@ -101,8 +101,8 @@ public class ShopManager : MonoBehaviour
                 //Check if itemAmount need to more than 0       
                 if (ClonePlayerItem[key] > 0)
                 {
-                    Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Value));
-                    Debug.Log("Sell: " + SellableObject[ItemID]);
+                    //Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Value));
+                    //Debug.Log("Sell: " + SellableObject[ItemID]);
 
                     //Calculate Money in CurrencyManager
                     PlayerMoney.gold += SellableObject[ItemID].Value;
