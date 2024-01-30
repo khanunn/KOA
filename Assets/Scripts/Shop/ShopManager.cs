@@ -56,7 +56,7 @@ public class ShopManager : MonoBehaviour
             //Set Parameter
             Icon.GetComponent<Image>().sprite = prefab;
             ItemName.GetComponent<TextMeshProUGUI>().text = item.DisplayName;
-            Price.GetComponent<TextMeshProUGUI>().text = "Cost: " + item.Price.ToString();
+            Price.GetComponent<TextMeshProUGUI>().text = "" + item.Price.ToString();
 
 
             var ID = index; //Solve Index outbound Bug 
