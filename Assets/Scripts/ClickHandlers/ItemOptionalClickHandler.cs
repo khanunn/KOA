@@ -30,8 +30,13 @@ public class ItemOptionalClickHandler : MonoBehaviour
 
     public void UseItem()
     {
-        int itemGain = 1;
-        EventManager.instance.itemEvents.ReduceItem(itemObject, itemInfoSO, itemGain);
+        switch (itemInfoSO.ItemStatus)
+        {
+            case ItemStatus.CAN_USE:
+                int itemGain = 1;
+                EventManager.instance.itemEvents.ReduceItem(itemObject, itemInfoSO, itemGain);
+                break;
+        }
         Destroy(this.gameObject);
     }
 }

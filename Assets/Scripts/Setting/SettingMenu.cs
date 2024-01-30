@@ -38,7 +38,7 @@ public class SettingMenu : MonoBehaviour
         input.Setting.Window.performed += ctx => SwitchSetting();
     }
 
-    private void SwitchSetting()
+    public void SwitchSetting()
     {
         if (!settingSwitch)
         {

@@ -39,7 +39,7 @@ public class InventoryController : MonoBehaviour
         EventManager.instance.inputEvents.onInventoryItemOptionalClose -= OptionalItemClose;
     }
 
-    private void SwitchInventory()
+    public void SwitchInventory()
     {
         if (!inventorySwitch)
         {
@@ -83,13 +83,13 @@ public class InventoryController : MonoBehaviour
     {
         objInstant = Instantiate(itemOptional, transformViewport);
         objInstant.transform.position = transform.position + new Vector3(positionOptional.x, positionOptional.y, 0);
-        switch (info.ItemStatus)
+        /* switch (info.ItemStatus)
         {
             case ItemStatus.NOT_AVAILABLE:
                 GameObject buttonUse = objInstant.transform.Find("ButtonUse").gameObject;
                 buttonUse.SetActive(false);
                 break;
-        }
+        } */
     }
 
     private void DestroyOptionalItem()

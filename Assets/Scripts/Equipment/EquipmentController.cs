@@ -169,7 +169,7 @@ public class EquipmentController : MonoBehaviour
         //Debug.Log("Enter Slot on Controller");
         isSlotPointer = false;
     }
-    private void SwitchEquipment()
+    public void SwitchEquipment()
     {
         if (!equipmentSwitch)
         {
