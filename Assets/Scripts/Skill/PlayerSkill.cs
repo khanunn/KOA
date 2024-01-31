@@ -36,6 +36,22 @@ public class PlayerSkill : MonoBehaviour
 
     float[] SkillMaxSetCD = { 3, 3, 5, 7 };
 
+    private StatController statController;
+
+    void OnEnable()
+    {
+        EventManager.instance.statEvents.onSendStatController += StartStatus;
+    }
+
+    void OnDisable()
+    {
+        EventManager.instance.statEvents.onSendStatController -= StartStatus;
+    }
+    private void StartStatus(StatController myStat)
+    {
+        statController = myStat;
+    }
+
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
@@ -58,7 +74,7 @@ public class PlayerSkill : MonoBehaviour
             CurrentSkill = new int[3];
         }
 
-        
+
 
         StartCoroutine(CooldownTimer());
     }
@@ -184,6 +200,7 @@ public class PlayerSkill : MonoBehaviour
     private void DestroyVFX()
     {
         isSkillPlaying = false;
+        meshCollider.enabled = false;
 
         foreach (Transform child in VFX.transform)
         {
@@ -259,7 +276,6 @@ public class PlayerSkill : MonoBehaviour
         if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
         {
             isSkillPlaying = false;
-            meshCollider.enabled = false;
             //ResetSkill();
 
         }
@@ -273,9 +289,19 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-    private void SendAttackSkill()
+    public void SendAttackSkill()
     {
+        Debug.Log("SendAttackSkill Connected");
+        PlayerController controller = GetComponent<PlayerController>();
+        int skillPhysicDamage = statController.v_patk.statValue * 2;
+        Debug.Log("skill damage: " + skillPhysicDamage);
+        Debug.Log("skill Target: " + controller.target);
 
+        if (controller.target == null) return;
+        controller.target.myActor.TakeDamage(skillPhysicDamage);
+        Vector3 position = controller.target.transform.position;
+        EventManager.instance.playerEvents.AttackPopUp(position, skillPhysicDamage.ToString(), Color.green);
+        controller.SendEnemy();
     }
 }
 

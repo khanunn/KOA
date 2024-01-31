@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
+  m_IndirectSpecularColor: {r: 261.90173, g: 324.4571, b: 429.43616, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11198,7 +11198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343271999}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4247082, y: -0.3398511, z: 0.17591988, w: 0.82047325}
+  m_LocalRotation: {x: 0.4247082, y: -0.33985114, z: 0.17591989, w: 0.82047325}
   m_LocalPosition: {x: -0.46000004, y: 9, z: 1.5500002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11527,7 +11527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f4929345a01884cb4aa39e9b562338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 100
   maxMana: 0
 --- !u!195 &347107808
 NavMeshAgent:
@@ -41720,7 +41720,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255389084}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4247082, y: -0.3398511, z: 0.17591988, w: 0.82047325}
+  m_LocalRotation: {x: 0.4247082, y: -0.33985114, z: 0.17591989, w: 0.82047325}
   m_LocalPosition: {x: -0.46000004, y: 9, z: 1.5500002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -45019,7 +45019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f4929345a01884cb4aa39e9b562338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 100
   maxMana: 0
 --- !u!195 &1347591340
 NavMeshAgent:
@@ -46243,7 +46243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f4929345a01884cb4aa39e9b562338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 100
   maxMana: 0
 --- !u!195 &1391215594
 NavMeshAgent:
@@ -47724,7 +47724,7 @@ GameObject:
   - component: {fileID: 1443453613}
   m_Layer: 0
   m_Name: Sword_Mesh_Collider
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47903,7 +47903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f4929345a01884cb4aa39e9b562338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 100
   maxMana: 0
 --- !u!195 &1449843625
 NavMeshAgent:
@@ -61031,6 +61031,7 @@ RectTransform:
   m_Children:
   - {fileID: 1845404268}
   - {fileID: 1708903756}
+  - {fileID: 1979743731}
   - {fileID: 1068704601}
   - {fileID: 882695581}
   - {fileID: 817357514}
@@ -61044,7 +61045,6 @@ RectTransform:
   - {fileID: 670150679}
   - {fileID: 347031415}
   - {fileID: 1267897757}
-  - {fileID: 1979743731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -64971,7 +64971,7 @@ RectTransform:
   m_GameObject: {fileID: 1979743730}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 482612173}
@@ -64984,8 +64984,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 35.99991, y: 89.842766}
-  m_SizeDelta: {x: 1302.4009, y: 179.6855}
+  m_AnchoredPosition: {x: -0.000022888, y: 52.421}
+  m_SizeDelta: {x: 1233.766, y: 179.686}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1979743733
 MonoBehaviour:
@@ -82594,7 +82594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f4929345a01884cb4aa39e9b562338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 100
   maxMana: 0
 --- !u!195 &8005475166079976258
 NavMeshAgent:
