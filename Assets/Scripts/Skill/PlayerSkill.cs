@@ -58,6 +58,8 @@ public class PlayerSkill : MonoBehaviour
             CurrentSkill = new int[3];
         }
 
+        
+
         StartCoroutine(CooldownTimer());
     }
     private void Start()
@@ -206,7 +208,7 @@ public class PlayerSkill : MonoBehaviour
         SkillData = new SkillInfoSO[CurrentSkill.Length];
         foreach (int ID in CurrentSkill)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             if (i < CurrentSkill.Length)
             {
                 var op = Addressables.LoadAssetAsync<SkillInfoSO>($"Assets/Skill/{ID}.asset"); //Load VFX to memory as Prefab
@@ -225,7 +227,7 @@ public class PlayerSkill : MonoBehaviour
         MaxCooldown = SkillMaxSetCD;
 
 
-        /* if (IsWeapon)
+        if (IsWeapon)
         {
             CurrentSkill = WeaponSkillSet;
 
@@ -237,7 +239,7 @@ public class PlayerSkill : MonoBehaviour
             CurrentSkill = UnWeaponSkillSet;
             //This code suppose to call when it have skill changing panal in the future
             LoadScriptObject();
-        } */
+        }
 
         Skill_ID = animator.GetInteger("Skill_ID");
         animator.SetBool("IsWeapon", IsWeapon);

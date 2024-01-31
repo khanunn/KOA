@@ -83,7 +83,7 @@ public class SkillSlotManager : MonoBehaviour
     {
         GameObject SkillImg = SkillSlot[id].transform.GetChild(0).gameObject;
         GameObject SkillText = SkillSlot[id].transform.GetChild(1).gameObject;
-        Debug.Log("skill text" + SkillText);
+        //Debug.Log("skill text" + SkillText);
         SkillText.GetComponent<TextMeshProUGUI>().text = PlayerSkill.MaxCooldown[id].ToString();
         SkillImg.GetComponent<Button>().interactable = true;
     }
@@ -94,10 +94,10 @@ public class SkillSlotManager : MonoBehaviour
 
         CurrentSlot = PlayerSkill.CurrentSkill.Length;
         //Set Skill Slot to Arraylist
-        /* for (int i = 0; i < this.transform.childCount; i++)
+        for (int i = 0; i < this.transform.childCount; i++)
         {
             SkillSlot[i] = transform.GetChild(i).gameObject;
-        } */
+        } 
         SettingSlot();
         SettingCoolDown();
         SettingIconAsync();
