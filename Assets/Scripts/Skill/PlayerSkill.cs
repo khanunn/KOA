@@ -301,7 +301,7 @@ public class PlayerSkill : MonoBehaviour
     {
         isSkillPlaying = false;
     }
-    private void SendAttackSkill()
+    public void SendAttackSkill()
     {
         Debug.Log("SendAttackSkill Connected");
         PlayerController controller = GetComponent<PlayerController>();

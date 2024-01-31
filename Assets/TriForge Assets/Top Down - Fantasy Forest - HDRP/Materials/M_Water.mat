@@ -15,18 +15,18 @@ Material:
   - _ENABLE_FOG_ON_TRANSPARENT
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
-  - _ADD_PRECOMPUTED_VELOCITY
   - _BLENDMODE_ALPHA
   - _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3400
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
   - TransparentBackface
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -101,11 +101,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AddPrecomputedVelocity: 1
+    - _AddPrecomputedVelocity: 0
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
-    - _AlphaSrcBlend: 0
+    - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
@@ -118,7 +118,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _Divisor: 0.3
     - _DoubleSidedEnable: 0
-    - _DoubleSidedGIMode: 0
+    - _DoubleSidedGIMode: 1
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
     - _EmissiveIntensity: 1
@@ -137,17 +137,17 @@ Material:
     - _NormalIntensity: 1.57
     - _NormalMapScale: 1.5
     - _OcclusionStrength: 1
-    - _Opacity: 1
-    - _OpaqueCullMode: 2
+    - _Opacity: 0.92
+    - _OpaqueCullMode: 1
     - _Parallax: 0.02
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
-    - _RenderQueueType: 5
+    - _RenderQueueType: 4
     - _RequireSplitLighting: 0
-    - _Smoothness: 0.887
+    - _Smoothness: 0.759
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Specularity: 0.037
+    - _Specularity: 0.013
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 0
@@ -177,10 +177,11 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _FoamColor: {r: 0.8537736, g: 0.95523673, b: 1, a: 0}
     - _WaterColor: {r: 0.106532566, g: 0.16981131, b: 0.13868715, a: 1}
     - _WaterColor2: {r: 0, g: 0.06804008, b: 0.122641504, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

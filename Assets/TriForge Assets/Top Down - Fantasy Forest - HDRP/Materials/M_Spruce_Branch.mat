@@ -13,21 +13,25 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _ENABLE_FOG_ON_TRANSPARENT
   - _GRADIENTUV_UV2
+  - _SURFACE_TYPE_TRANSPARENT
   - _USECOLORVARIANCE_ON
   - _USEGRADIENT_ON
   m_InvalidKeywords:
   - _ADD_PRECOMPUTED_VELOCITY
+  - _DISABLE_DECALS
+  - _DISABLE_SSR
   - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
   - _METALLICGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2475
+  m_CustomRenderQueue: 2985
   stringTagMap:
     MotionVector: User
-    RenderType: TransparentCutout
+    RenderType: Transparent
   disabledShaderPasses:
   - TransparentBackface
   m_LockedProperties: 
@@ -112,67 +116,67 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AOIntensity: 0.651
+    - _AOIntensity: 0.264
     - _AddPrecomputedVelocity: 1
-    - _AlphaClip: 0.5
-    - _AlphaCutoff: 0.5
+    - _AlphaClip: 0.43
+    - _AlphaCutoff: 0.382
     - _AlphaCutoffEnable: 1
-    - _AlphaDstBlend: 0
+    - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
     - _BumpScale: 1
-    - _ColorVarianceAmount: 0.147
+    - _ColorVarianceAmount: 0
     - _CullMode: 0
     - _CullModeForward: 0
-    - _Cutoff: 0.5
+    - _Cutoff: 0.382
     - _DetailBendingIntensity: 0
-    - _DetailBendingScale: 5
+    - _DetailBendingScale: 8.44
     - _DetailNormalMapScale: 1
     - _DoubleSidedEnable: 1
-    - _DoubleSidedGIMode: 0
-    - _DoubleSidedNormalMode: 2
-    - _DstBlend: 0
+    - _DoubleSidedGIMode: 1
+    - _DoubleSidedNormalMode: 1
+    - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _Float5: -80
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _GradientPosition: 2.93
+    - _GradientPosition: 7.53
     - _GradientUV: 0
-    - _MainTextureBrightness: 0.91
+    - _MainTextureBrightness: 0.68
     - _Metallic: 0
     - _Mode: 1
     - _NormalIntensity: 1
     - _OcclusionStrength: 1
     - _OpaqueCullMode: 2
     - _Parallax: 0.02
-    - _ReceivesSSR: 1
+    - _ReceivesSSR: 0
     - _ReceivesSSRTransparent: 0
-    - _RenderQueueType: 1
+    - _RenderQueueType: 4
     - _RequireSplitLighting: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StencilRef: 0
-    - _StencilRefDepth: 8
+    - _StencilRefDepth: 0
     - _StencilRefDistortionVec: 4
-    - _StencilRefGBuffer: 10
-    - _StencilRefMV: 40
+    - _StencilRefGBuffer: 2
+    - _StencilRefMV: 32
     - _StencilWriteMask: 6
     - _StencilWriteMaskDepth: 9
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 15
     - _StencilWriteMaskMV: 41
-    - _SupportDecals: 1
-    - _SurfaceType: 0
-    - _TopBrightness: 4
+    - _SupportDecals: 0
+    - _SurfaceType: 1
+    - _TopBrightness: 7.77
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
-    - _TransparentSortPriority: 0
+    - _TransparentSortPriority: -15
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
     - _UVSec: 0
@@ -185,17 +189,18 @@ Material:
     - _WindMultiplier: 1
     - _WindNoiseScale: 1
     - _WindStrength: 0.7
-    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
     - _Color: {r: 0.11337965, g: 0.3660378, b: 0.06284799, a: 0}
-    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
     - _TopColor: {r: 0.3886792, g: 0.3886792, b: 0.3886792, a: 0}
     - _WindAxis: {r: 0, g: 0, b: 1, a: 0}
     - _WindAxisXZ: {r: 0, g: 0, b: 1, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
