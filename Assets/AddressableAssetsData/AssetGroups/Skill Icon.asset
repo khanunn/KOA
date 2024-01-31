@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Skill Icon
+  m_EditorClassIdentifier: 
+  m_GroupName: Skill Icon
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 343819efaf6d7ae428779a65858506f7
+  m_SerializeEntries:
+  - m_GUID: 7829dec0747289f41ad13710ee3df499
+    m_Address: Assets/SkillIcon/Inusing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 62f7dd2a7fda27d4b9bb281e7b8ba8e2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6ebe6edc63129304982dcdcd9d714dda, type: 2}
+    - {fileID: 11400000, guid: f6bc7fdba6a3273488336dc2f4014e25, type: 2}

@@ -147,11 +147,21 @@ public class PlayerSkill : MonoBehaviour
 
     public SkillInfoSO[] SkillData; // List all aviable skill
 
+    //use for hard code set skill
+    int[] UnWeaponSkillSet = { 0, 3, 4 };
+    int[] WeaponSkillSet = { 1, 2, 3, 4 };
+
+    
+    float[] SkillMaxSetCD = { 3, 3, 5, 7 };
+
 
     IEnumerator CooldownTimer()
     {
+        //int temp = skillCooldowns.Length;
         while (true)
         {
+            //if (temp != skillCooldowns.Length) break;
+
             for (int i = 0; i < skillCooldowns.Length; i++)
             {
                 if (skillCooldowns[i] > 0)
@@ -165,6 +175,8 @@ public class PlayerSkill : MonoBehaviour
             }
             yield return null;
         }
+
+        //if(temp != skillCooldowns.Length) StartCoroutine(CooldownTimer());
     }
 
     void SkillSystem()
@@ -189,11 +201,16 @@ public class PlayerSkill : MonoBehaviour
                 Debug.Log(CurrentSkill[2]);
             }
 
-            if (Input.GetKeyUp(KeyCode.Alpha4))
+            if (IsWeapon)
             {
-                TryStartSkill(CurrentSkill[3],3);
-                Debug.Log(CurrentSkill[3]);
+                if (Input.GetKeyUp(KeyCode.Alpha4))
+                {
+                    TryStartSkill(CurrentSkill[3], 3);
+                    Debug.Log(CurrentSkill[3]);
+                }
             }
+
+            
         }
     }
 
@@ -234,7 +251,7 @@ public class PlayerSkill : MonoBehaviour
             CreateVFX.transform.SetParent(VFX.transform);
 
             CreateVFX.transform.localPosition = new Vector3(0, 0, 0);
-            //CreateVFX.transform.rotation = Player.transform.rotation;
+            CreateVFX.transform.rotation = Player.transform.rotation;
         }
 
         // Get the AnimationClip from the Animator's runtimeAnimatorController    
@@ -261,41 +278,77 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-  /*  private void LoadScriptObject()
+    private float[] GetSkillCooldowns()
     {
-        SkillData;
-    }*/
+        return skillCooldowns;
+    }
 
+    //This code suppose to call when it have skill changing panal in the future
+    private async void LoadScriptObject()  //Call this everytime when player need to resetskill on skillslot
+    {        
+        int i = 0;
 
-    private void Start()
+        //will be using later on when equipment Item are call
+        //SkillMaxSetCD = new float[CurrentSkill.Length];
+        //skillCooldowns = new float[CurrentSkill.Length];
+        SkillData = new SkillInfoSO[CurrentSkill.Length];
+        foreach (int ID in CurrentSkill)
+        {          
+            Debug.Log(i);
+            if (i < CurrentSkill.Length)
+            {
+                var op = Addressables.LoadAssetAsync<SkillInfoSO>($"Assets/Skill/{ID}.asset"); //Load VFX to memory as Prefab
+                var prefab = await op.Task;
+                SkillData[i] = prefab;
+                SkillMaxSetCD[i] = prefab.CooldownSkill;
+            }            
+            i++;
+        }
+    }
+
+   
+    private void Awake()
     {
-        animator = this.GetComponent<Animator>();
+        animator = this.GetComponent<Animator>();        
+        LoadScriptObject();
+
+        SkillData = new SkillInfoSO[6];
+
+        if (IsWeapon)
+        {                        
+            skillCooldowns = new float[4];
+            SkillMaxSetCD = new float[4];
+            CurrentSkill = new int[4];
+        }
+        else
+        {
+            skillCooldowns = new float[3];
+            SkillMaxSetCD = new float[3];
+            CurrentSkill = new int[3];
+        }
+
         StartCoroutine(CooldownTimer());
-
-        if (IsWeapon) { skillCooldowns = new float[4]; }
-        else skillCooldowns = new float[3];
     }
 
     private void Update()
     {
         SkillSystem();
 
-        //use for hard code set skill
-        int[] UnWeaponSkillSet = { 0, 3, 4 };
-        int[] WeaponSkillSet = { 1, 2, 3, 4 };        
+        MaxCooldown = SkillMaxSetCD;
 
-        float[] UnWeaponSkillMaxSetCD = { 3, 5, 7 };
-        float[] WeaponSkillMaxSetCD = { 3, 3, 5, 7,};
 
-        if (IsWeapon)
+        if (IsWeapon) 
         {
-            CurrentSkill = WeaponSkillSet;
-            MaxCooldown = WeaponSkillMaxSetCD;
+            CurrentSkill = WeaponSkillSet;            
+
+            //This code suppose to call when it have skill changing panal in the future
+            LoadScriptObject();            
         }
         else
         {
-            CurrentSkill = UnWeaponSkillSet;            
-            MaxCooldown = UnWeaponSkillMaxSetCD;
+            CurrentSkill = UnWeaponSkillSet;                      
+            //This code suppose to call when it have skill changing panal in the future
+            LoadScriptObject();          
         }
 
         Skill_ID = animator.GetInteger("Skill_ID");
