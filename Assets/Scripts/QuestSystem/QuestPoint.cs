@@ -19,7 +19,7 @@ public class QuestPoint : MonoBehaviour
     private QuestIcon questIcon;
     private Interactable target;
     public GameObject canvas;
-    private UIController uIController;
+    //private UIController uIController;
     private DialogueInfoSO[] questDialog;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class QuestPoint : MonoBehaviour
         questId = questInfoForPoint.id;
         questIcon = GetComponentInChildren<QuestIcon>();
         target = GetComponent<Interactable>();
-        uIController = GetComponentInChildren<UIController>();
+        //uIController = GetComponentInChildren<UIController>();
         canvas.SetActive(false);
         //Debug.Log("Success QuestPoint");
     }
@@ -54,7 +54,7 @@ public class QuestPoint : MonoBehaviour
         {
             EventManager.instance.questEvents.StartQuest(questId);
             //Debug.Log("Quest ID from QuestPoint: " + questId);
-            uIController.SetQuestToUI(questId);
+            //uIController.SetQuestToUI(questId);
             canvas.SetActive(true);
             EventManager.instance.dialogueEvents.DialogueStart(questInfoForPoint.DialogueInfoSOStart);
         }
@@ -90,7 +90,7 @@ public class QuestPoint : MonoBehaviour
 
             target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
             //Debug.Log("Target : " + target + "Type " + target.interactionType);
-            target.myPlayer.InteractableChange(this);
+            target.myPlayer.InteractableChange(this.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)

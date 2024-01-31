@@ -264,7 +264,7 @@
                 {
                     "name": "",
                     "id": "2678c295-9fc8-4872-9589-1a9dad14645b",
-                    "path": "<Keyboard>/f2",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -379,6 +379,34 @@
                     "name": "",
                     "id": "d8ad6946-b2f0-4c34-b519-f2f35f1162b9",
                     "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Window",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Setting",
+            "id": "a7efb66e-a908-4f8c-bf0c-7fd7016002ae",
+            "actions": [
+                {
+                    "name": "Window",
+                    "type": "Button",
+                    "id": "87eecc6f-ae0d-4de5-8d40-e1c8bbb9e14c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bc4d0e73-618b-4c0d-a724-b7bb70608e30",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -23,6 +23,7 @@ public class ItemInfoSO : ScriptableObject
     [field: Header("Genaral")]
     [field: SerializeField] public string DisplayName { get; private set; }
     [field: SerializeField] public int Value { get; private set; }
+    [field: SerializeField] public int Price { get; private set; }
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public ItemName ItemName { get; private set; }
     [field: SerializeField] public ItemStatus ItemStatus { get; private set; }

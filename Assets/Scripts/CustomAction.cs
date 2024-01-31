@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @CustomAction : IInputActionCollection2, IDisposable
+public partial class @CustomAction: IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
     public @CustomAction()
@@ -286,7 +286,7 @@ public partial class @CustomAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2678c295-9fc8-4872-9589-1a9dad14645b"",
-                    ""path"": ""<Keyboard>/f2"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -409,6 +409,34 @@ public partial class @CustomAction : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Setting"",
+            ""id"": ""a7efb66e-a908-4f8c-bf0c-7fd7016002ae"",
+            ""actions"": [
+                {
+                    ""name"": ""Window"",
+                    ""type"": ""Button"",
+                    ""id"": ""87eecc6f-ae0d-4de5-8d40-e1c8bbb9e14c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""bc4d0e73-618b-4c0d-a724-b7bb70608e30"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Window"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -435,6 +463,9 @@ public partial class @CustomAction : IInputActionCollection2, IDisposable
         m_Equipment = asset.FindActionMap("Equipment", throwIfNotFound: true);
         m_Equipment_Preview = m_Equipment.FindAction("Preview", throwIfNotFound: true);
         m_Equipment_Window = m_Equipment.FindAction("Window", throwIfNotFound: true);
+        // Setting
+        m_Setting = asset.FindActionMap("Setting", throwIfNotFound: true);
+        m_Setting_Window = m_Setting.FindAction("Window", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -712,6 +743,52 @@ public partial class @CustomAction : IInputActionCollection2, IDisposable
         }
     }
     public EquipmentActions @Equipment => new EquipmentActions(this);
+
+    // Setting
+    private readonly InputActionMap m_Setting;
+    private List<ISettingActions> m_SettingActionsCallbackInterfaces = new List<ISettingActions>();
+    private readonly InputAction m_Setting_Window;
+    public struct SettingActions
+    {
+        private @CustomAction m_Wrapper;
+        public SettingActions(@CustomAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Window => m_Wrapper.m_Setting_Window;
+        public InputActionMap Get() { return m_Wrapper.m_Setting; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SettingActions set) { return set.Get(); }
+        public void AddCallbacks(ISettingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SettingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SettingActionsCallbackInterfaces.Add(instance);
+            @Window.started += instance.OnWindow;
+            @Window.performed += instance.OnWindow;
+            @Window.canceled += instance.OnWindow;
+        }
+
+        private void UnregisterCallbacks(ISettingActions instance)
+        {
+            @Window.started -= instance.OnWindow;
+            @Window.performed -= instance.OnWindow;
+            @Window.canceled -= instance.OnWindow;
+        }
+
+        public void RemoveCallbacks(ISettingActions instance)
+        {
+            if (m_Wrapper.m_SettingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISettingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SettingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SettingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SettingActions @Setting => new SettingActions(this);
     public interface IMainActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -734,6 +811,10 @@ public partial class @CustomAction : IInputActionCollection2, IDisposable
     public interface IEquipmentActions
     {
         void OnPreview(InputAction.CallbackContext context);
+        void OnWindow(InputAction.CallbackContext context);
+    }
+    public interface ISettingActions
+    {
         void OnWindow(InputAction.CallbackContext context);
     }
 }

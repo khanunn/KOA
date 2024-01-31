@@ -9,6 +9,7 @@ public enum InteractableType
     ITEM_QUEST,
     NPC,
     ITEM_INVENTORY,
+    SHOP
 }
 public class Interactable : MonoBehaviour
 {
