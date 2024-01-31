@@ -97,19 +97,19 @@ public class PlayerSkill : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Alpha1))
             {
                 TryStartSkill(CurrentSkill[0], 0);
-                Debug.Log(CurrentSkill[0]);
+                //Debug.Log(CurrentSkill[0]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha2))
             {
                 TryStartSkill(CurrentSkill[1], 1);
-                Debug.Log(CurrentSkill[1]);
+               // Debug.Log(CurrentSkill[1]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha3))
             {
                 TryStartSkill(CurrentSkill[2], 2);
-                Debug.Log(CurrentSkill[2]);
+                //Debug.Log(CurrentSkill[2]);
             }
 
             if (IsWeapon)
@@ -117,7 +117,7 @@ public class PlayerSkill : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Alpha4))
                 {
                     TryStartSkill(CurrentSkill[3], 3);
-                    Debug.Log(CurrentSkill[3]);
+                    //Debug.Log(CurrentSkill[3]);
                 }
             }
 
@@ -217,9 +217,7 @@ public class PlayerSkill : MonoBehaviour
             }
             i++;
         }
-
-        slotManager.SettingSlot();
-        slotManager.SettingCoolDown();
+        
         slotManager.SettingIconAsync();
 
     }
