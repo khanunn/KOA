@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
@@ -56,9 +57,7 @@ public class PlayerSkill : MonoBehaviour
             skillCooldowns = new float[3];
             SkillMaxSetCD = new float[3];
             CurrentSkill = new int[3];
-        }
-
-        
+        }       
 
         StartCoroutine(CooldownTimer());
     }
@@ -129,9 +128,9 @@ public class PlayerSkill : MonoBehaviour
     private void TryStartSkill(int skillId, int ButtonID)
     {
         // Check if the skill is not on cooldown
-        if (skillCooldowns[ButtonID] == 0)
+        if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
         {
-            isSkillPlaying = true;
+           // isSkillPlaying = true;
             StartSkill(skillId);
             Invoke("ResetSkill", 0.01f);
             // Set cooldown for the skill
@@ -147,7 +146,7 @@ public class PlayerSkill : MonoBehaviour
     async void StartSkill(int skillId)
     {
         meshCollider.enabled = true;
-        isSkillPlaying = true;
+        //isSkillPlaying = true;
         Player.StopSequence(); //using to player stop moving
 
         animator.Play(skillId.ToString()); //Player SKill Movement
@@ -181,7 +180,7 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-    private void DestroyVFX()
+    public void DestroyVFX()
     {
         isSkillPlaying = false;
 
@@ -218,6 +217,11 @@ public class PlayerSkill : MonoBehaviour
             }
             i++;
         }
+
+        slotManager.SettingSlot();
+        slotManager.SettingCoolDown();
+        slotManager.SettingIconAsync();
+
     }
 
     private void Update()
@@ -258,7 +262,7 @@ public class PlayerSkill : MonoBehaviour
         // Check if the animation has finished
         if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
         {
-            isSkillPlaying = false;
+            //isSkillPlaying = false;
             meshCollider.enabled = false;
             //ResetSkill();
 
@@ -273,6 +277,15 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
+    public void SkillPLaying()
+    {
+        isSkillPlaying = true;
+    }
+
+    public void SkillNotPLaying()
+    {
+        isSkillPlaying = false;
+    }
     private void SendAttackSkill()
     {
 

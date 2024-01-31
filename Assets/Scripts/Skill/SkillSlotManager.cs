@@ -52,18 +52,21 @@ public class SkillSlotManager : MonoBehaviour
 
     public async Task SettingIconAsync() //Call this everytime when player need to resetskill on skillslot
     {
-        var Index = 1;
+        var Index = 0;
         //For Debug and Test 0: yellow 1: Blue 2: LightBlue 3: green 4: Red
-
+        int[] tempSKill = PlayerSkill.CurrentSkill;
+        for (int i = 0; i < tempSKill.Length; i++)
+        {
+            tempSKill[i] = PlayerSkill.CurrentSkill[i];            
+        }
         foreach (var item in SkillSlot)
         {
             GameObject SkillImg = item.transform.GetChild(0).gameObject;
 
             if (Index < PlayerSkill.CurrentSkill.Length)
             {
-                var op = Addressables.LoadAssetAsync<Sprite>($"Assets/SkillIcon/Inusing/{Index}.png"); //Load VFX to memory as Prefab
-                Sprite prefab = await op.Task;
-
+                var op = Addressables.LoadAssetAsync<Sprite>($"Assets/SkillIcon/Inusing/{tempSKill[Index]}.png"); //Load VFX to memory as Prefab
+                Sprite prefab = await op.Task;                
                 SkillImg.GetComponent<Image>().sprite = prefab;
             }
             else SkillImg.GetComponent<Button>().interactable = false;
@@ -98,9 +101,9 @@ public class SkillSlotManager : MonoBehaviour
         {
             SkillSlot[i] = transform.GetChild(i).gameObject;
         } 
-        SettingSlot();
+    /*    SettingSlot();
         SettingCoolDown();
-        SettingIconAsync();
+        SettingIconAsync();*/
 
     }
 
@@ -111,6 +114,7 @@ public class SkillSlotManager : MonoBehaviour
         {
             SettingSlot();
             SettingCoolDown();
+            SettingIconAsync();
             CurrentSlot = PlayerSkill.CurrentSkill.Length;
         }
 
