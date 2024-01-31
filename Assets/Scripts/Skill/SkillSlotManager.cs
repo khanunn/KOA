@@ -18,8 +18,8 @@ public class SkillSlotManager : MonoBehaviour
     {
         var Index = 0;
         foreach (var item in SkillSlot)
-        {            
-            GameObject SkillText = item.transform.GetChild(1).gameObject; 
+        {
+            GameObject SkillText = item.transform.GetChild(1).gameObject;
 
             if (Index < PlayerSkill.CurrentSkill.Length) //to prevent index out bound
             {
@@ -38,7 +38,7 @@ public class SkillSlotManager : MonoBehaviour
 
         foreach (var item in SkillSlot)
         {
-            GameObject SkillImg = item.transform.GetChild(0).gameObject; 
+            GameObject SkillImg = item.transform.GetChild(0).gameObject;
 
             if (Index < PlayerSkill.CurrentSkill.Length)
             {
@@ -74,17 +74,18 @@ public class SkillSlotManager : MonoBehaviour
 
 
     public void UnActiveSlot(int id)
-    {       
-        GameObject SkillImg = SkillSlot[id].transform.GetChild(0).gameObject;        
-        SkillImg.GetComponent<Button>().interactable = false;   
+    {
+        GameObject SkillImg = SkillSlot[id].transform.GetChild(0).gameObject;
+        SkillImg.GetComponent<Button>().interactable = false;
     }
 
     public void ActiveSlot(int id)
     {
         GameObject SkillImg = SkillSlot[id].transform.GetChild(0).gameObject;
         GameObject SkillText = SkillSlot[id].transform.GetChild(1).gameObject;
+        Debug.Log("skill text" + SkillText);
         SkillText.GetComponent<TextMeshProUGUI>().text = PlayerSkill.MaxCooldown[id].ToString();
-        SkillImg.GetComponent<Button>().interactable = true; 
+        SkillImg.GetComponent<Button>().interactable = true;
     }
     // Start is called before the first frame update
     void Start()
@@ -93,15 +94,15 @@ public class SkillSlotManager : MonoBehaviour
 
         CurrentSlot = PlayerSkill.CurrentSkill.Length;
         //Set Skill Slot to Arraylist
-        for (int i = 0; i < this.transform.childCount; i++)
+        /* for (int i = 0; i < this.transform.childCount; i++)
         {
             SkillSlot[i] = transform.GetChild(i).gameObject;
-        }
+        } */
         SettingSlot();
         SettingCoolDown();
         SettingIconAsync();
 
-    }   
+    }
 
     // Update is called once per frame
     void Update()
@@ -113,11 +114,11 @@ public class SkillSlotManager : MonoBehaviour
             CurrentSlot = PlayerSkill.CurrentSkill.Length;
         }
 
-        for (int i = 0;i < PlayerSkill.skillCooldowns.Length; i++)
+        for (int i = 0; i < PlayerSkill.skillCooldowns.Length; i++)
         {
             GameObject SkillText = SkillSlot[i].transform.GetChild(1).gameObject;
             float temp = (float)Math.Round(PlayerSkill.skillCooldowns[i], 1);
             SkillText.GetComponent<TextMeshProUGUI>().text = temp.ToString();
-        }      
+        }
     }
 }

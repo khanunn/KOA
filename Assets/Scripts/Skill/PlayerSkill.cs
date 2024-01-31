@@ -1,127 +1,3 @@
-/*using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class PlayerSkill : MonoBehaviour
-{
-    [Header("Skill Settings")]
-    Animator animator;
-    [SerializeField] int Skill_ID;
-    [SerializeField] bool isSkillPlaying = false;
-
-    [Header("Equipment Settings")]
-    public bool IsWeapon = false;
-    [SerializeField] SkinnedMeshRenderer Sword;
-    [SerializeField] SkinnedMeshRenderer Shield;
-
-    [Header("Player Setting")]
-    [SerializeField] PlayerController Player;
-    [SerializeField] GameObject VFX;
-    private MeshCollider meshCollider;
-
-    private void Awake() {
-        animator = this.GetComponent<Animator>();
-        meshCollider = this.GetComponentInChildren<MeshCollider>();
-    }
-    private void Start()
-    {
-        meshCollider.enabled = false;
-    }
-
-    void SkillSystem()
-    {        
-        if (!isSkillPlaying)
-        {
-            if (IsWeapon) // Have Sword
-            {
-                if (Input.GetKeyUp(KeyCode.Alpha1))
-                {                    
-                    isSkillPlaying = true;
-                    StartSkill(1);
-                    Invoke("ResetSkill", 0.1f);
-                }
-
-                if (Input.GetKeyUp(KeyCode.Alpha2))
-                {                    
-                    isSkillPlaying = true;
-                    StartSkill(2);
-                    Invoke("ResetSkill", 0.1f);
-                }
-            }
-
-            if (!IsWeapon) // Bare hand
-            {
-                if (Input.GetKeyUp(KeyCode.Alpha1))
-                {
-                    StartSkill(0);
-                    Invoke("ResetSkill", 0.1f);
-                }
-            }
-
-            if (Input.GetKeyUp(KeyCode.Alpha3))
-            {
-                StartSkill(3);
-                Invoke("ResetSkill", 0.1f);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Alpha4))
-            {
-                StartSkill(4);
-                Invoke("ResetSkill", 0.1f);
-            }
-        }
-    }
-
-    private void ResetSkill()
-    {
-        animator.SetInteger("Skill_ID", -1);        
-    }
-
-    void StartSkill(int skillId)
-    {
-        isSkillPlaying = true;
-        Player.StopSequence(); //using to player stop moving
-        //animator.SetInteger("Skill_ID", skillId);     
-        animator.Play(skillId.ToString());                     
-    }
-
-    private void Update()
-    {
-        SkillSystem();
-
-        Skill_ID = animator.GetInteger("Skill_ID");
-        animator.SetBool("IsWeapon", IsWeapon);
-
-        if (IsWeapon)
-        {
-            Sword.enabled = true;
-            Shield.enabled = true;
-        }
-        else
-        {
-            Sword.enabled = false;
-            Shield.enabled = false;
-        }
-
-        // Check if the animation has finished
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
-        {
-            isSkillPlaying = false;
-            //ResetSkill();
-        }
-
-        if(isSkillPlaying)
-        {
-            if(Input.GetKey(KeyCode.Mouse1))
-            {
-                Player.StopSequence();
-            }
-        }
-
-    }
-}
-*/
 using System;
 using System.Collections;
 using UnityEngine;
@@ -145,6 +21,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
+    private MeshCollider meshCollider;
 
     public float[] MaxCooldown; //Set Max CD
     public float[] skillCooldowns; //using for Count CD
@@ -156,9 +33,37 @@ public class PlayerSkill : MonoBehaviour
     int[] UnWeaponSkillSet = { 0, 3, 4 };
     int[] WeaponSkillSet = { 1, 2, 3, 4 };
 
-    
+
     float[] SkillMaxSetCD = { 3, 3, 5, 7 };
 
+    private void Awake()
+    {
+        animator = this.GetComponent<Animator>();
+        meshCollider = this.GetComponentInChildren<MeshCollider>();
+
+        LoadScriptObject();
+
+        SkillData = new SkillInfoSO[6];
+
+        if (IsWeapon)
+        {
+            skillCooldowns = new float[4];
+            SkillMaxSetCD = new float[4];
+            CurrentSkill = new int[4];
+        }
+        else
+        {
+            skillCooldowns = new float[3];
+            SkillMaxSetCD = new float[3];
+            CurrentSkill = new int[3];
+        }
+
+        StartCoroutine(CooldownTimer());
+    }
+    private void Start()
+    {
+        meshCollider.enabled = false;
+    }
 
     IEnumerator CooldownTimer()
     {
@@ -171,7 +76,7 @@ public class PlayerSkill : MonoBehaviour
             {
                 if (skillCooldowns[i] > 0)
                 {
-                    skillCooldowns[i] -= Time.deltaTime;                    
+                    skillCooldowns[i] -= Time.deltaTime;
                     slotManager.UnActiveSlot(i);
                     if (skillCooldowns[i] < 0)
                         skillCooldowns[i] = 0;
@@ -187,22 +92,22 @@ public class PlayerSkill : MonoBehaviour
     void SkillSystem()
     {
         if (!isSkillPlaying)
-        {                      
+        {
             if (Input.GetKeyUp(KeyCode.Alpha1))
             {
-                TryStartSkill(CurrentSkill[0],0);
+                TryStartSkill(CurrentSkill[0], 0);
                 Debug.Log(CurrentSkill[0]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha2))
             {
-                TryStartSkill(CurrentSkill[1],1);
+                TryStartSkill(CurrentSkill[1], 1);
                 Debug.Log(CurrentSkill[1]);
-            }                   
+            }
 
             if (Input.GetKeyUp(KeyCode.Alpha3))
             {
-                TryStartSkill(CurrentSkill[2],2);
+                TryStartSkill(CurrentSkill[2], 2);
                 Debug.Log(CurrentSkill[2]);
             }
 
@@ -215,17 +120,17 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
 
-            
+
         }
     }
 
-    private void TryStartSkill(int skillId,int ButtonID)
+    private void TryStartSkill(int skillId, int ButtonID)
     {
         // Check if the skill is not on cooldown
         if (skillCooldowns[ButtonID] == 0)
         {
             isSkillPlaying = true;
-            StartSkill(skillId);            
+            StartSkill(skillId);
             Invoke("ResetSkill", 0.01f);
             // Set cooldown for the skill
             skillCooldowns[ButtonID] = MaxCooldown[ButtonID];
@@ -277,7 +182,7 @@ public class PlayerSkill : MonoBehaviour
     private void DestroyVFX()
     {
         isSkillPlaying = false;
-        
+
         foreach (Transform child in VFX.transform)
         {
             // Destroy all components attached to the child GameObject
@@ -292,7 +197,7 @@ public class PlayerSkill : MonoBehaviour
 
     //This code suppose to call when it have skill changing panal in the future
     private async void LoadScriptObject()  //Call this everytime when player need to resetskill on skillslot
-    {        
+    {
         int i = 0;
 
         //will be using later on when equipment Item are call
@@ -300,7 +205,7 @@ public class PlayerSkill : MonoBehaviour
         //skillCooldowns = new float[CurrentSkill.Length];
         SkillData = new SkillInfoSO[CurrentSkill.Length];
         foreach (int ID in CurrentSkill)
-        {          
+        {
             Debug.Log(i);
             if (i < CurrentSkill.Length)
             {
@@ -308,33 +213,9 @@ public class PlayerSkill : MonoBehaviour
                 var prefab = await op.Task;
                 SkillData[i] = prefab;
                 SkillMaxSetCD[i] = prefab.CooldownSkill;
-            }            
+            }
             i++;
         }
-    }
-
-   
-    private void Awake()
-    {
-        animator = this.GetComponent<Animator>();        
-        LoadScriptObject();
-
-        SkillData = new SkillInfoSO[6];
-
-        if (IsWeapon)
-        {                        
-            skillCooldowns = new float[4];
-            SkillMaxSetCD = new float[4];
-            CurrentSkill = new int[4];
-        }
-        else
-        {
-            skillCooldowns = new float[3];
-            SkillMaxSetCD = new float[3];
-            CurrentSkill = new int[3];
-        }
-
-        StartCoroutine(CooldownTimer());
     }
 
     private void Update()
@@ -344,24 +225,24 @@ public class PlayerSkill : MonoBehaviour
         MaxCooldown = SkillMaxSetCD;
 
 
-        if (IsWeapon) 
+        /* if (IsWeapon)
         {
-            CurrentSkill = WeaponSkillSet;            
+            CurrentSkill = WeaponSkillSet;
 
             //This code suppose to call when it have skill changing panal in the future
-            LoadScriptObject();            
+            LoadScriptObject();
         }
         else
         {
-            CurrentSkill = UnWeaponSkillSet;                      
+            CurrentSkill = UnWeaponSkillSet;
             //This code suppose to call when it have skill changing panal in the future
-            LoadScriptObject();          
-        }
+            LoadScriptObject();
+        } */
 
         Skill_ID = animator.GetInteger("Skill_ID");
         animator.SetBool("IsWeapon", IsWeapon);
 
-        if (IsWeapon)
+        /* if (IsWeapon)
         {
             Sword.enabled = true;
             Shield.enabled = true;
@@ -370,7 +251,7 @@ public class PlayerSkill : MonoBehaviour
         {
             Sword.enabled = false;
             Shield.enabled = false;
-        }
+        } */
 
         // Check if the animation has finished
         if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
@@ -392,7 +273,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void SendAttackSkill()
     {
-        
+
     }
 }
 
