@@ -103,10 +103,10 @@ public class PlayerController : MonoBehaviour
         statController = myStat;
     }
 
-    public void InteractableChange(GameObject npc)
+    public void InteractableChange(GameObject obj)
     {
-        target = npc.GetComponent<Interactable>();
-        Debug.Log("target from player: " + npc + "Type: " + target.interactionType);
+        target = obj.GetComponent<Interactable>();
+        Debug.Log("target from player: " + obj + "Type: " + target.interactionType);
     }
 
     //==================ยกเลิกการโจมตีเป้าหมาย=============================//
@@ -335,7 +335,7 @@ public class PlayerController : MonoBehaviour
         SendEnemy();
     }
     //==========================================//
-    void SendEnemy()
+    public void SendEnemy()
     {
         if (target.myActor.currentHealth <= 0)
         {

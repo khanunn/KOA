@@ -283,6 +283,10 @@ public class PatrolController : MonoBehaviour
         {
             Debug.Log("MeshCollider" + meshCollider.tag);
             // ทำสิ่งที่คุณต้องการเมื่อมี MeshCollider เข้ามาใน Trigger Collider ของวัตถุนี้
+            target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
+            target.myPlayer.InteractableChange(this.gameObject);
+            target.myPlayerSkill.SendAttackSkill();
+            Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
         }
     }
 
