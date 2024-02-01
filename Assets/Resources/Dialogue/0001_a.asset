@@ -14,14 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <id>k__BackingField: 0001_a
   nameText:
-  - khanun
-  - dragon
-  - khanun
-  - dragon
-  - khanun
+  - Wanderer
+  - Player
+  - Wanderer
+  - Wanderer
+  - Player
+  - Wanderer
   messageText:
-  - Hey dude how you fell
-  - it's bad day
-  - I can help?
-  - kill 5 skeleton for me pls.
-  - it's fine
+  - Hello  judging by your attire you are not from around here are you
+  - Yes, you are right. Is there any problem
+  - Just observing, I can tell you are not a familiar face. But never mind that,     
+    I have a matter that could use your assistance.
+  - Can you help me by dealing with these monsters
+  - So what do I get
+  - Well, I may not be familiar with you, but I am willing to reward you for your
+    help.    Will you assist me in getting rid of these 5 monsters

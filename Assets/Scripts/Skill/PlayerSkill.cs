@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Rendering;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour
 {
+   
+
     [Header("Skill Settings")]
     Animator animator;
     [SerializeField] int Skill_ID;
@@ -163,6 +167,7 @@ public class PlayerSkill : MonoBehaviour
 
     async void StartSkill(int skillId)
     {
+        //isUsing = true
         meshCollider.enabled = true;
         //isSkillPlaying = true;
         Player.StopSequence(); //using to player stop moving
@@ -192,8 +197,9 @@ public class PlayerSkill : MonoBehaviour
         if (targetClip != null)
         {
             // Retrieve the length of the animation
-            float animationLength = targetClip.length;
-            Invoke("DestroyVFX", animationLength);
+            float animationLength = targetClip.length * 1000;
+            await Task.Delay((int)animationLength);
+            DestroyVFX();
             Addressables.Release(op);
         }
     }
@@ -208,6 +214,7 @@ public class PlayerSkill : MonoBehaviour
             // Destroy all components attached to the child GameObject
             Destroy(child.gameObject);
         }
+        
     }
 
     private float[] GetSkillCooldowns()

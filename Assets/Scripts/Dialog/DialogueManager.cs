@@ -88,7 +88,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in text)
         {
             DialogText.text += c;
-            yield return new WaitForSeconds(0.05f); // Adjust the delay as needed
+            yield return new WaitForSeconds(0.005f); // Adjust the delay as needed
         }
         NextButton.interactable = true;
     }

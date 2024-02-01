@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
@@ -405,13 +407,15 @@ public class PlayerController : MonoBehaviour
         //EventManager.instance.itemEvents.ListNameItem();
         //EventManager.instance.itemEvents.AddItem(itemInfoSO);
     }
-    public void SetPlayerDie(bool die)
+    public async void SetPlayerDie(bool die)
     {
         target = null;
         playerDie = die;
         agent.enabled = !agent.enabled;
         capsuleCollider.enabled = !capsuleCollider.enabled;
         animator.SetTrigger(DEATH);
+        await Task.Delay(5000);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     /* public void SetPlayerHealth(int amount)
     {
