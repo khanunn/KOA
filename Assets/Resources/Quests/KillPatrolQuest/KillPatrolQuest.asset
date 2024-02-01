@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <id>k__BackingField: KillPatrolQuest
   displayName: KillPatrol
-  levelRequirements: 2
+  levelRequirements: 1
   questPrerequisites: []
   questStepPrefab:
   - {fileID: 8424634330161713993, guid: e9f385f2a6ab5e146b8f1e83e3f5320f, type: 3}
