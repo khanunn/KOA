@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    private Dictionary<string, Quest> questMap;
+    public Dictionary<string, Quest> questMap;
     private int currentPlayerLevel = 1;
     private void Awake()
     {
@@ -102,7 +102,7 @@ public class QuestManager : MonoBehaviour
     }
     private void FinishQuest(string id)
     {
-        if (id == "KillPatrolQuest")
+        /* if (id == "KillPatrolQuest")
         {
             Tutorial.instance.SetTextTutorial("5.Talk to NPC with" + " ? " + "on head");
         }
@@ -111,7 +111,7 @@ public class QuestManager : MonoBehaviour
             Tutorial.instance.SetTextTutorial("8.To be continue...");
         }
         //เสร็จสิ้นเควส
-        Debug.Log("Finish Quest: " + id);
+        Debug.Log("Finish Quest: " + id); */
 
         Quest quest = GetQuestById(id);
         ChangeQuestState(quest.info.id, QuestState.FINISHED);
@@ -135,10 +135,9 @@ public class QuestManager : MonoBehaviour
         foreach (QuestInfoSO questInfo in allQuests)
         {
             if (idToQuestMap.ContainsKey(questInfo.id))
-            {
-                Debug.LogWarning("พบไอดีเควสซ้ำ เมื่อสร้าง QuestMap : " + questInfo.id);
-            }
-            idToQuestMap.Add(questInfo.id, new Quest(questInfo));
+            { Debug.LogWarning("พบไอดีเควสซ้ำ เมื่อสร้าง QuestMap : " + questInfo.id); }
+            else
+            { idToQuestMap.Add(questInfo.id, new Quest(questInfo)); }
         }
         return idToQuestMap;
     }

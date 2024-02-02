@@ -19,6 +19,18 @@ public class KillPatrolQuestStep : QuestStep
     }
     private void PatrolKilled()
     {
+        if (questStepCurrent < questStepToComplete)
+        {
+            questStepCurrent++;
+        }
+
+        if (questStepCurrent >= questStepToComplete)
+        {
+            FinishQuestStep();
+        }
+    }
+    /* private void PatrolKilled()
+    {
         if (patrolsKilled < patrolsKillToComplete)
         {
             patrolsKilled++;
@@ -30,5 +42,5 @@ public class KillPatrolQuestStep : QuestStep
             Tutorial.instance.SetTextTutorial("4.Talk to NPC with" + " Check mark " + "on head");
             FinishQuestStep();
         }
-    }
+    } */
 }

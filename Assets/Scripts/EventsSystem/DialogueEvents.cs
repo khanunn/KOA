@@ -11,12 +11,21 @@ public class DialogueEvents
         }
     }
 
-    public event Action<DialogueInfoSO> onDialogueFinish;
-    public void DialogueFinish(DialogueInfoSO dialogue)
+    public event Action<QuestInfoSO> onDialogueFinish;
+    public void DialogueFinish(QuestInfoSO quest)
     {
         if (onDialogueFinish != null)
         {
-            onDialogueFinish(dialogue);
+            onDialogueFinish(quest);
+        }
+    }
+
+    public event Action<QuestStep> onAddQuestStep;
+    public void AddQuestStep(QuestStep quest)
+    {
+        if (onAddQuestStep != null)
+        {
+            onAddQuestStep(quest);
         }
     }
 }

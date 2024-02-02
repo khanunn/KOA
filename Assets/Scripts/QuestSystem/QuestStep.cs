@@ -7,10 +7,13 @@ public abstract class QuestStep : MonoBehaviour
     private bool isFinished = false;
     private string questId;
 
+    public int questStepCurrent;
+    public int questStepToComplete;
+
     public void InitializeQuestStep(string questId)
     {
         this.questId = questId;
-        Debug.Log("questID: " + questId);
+        Debug.Log("Quest Step ID : " + questId);
     }
 
     protected void FinishQuestStep()

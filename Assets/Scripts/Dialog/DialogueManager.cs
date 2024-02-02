@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System;
 
 
 public class DialogueManager : MonoBehaviour
@@ -19,21 +20,29 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] int CurrentDisplay = 0;
 
-
+    [Header("New Dialog Finish")]
+    [SerializeField] private GameObject questDialogObj;
+    [SerializeField] private TMP_Text questTitle;
+    [SerializeField] private TMP_Text questDescription;
+    [SerializeField] private TMP_Text currentAmount;
+    [SerializeField] private TMP_Text RequiredAmount;
     private void OnEnable()
     {
         EventManager.instance.dialogueEvents.onDialogueStart += StartDialogue;
         EventManager.instance.dialogueEvents.onDialogueFinish += FinishDialogue;
+        EventManager.instance.dialogueEvents.onAddQuestStep += AddQuestStepDialogue;
     }
+
     private void OnDisable()
     {
         EventManager.instance.dialogueEvents.onDialogueStart -= StartDialogue;
         EventManager.instance.dialogueEvents.onDialogueFinish -= FinishDialogue;
+        EventManager.instance.dialogueEvents.onAddQuestStep -= AddQuestStepDialogue;
     }
 
     private void Start()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Debug.LogError("DialogueManager > 1");
         }
@@ -95,6 +104,7 @@ public class DialogueManager : MonoBehaviour
 
     private void StartDialogue(DialogueInfoSO info)
     {
+        ShowDialog();
         Dialog.AddRange(info.messageText);
         DialogNames.AddRange(info.nameText);
 
@@ -105,9 +115,21 @@ public class DialogueManager : MonoBehaviour
         CurrentDisplay++;
         print(Dialog.Count);
     }
-    private void FinishDialogue(DialogueInfoSO info)
+    private void FinishDialogue(QuestInfoSO info)
     {
+        questDialogObj.SetActive(true);
+        Dialog.AddRange(info.DialogueInfoSOFinish.messageText);
+        DialogNames.AddRange(info.DialogueInfoSOFinish.nameText);
 
+        questTitle.text = DialogNames[CurrentDisplay];
+        questDescription.text = Dialog[CurrentDisplay];
+
+    }
+
+    private void AddQuestStepDialogue(QuestStep step)
+    {
+        currentAmount.text = step.questStepCurrent.ToString();
+        RequiredAmount.text = step.questStepToComplete.ToString();
     }
 }
 

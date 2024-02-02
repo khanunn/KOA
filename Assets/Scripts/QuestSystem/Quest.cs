@@ -32,6 +32,7 @@ public class Quest
         {
             QuestStep questStep = Object.Instantiate<GameObject>(questStepPrefab, parentTransform).GetComponent<QuestStep>();
             questStep.InitializeQuestStep(info.id);
+            EventManager.instance.dialogueEvents.AddQuestStep(questStep);
         }
     }
 
