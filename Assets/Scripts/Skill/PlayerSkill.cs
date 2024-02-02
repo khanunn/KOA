@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem.HID;
@@ -10,7 +11,42 @@ using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour
 {
-   
+    public class SkillAction : IDisposable //Special Interface for destroy after doing something
+    {
+        private int lifeTime = 3000; 
+        private GameObject prefab;
+        private GameObject instanceVFX;
+
+        public async void Init(int skillId, SkillInfoSO SkillData, Transform parent, quaternion rotation)
+        {                        
+            //Load VFX to memory as Prefab
+            var op = Addressables.LoadAssetAsync<GameObject>($"Assets/VFX/InScene/{skillId}.prefab"); 
+            prefab = await op.Task;
+
+            //Bring Prefab to the scene as gameobject
+            instanceVFX = Instantiate(prefab);
+
+            //Bring it into child and set pos and set 0 rotation at player (Specific detail are setting in child of VFX)
+            instanceVFX.transform.SetParent(parent);
+            instanceVFX.transform.localPosition = new Vector3(0, 0, 0);
+            instanceVFX.transform.rotation = rotation;
+
+            //Set Lifetime base on each skill            
+            lifeTime = SkillData.LifetimeVFX;
+            
+
+            Debug.Log("lifeTime: " + lifeTime);
+            await Task.Delay(lifeTime); //Like yield return waitforsecond(second) in IEnumerator
+
+            Dispose(); //Special function destroy after doing something
+        }
+        public void Dispose()
+        {
+            Destroy(instanceVFX);
+            Addressables.Release(prefab);
+        }
+    }
+    
 
     [Header("Skill Settings")]
     Animator animator;
@@ -153,7 +189,7 @@ public class PlayerSkill : MonoBehaviour
         if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
         {
            // isSkillPlaying = true;
-            StartSkill(skillId);
+            StartSkill(skillId, ButtonID);
             Invoke("ResetSkill", 0.01f);
             // Set cooldown for the skill
             skillCooldowns[ButtonID] = MaxCooldown[ButtonID];
@@ -165,56 +201,20 @@ public class PlayerSkill : MonoBehaviour
         animator.SetInteger("Skill_ID", -1);
     }
 
-    async void StartSkill(int skillId)
+    void StartSkill(int skillId, int ButtonID)
     {
-        //isUsing = true
+        if (isSkillPlaying)
+            return;
+           
         meshCollider.enabled = true;
-        //isSkillPlaying = true;
+        
         Player.StopSequence(); //using to player stop moving
 
         animator.Play(skillId.ToString()); //Player SKill Movement
-        var op = Addressables.LoadAssetAsync<GameObject>($"Assets/VFX/InScene/{skillId}.prefab"); //Load VFX to memory as Prefab
 
-        if (VFX.transform.childCount == 0)
-        {
-            var prefab = await op.Task;
-
-            //Bring Prefab to the scene as gameobject
-            GameObject CreateVFX = Instantiate(prefab);
-
-            //Bring it into child and set pos at player
-            CreateVFX.transform.SetParent(VFX.transform);
-
-            CreateVFX.transform.localPosition = new Vector3(0, 0, 0);
-            CreateVFX.transform.rotation = Player.transform.rotation;
-        }
-
-        // Get the AnimationClip from the Animator's runtimeAnimatorController    
-        AnimationClip[] animationClips = animator.runtimeAnimatorController.animationClips;
-
-        // Find the AnimationClip with the specified name
-        AnimationClip targetClip = System.Array.Find(animationClips, clip => clip.name == skillId.ToString());
-        if (targetClip != null)
-        {
-            // Retrieve the length of the animation
-            float animationLength = targetClip.length * 1000;
-            await Task.Delay((int)animationLength);
-            DestroyVFX();
-            Addressables.Release(op);
-        }
-    }
-
-    public void DestroyVFX()
-    {
-        isSkillPlaying = false;
-        meshCollider.enabled = false;
-
-        foreach (Transform child in VFX.transform)
-        {
-            // Destroy all components attached to the child GameObject
-            Destroy(child.gameObject);
-        }
-        
+        Debug.Log(skillId);
+        var action = new SkillAction();
+        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation);     
     }
 
     private float[] GetSkillCooldowns()

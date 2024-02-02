@@ -98,9 +98,6 @@ public class SkillSlotManager : MonoBehaviour
         {
             SkillSlot[i] = transform.GetChild(i).gameObject;
         } 
-    /*    SettingSlot();
-        SettingCoolDown();
-        SettingIconAsync();*/
 
     }
 

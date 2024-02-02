@@ -18,5 +18,6 @@ MonoBehaviour:
   <ManaCost>k__BackingField: 20
   <OutputSkill>k__BackingField: 12
   <CooldownSkill>k__BackingField: 7
+  <LifetimeVFX>k__BackingField: 1000
   <RequirementWeapon>k__BackingField: 1
   <SkillType>k__BackingField: 1
