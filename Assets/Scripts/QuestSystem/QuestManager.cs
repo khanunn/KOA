@@ -24,6 +24,7 @@ public class QuestManager : MonoBehaviour
         EventManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
         EventManager.instance.questEvents.onFinishQuest += FinishQuest;
         EventManager.instance.playerEvents.onPlayerLevelChange += LevelUp;
+        EventManager.instance.questEvents.onStartDialogue += StartDialogue;
     }
     private void OnDisable()
     {
@@ -31,6 +32,7 @@ public class QuestManager : MonoBehaviour
         EventManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
         EventManager.instance.questEvents.onFinishQuest -= FinishQuest;
         EventManager.instance.playerEvents.onPlayerLevelChange -= LevelUp;
+        EventManager.instance.questEvents.onStartDialogue -= StartDialogue;
     }
     private void Start()
     {
@@ -73,6 +75,14 @@ public class QuestManager : MonoBehaviour
                 ChangeQuestState(quest.info.id, QuestState.CAN_START);
             }
         }
+    }
+    private void StartDialogue(string id)
+    {
+        //เริ่มไดอาล็อก
+        Debug.Log("Start Dialogue: " + id);
+
+        Quest quest = GetQuestById(id);
+        quest.DialogueCurrentQuestStep();
     }
     private void StartQuest(string id)
     {
@@ -123,6 +133,10 @@ public class QuestManager : MonoBehaviour
         Debug.Log("คุณได้รับค่าประสบการณ์" + quest.info.expReward);
         int exp = quest.info.expReward;
         EventManager.instance.playerEvents.ExperienceGained(exp);
+        foreach (ItemInfoSO item in quest.info.Items)
+        {
+            EventManager.instance.itemEvents.AddItem(item);
+        }
     }
 
     private Dictionary<string, Quest> CreateQuestMap()

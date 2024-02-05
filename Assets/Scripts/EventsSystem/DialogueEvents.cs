@@ -1,31 +1,49 @@
 using System;
+using UnityEngine;
 
 public class DialogueEvents
 {
-    public event Action<DialogueInfoSO> onDialogueStart;
+    /* public event Action<DialogueInfoSO> onDialogueStart;
     public void DialogueStart(DialogueInfoSO dialogue)
     {
         if (onDialogueStart != null)
         {
             onDialogueStart(dialogue);
         }
-    }
-
-    public event Action<QuestInfoSO> onDialogueFinish;
-    public void DialogueFinish(QuestInfoSO quest)
+    } */
+    public event Action<QuestInfoSO, QuestState> onDialogueStart;
+    public void DialogueStart(QuestInfoSO quest, QuestState questState)
     {
-        if (onDialogueFinish != null)
+        if (onDialogueStart != null)
         {
-            onDialogueFinish(quest);
+            onDialogueStart(quest, questState);
         }
     }
 
-    public event Action<QuestStep> onAddQuestStep;
-    public void AddQuestStep(QuestStep quest)
+    public event Action<QuestInfoSO, QuestState> onDialogueFinish;
+    public void DialogueFinish(QuestInfoSO quest, QuestState questState)
+    {
+        if (onDialogueFinish != null)
+        {
+            onDialogueFinish(quest, questState);
+        }
+    }
+
+    public event Action<GameObject> onAddQuestStep;
+    public void AddQuestStep(GameObject obj)
     {
         if (onAddQuestStep != null)
         {
-            onAddQuestStep(quest);
+            onAddQuestStep(obj);
+        }
+    }
+
+    public event Action<int, int> onUpdateAmount;
+    public void UpdateAmount(int current, int require)
+    {
+        if (onUpdateAmount != null)
+        {
+            onUpdateAmount(current, require);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,12 +26,22 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TMP_Text questTitle;
     [SerializeField] private TMP_Text questDescription;
     [SerializeField] private TMP_Text currentAmount;
-    [SerializeField] private TMP_Text RequiredAmount;
+    [SerializeField] private TMP_Text requiredAmount;
+    [SerializeField] private TMP_Text objectiveText;
+    [SerializeField] private TMP_Text buttonText;
+    [SerializeField] private GameObject rewardItem;
+    [SerializeField] private Transform rewardContent;
+    private QuestState currentQuestState;
+    private QuestStep questStep;
+    private string questId;
+    private List<GameObject> allReward = new List<GameObject>();
+    private List<GameObject> allQuestStep = new List<GameObject>();
     private void OnEnable()
     {
         EventManager.instance.dialogueEvents.onDialogueStart += StartDialogue;
         EventManager.instance.dialogueEvents.onDialogueFinish += FinishDialogue;
         EventManager.instance.dialogueEvents.onAddQuestStep += AddQuestStepDialogue;
+        EventManager.instance.dialogueEvents.onUpdateAmount += UpdateAmount;
     }
 
     private void OnDisable()
@@ -38,6 +49,7 @@ public class DialogueManager : MonoBehaviour
         EventManager.instance.dialogueEvents.onDialogueStart -= StartDialogue;
         EventManager.instance.dialogueEvents.onDialogueFinish -= FinishDialogue;
         EventManager.instance.dialogueEvents.onAddQuestStep -= AddQuestStepDialogue;
+        EventManager.instance.dialogueEvents.onUpdateAmount -= UpdateAmount;
     }
 
     private void Start()
@@ -102,7 +114,7 @@ public class DialogueManager : MonoBehaviour
         NextButton.interactable = true;
     }
 
-    private void StartDialogue(DialogueInfoSO info)
+    /* private void StartDialogue(DialogueInfoSO info)
     {
         ShowDialog();
         Dialog.AddRange(info.messageText);
@@ -114,22 +126,89 @@ public class DialogueManager : MonoBehaviour
         NextButton.interactable = false;
         CurrentDisplay++;
         print(Dialog.Count);
-    }
-    private void FinishDialogue(QuestInfoSO info)
+    } */
+    private void StartDialogue(QuestInfoSO info, QuestState questState)
     {
+        currentQuestState = questState;
+        questId = info.id;
+        Debug.Log("QuestState: " + currentQuestState);
         questDialogObj.SetActive(true);
-        Dialog.AddRange(info.DialogueInfoSOFinish.messageText);
-        DialogNames.AddRange(info.DialogueInfoSOFinish.nameText);
+        /* Dialog.AddRange(info.DialogueInfoSOFinish.messageText);
+        DialogNames.AddRange(info.DialogueInfoSOFinish.nameText); */
 
-        questTitle.text = DialogNames[CurrentDisplay];
-        questDescription.text = Dialog[CurrentDisplay];
+        questTitle.text = info.DialogTitle;
+        questDescription.text = info.DialogDescription[0];
+        currentAmount.text = questStep.questStepCurrent.ToString();
+        requiredAmount.text = questStep.questStepToComplete.ToString();
+        objectiveText.text = info.displayName;
+        buttonText.text = "Accept";
 
+        InstantiateReward(info);
+    }
+    private void FinishDialogue(QuestInfoSO info, QuestState questState)
+    {
+        currentQuestState = questState;
+        questId = info.id;
+        Debug.Log("QuestState: " + currentQuestState);
+        questDialogObj.SetActive(true);
+        /* Dialog.AddRange(info.DialogueInfoSOFinish.messageText);
+        DialogNames.AddRange(info.DialogueInfoSOFinish.nameText); */
+
+        questTitle.text = info.DialogTitle;
+        questDescription.text = info.DialogDescription[1];
+        /* currentAmount.text = "";
+        requiredAmount.text = ""; */
+        objectiveText.text = info.displayName;
+        buttonText.text = "Finish";
+
+        InstantiateReward(info);
     }
 
-    private void AddQuestStepDialogue(QuestStep step)
+    private void AddQuestStepDialogue(GameObject obj)
     {
-        currentAmount.text = step.questStepCurrent.ToString();
-        RequiredAmount.text = step.questStepToComplete.ToString();
+        Debug.Log("Dialog OBJ: " + obj);
+        allQuestStep.Add(obj);
+        questStep = obj.GetComponent<QuestStep>();
+    }
+
+    public void ButtonQuest()
+    {
+        if (currentQuestState.Equals(QuestState.CAN_START))
+        {
+            Debug.Log("Accept Quest");
+            EventManager.instance.questEvents.StartQuest(questId);
+
+        }
+        else if (currentQuestState.Equals(QuestState.CAN_FINISH))
+        {
+            Debug.Log("Finished Quest");
+            EventManager.instance.questEvents.FinishQuest(questId);
+        }
+
+        questDialogObj.SetActive(false);
+        foreach (var item in allReward)
+        {
+            Destroy(item);
+        }
+    }
+
+    private void InstantiateReward(QuestInfoSO questInfoSO)
+    {
+        /* GameObject obj = Instantiate(rewardItem, rewardContent);
+        var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>(); */
+        foreach (ItemInfoSO item in questInfoSO.Items)
+        {
+            GameObject obj = Instantiate(rewardItem, rewardContent);
+            var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+            itemIcon.sprite = item.Icon;
+            allReward.Add(obj);
+        }
+    }
+
+    private void UpdateAmount(int current, int require)
+    {
+        currentAmount.text = current.ToString();
+        requiredAmount.text = require.ToString();
     }
 }
 

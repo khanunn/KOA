@@ -17,14 +17,23 @@ public class KillPatrolQuestStep : QuestStep
     {
         EventManager.instance.killEvents.onMonsterKilled -= PatrolKilled;
     }
+    private void OnValidate()
+    {
+        questStepCurrent = patrolsKilled;
+        questStepToComplete = patrolsKillToComplete;
+        Debug.Log(" Set " + this.name + " To QuestStep ");
+    }
+
     private void PatrolKilled()
     {
-        if (questStepCurrent < questStepToComplete)
+        if (patrolsKilled < patrolsKillToComplete)
         {
-            questStepCurrent++;
+            patrolsKilled++;
+            EventManager.instance.dialogueEvents.UpdateAmount(patrolsKilled, patrolsKillToComplete);
+            //questStepCurrent++;
         }
 
-        if (questStepCurrent >= questStepToComplete)
+        if (patrolsKilled >= patrolsKillToComplete)
         {
             FinishQuestStep();
         }
