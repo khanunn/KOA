@@ -76,6 +76,6 @@ public class CharacterBar : MonoBehaviour
     private void SetMaxHealth(int value)
     {
         healthMax = value;
-        UpdateUI(health);
+        SetHealth(value);
     }
 }
