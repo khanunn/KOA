@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d6c6d6b65fe1cda45a895db5d595dfc8
+timeCreated: 1503893191
+licenseType: Store
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Khmer UI
+  fontNames:
+  - Khmer UI
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -25,6 +25,15 @@ public class Quest
         return (currentQuestStepIndex < info.questStepPrefab.Length);
     }
 
+    public void DialogueCurrentQuestStep()
+    {
+        GameObject questStepPrefab = GetCurrentQuestStepPrefab();
+        if (questStepPrefab != null)
+        {
+            EventManager.instance.dialogueEvents.AddQuestStep(questStepPrefab);
+        }
+    }
+
     public void InstantiateCurrentQuestStep(Transform parentTransform)
     {
         GameObject questStepPrefab = GetCurrentQuestStepPrefab();
@@ -32,6 +41,7 @@ public class Quest
         {
             QuestStep questStep = Object.Instantiate<GameObject>(questStepPrefab, parentTransform).GetComponent<QuestStep>();
             questStep.InitializeQuestStep(info.id);
+            //EventManager.instance.dialogueEvents.AddQuestStep(questStepPrefab);
         }
     }
 

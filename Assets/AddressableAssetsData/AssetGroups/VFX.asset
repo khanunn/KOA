@@ -22,6 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbbc8313a80f765418b370197583b384
+    m_Address: Assets/VFX/KTK_Aura_Effects_Volume1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62f7dd2a7fda27d4b9bb281e7b8ba8e2, type: 2}
   m_SchemaSet:

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae608e92234376047a38b4adba63d3bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questStepCurrent: 0
+  questStepToComplete: 2
   patrolsKilled: 0
-  patrolsKillToComplete: 5
-  uIController: {fileID: 0}
+  patrolsKillToComplete: 2

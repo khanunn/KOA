@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         killEvents = new KillEvents();
         playerEvents = new PlayerEvents();

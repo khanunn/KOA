@@ -38,4 +38,21 @@ public class QuestEvents
             onQuestStateChange?.Invoke(quest);
         }
     }
+
+    public event Action<string> onStartDialogue;
+    public void StartDialogue(string id)
+    {
+        if (onStartDialogue != null)
+        {
+            onStartDialogue(id);
+        }
+    }
+    public event Action<string> onFinishDialogue;
+    public void FinishDialogue(string id)
+    {
+        if (onFinishDialogue != null)
+        {
+            onFinishDialogue(id);
+        }
+    }
 }

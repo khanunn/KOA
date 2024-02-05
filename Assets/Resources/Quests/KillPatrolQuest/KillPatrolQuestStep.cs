@@ -17,7 +17,28 @@ public class KillPatrolQuestStep : QuestStep
     {
         EventManager.instance.killEvents.onMonsterKilled -= PatrolKilled;
     }
+    private void OnValidate()
+    {
+        questStepCurrent = patrolsKilled;
+        questStepToComplete = patrolsKillToComplete;
+        Debug.Log(" Set " + this.name + " To QuestStep ");
+    }
+
     private void PatrolKilled()
+    {
+        if (patrolsKilled < patrolsKillToComplete)
+        {
+            patrolsKilled++;
+            EventManager.instance.dialogueEvents.UpdateAmount(patrolsKilled, patrolsKillToComplete);
+            //questStepCurrent++;
+        }
+
+        if (patrolsKilled >= patrolsKillToComplete)
+        {
+            FinishQuestStep();
+        }
+    }
+    /* private void PatrolKilled()
     {
         if (patrolsKilled < patrolsKillToComplete)
         {
@@ -30,5 +51,5 @@ public class KillPatrolQuestStep : QuestStep
             Tutorial.instance.SetTextTutorial("4.Talk to NPC with" + " Check mark " + "on head");
             FinishQuestStep();
         }
-    }
+    } */
 }

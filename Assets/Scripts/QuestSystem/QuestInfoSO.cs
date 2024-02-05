@@ -22,9 +22,16 @@ public class QuestInfoSO : ScriptableObject
     public int rubyReward;
     public int expReward;
 
+    [field: SerializeField]
+    public List<ItemInfoSO> Items { get; private set; } = new List<ItemInfoSO>();
+
     [field: Header("Dialogue")]
     [field: SerializeField] public DialogueInfoSO DialogueInfoSOStart { get; private set; }
     [field: SerializeField] public DialogueInfoSO DialogueInfoSOFinish { get; private set; }
+
+    [field: SerializeField] public string DialogTitle { get; private set; }
+    [field: TextArea(3, 10)]
+    [field: SerializeField] public string[] DialogDescription { get; private set; }
 
 
     private void OnValidate()

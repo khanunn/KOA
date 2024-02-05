@@ -52,17 +52,20 @@ public class QuestPoint : MonoBehaviour
 
         if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
         {
-            EventManager.instance.questEvents.StartQuest(questId);
+            //Debug.Log("quest start");
+            //EventManager.instance.questEvents.StartQuest(questId);
             //Debug.Log("Quest ID from QuestPoint: " + questId);
             //uIController.SetQuestToUI(questId);
-            canvas.SetActive(true);
-            EventManager.instance.dialogueEvents.DialogueStart(questInfoForPoint.DialogueInfoSOStart);
+            //canvas.SetActive(true);
+            EventManager.instance.questEvents.StartDialogue(questId);
+            EventManager.instance.dialogueEvents.DialogueStart(questInfoForPoint, currentQuestState);
         }
         else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
         {
-            EventManager.instance.questEvents.FinishQuest(questId);
-            canvas.SetActive(false);
-            EventManager.instance.dialogueEvents.DialogueFinish(questInfoForPoint.DialogueInfoSOFinish);
+            //EventManager.instance.questEvents.FinishQuest(questId);
+            //canvas.SetActive(false);
+            //EventManager.instance.questEvents.FinishDialogue(questId);
+            EventManager.instance.dialogueEvents.DialogueFinish(questInfoForPoint, currentQuestState);
         }
     }
     private void QuestStateChange(Quest quest)

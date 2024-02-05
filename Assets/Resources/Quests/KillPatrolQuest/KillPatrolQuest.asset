@@ -14,12 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <id>k__BackingField: KillPatrolQuest
   displayName: KillPatrol
-  levelRequirements: 2
+  levelRequirements: 1
   questPrerequisites: []
   questStepPrefab:
   - {fileID: 8424634330161713993, guid: e9f385f2a6ab5e146b8f1e83e3f5320f, type: 3}
   goldReward: 1
   rubyReward: 1
   expReward: 2000
+  <Items>k__BackingField:
+  - {fileID: 11400000, guid: 7057651b1d5b82d4aa76267f0e7cd1de, type: 2}
+  - {fileID: 11400000, guid: 8ccff327c7403a14bb75ae0220769784, type: 2}
   <DialogueInfoSOStart>k__BackingField: {fileID: 11400000, guid: 26e74003dff16b94caf61435aa1115e6, type: 2}
   <DialogueInfoSOFinish>k__BackingField: {fileID: 11400000, guid: 3c176999532a5954da07367c0bc24cf2, type: 2}
+  <DialogTitle>k__BackingField: You're The Hero
+  <DialogDescription>k__BackingField:
+  - text test speed download internet viper demon the dark hole useing in the boom
+    cocacola is the best water in my mine. I need you but I don't want about it.
+  - Finish thank you forever i love u so mush hope you enjoy this region you will
+    never walk alone i will walk with you good bye indie
