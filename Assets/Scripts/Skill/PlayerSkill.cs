@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class PlayerSkill : MonoBehaviour
 {
-   
+
 
     [Header("Skill Settings")]
     Animator animator;
@@ -26,7 +26,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
-    private MeshCollider meshCollider;
+    //private MeshCollider meshCollider;
 
     public float[] MaxCooldown; //Set Max CD
     public float[] skillCooldowns; //using for Count CD
@@ -60,7 +60,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
-        meshCollider = this.GetComponentInChildren<MeshCollider>();
+        //meshCollider = this.GetComponentInChildren<MeshCollider>();
 
         LoadScriptObject();
 
@@ -85,7 +85,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void Start()
     {
-        meshCollider.enabled = false;
+        //meshCollider.enabled = false;
     }
 
     IEnumerator CooldownTimer()
@@ -125,7 +125,7 @@ public class PlayerSkill : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Alpha2))
             {
                 TryStartSkill(CurrentSkill[1], 1);
-               // Debug.Log(CurrentSkill[1]);
+                // Debug.Log(CurrentSkill[1]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha3))
@@ -152,7 +152,7 @@ public class PlayerSkill : MonoBehaviour
         // Check if the skill is not on cooldown
         if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
         {
-           // isSkillPlaying = true;
+            // isSkillPlaying = true;
             StartSkill(skillId);
             Invoke("ResetSkill", 0.01f);
             // Set cooldown for the skill
@@ -168,7 +168,7 @@ public class PlayerSkill : MonoBehaviour
     async void StartSkill(int skillId)
     {
         //isUsing = true
-        meshCollider.enabled = true;
+        //meshCollider.enabled = true;
         //isSkillPlaying = true;
         Player.StopSequence(); //using to player stop moving
 
@@ -207,14 +207,14 @@ public class PlayerSkill : MonoBehaviour
     public void DestroyVFX()
     {
         isSkillPlaying = false;
-        meshCollider.enabled = false;
+        //meshCollider.enabled = false;
 
         foreach (Transform child in VFX.transform)
         {
             // Destroy all components attached to the child GameObject
             Destroy(child.gameObject);
         }
-        
+
     }
 
     private float[] GetSkillCooldowns()
@@ -243,7 +243,7 @@ public class PlayerSkill : MonoBehaviour
             }
             i++;
         }
-        
+
         slotManager.SettingIconAsync();
 
     }
