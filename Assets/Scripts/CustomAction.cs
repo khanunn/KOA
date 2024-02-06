@@ -400,7 +400,7 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d8ad6946-b2f0-4c34-b519-f2f35f1162b9"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
