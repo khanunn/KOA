@@ -80,7 +80,15 @@ public class ShopManager : MonoBehaviour
 
             //Send to inventory here
             EventManager.instance.itemEvents.AddItem(SellableObject[ItemID]);
-            inventoryManager.UpdateItemAmount(SellableObject[ItemID], 1);
+            switch (SellableObject[ItemID].scriptableObject)
+            {
+                case EquipmentInfoSO: return;
+                default:
+                    EventManager.instance.pickupEvents.UpdateItem(SellableObject[ItemID], 1);
+                    break;
+            }
+            //EventManager.instance.pickupEvents.UpdateItem(SellableObject[ItemID], 1);
+            //inventoryManager.UpdateItemAmount(SellableObject[ItemID], 1);
             Debug.Log(SellableObject[ItemID]);
 
         }
@@ -90,22 +98,24 @@ public class ShopManager : MonoBehaviour
     public void SellItem(int ItemID)
     {
         //Clone Player item in inventory from Inventory Manager
-        Dictionary<ItemName, int> ClonePlayerItem = inventoryManager.GetPlayerItem();
+        Dictionary<ItemName, int> CloneItemAmount = inventoryManager.GetItemAmount();
+        List<ItemInfoSO> CloneItems = inventoryManager.GetItems();
 
-        foreach (ItemName key in new List<ItemName>(ClonePlayerItem.Keys))
+        foreach (ItemName key in new List<ItemName>(CloneItemAmount.Keys))
         {
             //Check if the player has this item or not &
             if (key == SellableObject[ItemID].ItemName)
             {
                 //Check if itemAmount need to more than 0       
-                if (ClonePlayerItem[key] > 0)
+                if (CloneItemAmount[key] > 0)
                 {
                     Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Price));
                     Debug.Log("Sell: " + SellableObject[ItemID]);
 
                     //Calculate Money in CurrencyManager
                     PlayerMoney.gold += SellableObject[ItemID].Price;
-                    inventoryManager.UpdateItemAmount(SellableObject[ItemID], -1);
+                    //inventoryManager.UpdateItemAmount(SellableObject[ItemID], -1);
+                    EventManager.instance.pickupEvents.UpdateItem(SellableObject[ItemID], -1);
                     BuyAblePanal.SetActive(true);
                 }
                 else
@@ -116,6 +126,26 @@ public class ShopManager : MonoBehaviour
             }
         }
 
+        foreach (ItemInfoSO item in new List<ItemInfoSO>(CloneItems))
+        {
+            switch (item.scriptableObject)
+            {
+                case EquipmentInfoSO equip:
+                    if (item == SellableObject[ItemID])
+                    {
+                        Debug.Log("Transaction: " + (PlayerMoney.gold + SellableObject[ItemID].Price));
+                        Debug.Log("Sell: " + SellableObject[ItemID]);
+
+                        //Calculate Money in CurrencyManager
+                        PlayerMoney.gold += SellableObject[ItemID].Price;
+                        //inventoryManager.UpdateItemAmount(SellableObject[ItemID], -1);
+                        EventManager.instance.itemEvents.RemoveItem(SellableObject[ItemID]);
+                        BuyAblePanal.SetActive(true);
+                        return;
+                    }
+                    break;
+            }
+        }
     }
 
     // Start is called before the first frame update

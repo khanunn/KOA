@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
@@ -46,7 +47,7 @@ public class InventoryManager : MonoBehaviour
         ItemName itemName = itemInfoSO.ItemName;
         switch (itemInfoSO.scriptableObject)
         {
-            case EquipmentInfoSO:
+            case EquipmentInfoSO equip:
                 Debug.Log("Add Equipment On Inventory");
                 items.Add(itemInfoSO);
                 InstantiateItem();
@@ -85,8 +86,30 @@ public class InventoryManager : MonoBehaviour
     {
         //SetItemsFlag(itemInfoSO);
         ItemName itemName = itemInfoSO.ItemName;
-        items.Remove(itemInfoSO);
+        //items.Remove(itemInfoSO);
         itemAmounts.Remove(itemName);
+        foreach (Transform child in itemContent)
+        {
+            if (child.GetComponent<ItemClickHandler>().ItemInfoSO == itemInfoSO)
+            {
+                Destroy(child.gameObject);
+                items.Remove(itemInfoSO);
+                Debug.Log("Destroy Item: " + child.name);
+                return;
+            }
+        }
+        /* using System.Linq;
+
+// ...
+
+Transform foundChild = itemContent.Cast<Transform>()
+    .FirstOrDefault(child => child.GetComponent<ItemClickHandler>()?.ItemInfoSO?.ItemName == itemInfoSO.ItemName);
+
+if (foundChild != null)
+{
+    Destroy(foundChild.gameObject);
+} */
+
     }
     private void SetItemsFlag(ItemInfoSO itemInfoSO)
     {
@@ -205,9 +228,14 @@ public class InventoryManager : MonoBehaviour
         } */
     }
 
-    public Dictionary<ItemName, int> GetPlayerItem()
+    public Dictionary<ItemName, int> GetItemAmount()
     {
         return itemAmounts;
+    }
+
+    public List<ItemInfoSO> GetItems()
+    {
+        return items;
     }
 
 }
