@@ -32,10 +32,9 @@ public class StatManager : MonoBehaviour
             LevelUpStat(levelManager.level);
         }
     }
-    public void LevelUpStat(int level)
+    private void LevelUpStat(int level)
     {
         const int maxIncrease = 10;
-
         IncreaseStatRandomly(statContainer.Constitution, classInfoSO.Constitution, maxIncrease);
         IncreaseStatRandomly(statContainer.Dexterity, classInfoSO.Dexterity, maxIncrease);
         IncreaseStatRandomly(statContainer.Strength, classInfoSO.Strength, maxIncrease);
@@ -45,6 +44,7 @@ public class StatManager : MonoBehaviour
 
         IncreaseStatRandomly(statContainer.v_hp_max, classInfoSO.v_hp_max, maxIncrease);
         IncreaseStatRandomly(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
+
     }
 
     private void IncreaseStatRandomly(Stat stat, StatBase statBase, int maxIncrease)

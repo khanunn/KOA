@@ -42,7 +42,6 @@ public class StatController : MonoBehaviour
         {
             statCanvas.SetActive(true);
             statSwitch = true;
-            EventManager.instance.statEvents.ShowStat();
         }
         else
         {

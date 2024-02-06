@@ -19,14 +19,12 @@ public class EquipmentManager : MonoBehaviour
     {
         EventManager.instance.equipmentEvents.onAddEquip += AddEquip;
         EventManager.instance.equipmentEvents.onRemoveEquip += RemoveEquip;
-        EventManager.instance.equipmentEvents.onListEquip += ListEquip;
         EventManager.instance.statEvents.onSendStatManager += StartStatus;
     }
     private void OnDisable()
     {
         EventManager.instance.equipmentEvents.onAddEquip -= AddEquip;
         EventManager.instance.equipmentEvents.onRemoveEquip -= RemoveEquip;
-        EventManager.instance.equipmentEvents.onListEquip -= ListEquip;
         EventManager.instance.statEvents.onSendStatManager -= StartStatus;
     }
     private void Start()
@@ -80,10 +78,7 @@ public class EquipmentManager : MonoBehaviour
         OffStat(itemInfoSO);
         Destroy(gameObject);
     }
-    private void ListEquip(EquipmentInfoSO equipment)
-    {
 
-    }
     private void InstantiateEquipment(EquipmentSlot equipmentSlot, ItemInfoSO itemInfo)
     {
         foreach (GameObject contentObject in equipmentContents)

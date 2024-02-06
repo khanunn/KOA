@@ -17,6 +17,7 @@ public class StatReader : MonoBehaviour
 
     private void OnEnable()
     {
+        ResetUpdateText();
         EventManager.instance.statEvents.onShowStat += ResetUpdateText;
         EventManager.instance.playerEvents.onPlayerLevelChange += UpdateStatText;
     }
