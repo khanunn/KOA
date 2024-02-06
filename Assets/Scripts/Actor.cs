@@ -93,6 +93,7 @@ public class Actor : MonoBehaviour
         {
             case InteractableType.PLAYER:
                 maxHealth = con.statValue * v_hp_max.statValue;
+                currentHealth = maxHealth;
                 EventManager.instance.healthEvents.HealthMaxChange(maxHealth);
                 break;
             default: return;
