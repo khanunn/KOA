@@ -24,6 +24,10 @@ public class SettingMenu : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] GameObject SettingPanal;
+    [SerializeField] TMP_Text FPSToggleText;
+    [SerializeField] GameObject EquipmentPanal;
+    [SerializeField] GameObject InventoryPanal;
+
 
     private void OnEnable()
     {
@@ -43,11 +47,15 @@ public class SettingMenu : MonoBehaviour
         if (!settingSwitch)
         {
             SettingPanal.SetActive(true);
+            InventoryPanal.SetActive(false);
+            EquipmentPanal.SetActive(false);
             settingSwitch = true;
         }
         else
         {
             SettingPanal.SetActive(false);
+            InventoryPanal.SetActive(false);
+            EquipmentPanal.SetActive(false);
             settingSwitch = false;
         }
     }
@@ -57,6 +65,8 @@ public class SettingMenu : MonoBehaviour
         input = new CustomAction();
         AssignInput();
         fpsText.enabled = false;
+
+        SetToggleText();
     }
 
     private void Start()
@@ -125,6 +135,16 @@ public class SettingMenu : MonoBehaviour
             fpsText.enabled = false;
         }
     }
+
+    public void SetToggleText()
+    {
+        if(!ShowfpsText)
+        {
+            FPSToggleText.text = "OFF";
+        }
+        else if(ShowfpsText) FPSToggleText.text = "ON";
+    }
+
     void Update()
     {
         if (ShowfpsText)
@@ -133,6 +153,8 @@ public class SettingMenu : MonoBehaviour
             float fps = 1.0f / deltaTime;
             fpsText.GetComponent<TextMeshProUGUI>().text = "FPS: " + Mathf.Ceil(fps).ToString();
         }
+
+        
     }
 
 }

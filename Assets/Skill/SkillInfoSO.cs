@@ -23,6 +23,7 @@ public class SkillInfoSO : ScriptableObject
     [field: SerializeField] public float ManaCost { get; private set; }
     [field: SerializeField] public float OutputSkill { get; private set; }
     [field: SerializeField] public float CooldownSkill { get; private set; }
+    [field: SerializeField] public int LifetimeVFX { get; private set; }
     [field: SerializeField] public RequirementWeapon RequirementWeapon { get; private set; }
     [field: SerializeField] public SkillType SkillType { get; private set; }
 
@@ -33,5 +34,5 @@ public class SkillInfoSO : ScriptableObject
         this.name = SkillId.ToString();
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
-    }
+    }      
 }
