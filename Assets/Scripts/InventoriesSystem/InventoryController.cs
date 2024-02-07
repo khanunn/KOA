@@ -18,7 +18,7 @@ public class InventoryController : MonoBehaviour
 
     [Header("Config")]
     [SerializeField] private Vector3 positionOptional;
-
+    public bool isEnable = true;
 
     private void Awake()
     {
@@ -41,10 +41,18 @@ public class InventoryController : MonoBehaviour
 
     public void SwitchInventory()
     {
-        if (!inventorySwitch)
+        if(isEnable)
         {
-            inventory.SetActive(true);
-            inventorySwitch = true;
+            if (!inventorySwitch)
+            {
+                inventory.SetActive(true);
+                inventorySwitch = true;
+            }
+            else
+            {
+                inventory.SetActive(false);
+                inventorySwitch = false;
+            }
         }
         else
         {

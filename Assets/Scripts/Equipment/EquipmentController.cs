@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class EquipmentController : MonoBehaviour
 {
+    public bool isEnable = true;
 
     private Vector2 lastMousePosition;
     public float rotationSpeed = 0.5f;
@@ -171,16 +172,25 @@ public class EquipmentController : MonoBehaviour
     }
     public void SwitchEquipment()
     {
-        if (!equipmentSwitch)
+        if(isEnable)
         {
-            equipment.SetActive(true);
-            equipmentSwitch = true;
+            if (!equipmentSwitch)
+            {
+                equipment.SetActive(true);
+                equipmentSwitch = true;
+            }
+            else
+            {
+                equipment.SetActive(false);
+                equipmentSwitch = false;
+            }
         }
         else
         {
             equipment.SetActive(false);
             equipmentSwitch = false;
         }
+       
     }
 
     public void ExitButton()

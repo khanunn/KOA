@@ -47,15 +47,17 @@ public class SettingMenu : MonoBehaviour
         if (!settingSwitch)
         {
             SettingPanal.SetActive(true);
-            InventoryPanal.SetActive(false);
-            EquipmentPanal.SetActive(false);
+            InventoryPanal.GetComponent<InventoryController>().isEnable = false;
+            InventoryPanal.GetComponent<InventoryController>().inventory.SetActive(false);
+            EquipmentPanal.GetComponent<EquipmentController>().isEnable = false;
+            EquipmentPanal.GetComponent<EquipmentController>().equipment.SetActive(false);
             settingSwitch = true;
         }
         else
         {
             SettingPanal.SetActive(false);
-            InventoryPanal.SetActive(false);
-            EquipmentPanal.SetActive(false);
+            InventoryPanal.GetComponent<InventoryController>().isEnable = true;            
+            EquipmentPanal.GetComponent<EquipmentController>().isEnable = true;        
             settingSwitch = false;
         }
     }
