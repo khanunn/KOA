@@ -286,7 +286,7 @@ public class PatrolController : MonoBehaviour
             target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
             target.myPlayer.InteractableChange(this.gameObject);
             target.myPlayerSkill.SendAttackSkill();
-            Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
+            //Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
         }
     }
 
