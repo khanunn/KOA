@@ -773,49 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: DefaultSettingsVolumeProfile
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: 7686318427622180703}
-  - {fileID: -1016694868962581565}
-  - {fileID: 7502528774814404555}
-  - {fileID: 7542669330009093999}
-  - {fileID: 1501199423866068322}
-  - {fileID: 5315503232242033309}
-  - {fileID: 1932259527246508038}
-  - {fileID: 448115243408767295}
-  - {fileID: -7089757308646879465}
-  - {fileID: -8770122170507510650}
-  - {fileID: 4981354747274665315}
-  - {fileID: 5305602202033311358}
-  - {fileID: 4491805096787342901}
-  - {fileID: 3657472668633879231}
-  - {fileID: -3051766772751999786}
-  - {fileID: 7992528300100426256}
-  - {fileID: 5228192994910770423}
-  - {fileID: -6830967149126362618}
-  - {fileID: 4842821685238371201}
-  - {fileID: 8650126096109501378}
-  - {fileID: -1991492847372736827}
-  - {fileID: 4546533482560137989}
-  - {fileID: 7277228436514365199}
-  - {fileID: 8849460194270414853}
-  - {fileID: 6891423418902489417}
-  - {fileID: -1974155596704098239}
-  - {fileID: 8923819251803342613}
-  - {fileID: -2127862192093397145}
-  - {fileID: -4757510932981240278}
-  - {fileID: 7724895036342154201}
-  - {fileID: -1912712285618145238}
-  - {fileID: -7270053380794381253}
-  - {fileID: -3880979279812075508}
-  - {fileID: -1924762832386979011}
-  - {fileID: -2264762112041450498}
-  - {fileID: -8139959659826043371}
-  - {fileID: 3594192070309256973}
-  - {fileID: -6704998956128417251}
-  - {fileID: 8089767854371635419}
-  - {fileID: 5251133719520690863}
-  - {fileID: -847339426450429327}
-  - {fileID: 8173059229705733865}
+  components: []
 --- !u!114 &448115243408767295
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1363,6 +1321,7 @@ MonoBehaviour:
   m_Name: PhysicallyBasedSky
   m_EditorClassIdentifier: 
   active: 1
+  <displayName>k__BackingField: Physically Based Sky
   rotation:
     m_OverrideState: 1
     m_Value: 0
@@ -1396,12 +1355,6 @@ MonoBehaviour:
   type:
     m_OverrideState: 1
     m_Value: 1
-  renderingMode:
-    m_OverrideState: 1
-    m_Value: 0
-  material:
-    m_OverrideState: 1
-    m_Value: {fileID: -876546973899608171, guid: 02532cbb810fb404db49da84f1efe41e, type: 3}
   sphericalMode:
     m_OverrideState: 1
     m_Value: 1
@@ -1425,7 +1378,11 @@ MonoBehaviour:
     m_Value: 0.23264056
   airTint:
     m_OverrideState: 1
-    m_Value: {r: 0.9, g: 0.9, b: 1, a: 1}
+    m_Value:
+      r: 0.9
+      g: 0.9
+      b: 1
+      a: 1
   airMaximumAltitude:
     m_OverrideState: 1
     m_Value: 55261.973
@@ -1434,7 +1391,11 @@ MonoBehaviour:
     m_Value: 0.01192826
   aerosolTint:
     m_OverrideState: 1
-    m_Value: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+    m_Value:
+      r: 0.9
+      g: 0.9
+      b: 0.9
+      a: 1
   aerosolMaximumAltitude:
     m_OverrideState: 1
     m_Value: 8289.296
@@ -1446,7 +1407,11 @@ MonoBehaviour:
     m_Value: 3
   groundTint:
     m_OverrideState: 1
-    m_Value: {r: 0.4, g: 0.25, b: 0.15, a: 1}
+    m_Value:
+      r: 0.4
+      g: 0.25
+      b: 0.15
+      a: 1
   groundColorTexture:
     m_OverrideState: 1
     m_Value: {fileID: 0}
@@ -1479,10 +1444,18 @@ MonoBehaviour:
     m_Value: 1
   horizonTint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
   zenithTint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value:
+      r: 1
+      g: 1
+      b: 1
+      a: 1
   horizonZenithShift:
     m_OverrideState: 1
     m_Value: 0

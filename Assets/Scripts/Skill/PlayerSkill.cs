@@ -62,7 +62,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
-    //private MeshCollider meshCollider;
+    private MeshCollider meshCollider;
 
     public float[] MaxCooldown; //Set Max CD
     public float[] skillCooldowns; //using for Count CD
@@ -96,7 +96,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
-        //meshCollider = this.GetComponentInChildren<MeshCollider>();
+        meshCollider = this.GetComponentInChildren<MeshCollider>();
 
         LoadScriptObject();
 
@@ -121,7 +121,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void Start()
     {
-        //meshCollider.enabled = false;
+        meshCollider.enabled = false;
     }
 
     IEnumerator CooldownTimer()
@@ -161,7 +161,7 @@ public class PlayerSkill : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Alpha2))
             {
                 TryStartSkill(CurrentSkill[1], 1);
-                // Debug.Log(CurrentSkill[1]);
+               // Debug.Log(CurrentSkill[1]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha3))
@@ -206,7 +206,7 @@ public class PlayerSkill : MonoBehaviour
         if (isSkillPlaying)
             return;
            
-        //meshCollider.enabled = true;
+        meshCollider.enabled = true;
         
         Player.StopSequence(); //using to player stop moving
 
@@ -243,7 +243,7 @@ public class PlayerSkill : MonoBehaviour
             }
             i++;
         }
-
+        
         slotManager.SettingIconAsync();
 
     }

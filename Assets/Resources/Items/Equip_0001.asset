@@ -16,7 +16,8 @@ MonoBehaviour:
   <DisplayName>k__BackingField: SwordWood
   <Value>k__BackingField: 0
   <Price>k__BackingField: 50
-  <Icon>k__BackingField: {fileID: 21300000, guid: 44d96a6a4cb75b846b7470df390ed124, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 44d96a6a4cb75b846b7470df390ed124,
+    type: 3}
   <ItemName>k__BackingField: 7
   <ItemStatus>k__BackingField: 0
   scriptableObject: {fileID: 11400000, guid: 68132e89235837e468b7524b83595790, type: 2}
