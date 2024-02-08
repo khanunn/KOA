@@ -29,6 +29,7 @@ public class QuestInfoSO : ScriptableObject
     [field: SerializeField] public DialogueInfoSO DialogueInfoSOStart { get; private set; }
     [field: SerializeField] public DialogueInfoSO DialogueInfoSOFinish { get; private set; }
 
+    [field: Header("Window Dialogue")]
     [field: SerializeField] public string DialogTitle { get; private set; }
     [field: TextArea(3, 10)]
     [field: SerializeField] public string[] DialogDescription { get; private set; }
