@@ -292,11 +292,8 @@ public class PlayerSkill : MonoBehaviour
         }
 
         if (isSkillPlaying)
-        {
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                Player.StopSequence();
-            }
+        {            
+            Player.StopSequence();            
         }
     }
     public void SkillPLaying()
