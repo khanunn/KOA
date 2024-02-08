@@ -9,7 +9,10 @@ public class StatController : MonoBehaviour
     /// <Stat>
     public Stat v_hp_max, v_mp_max, v_hp_recovery, v_mp_recovery, v_patk, v_matk, v_pdef, v_mdef, v_acc, v_evade, v_crit_change, v_crit_dam, v_pdam, v_mdam;
     /// </summary>
-
+    private void Awake()
+    {
+        statManager = GetComponentInParent<StatManager>();
+    }
     private void OnEnable()
     {
         EventManager.instance.inputEvents.onStatPressed += SwitchCharacterInfo;
@@ -22,6 +25,8 @@ public class StatController : MonoBehaviour
     }
     private void Start()
     {
+        Debug.Log("hp" + v_hp_max);
+        Debug.Log("statmanager" + statManager);
         v_hp_max = statManager.GetStat(StatKey.v_hp_max);
         v_mp_max = statManager.GetStat(StatKey.v_mp_max);
         v_hp_recovery = statManager.GetStat(StatKey.v_hp_recovery);
@@ -33,7 +38,7 @@ public class StatController : MonoBehaviour
     }
     private void StartStat(StatManager myStat)
     {
-        statManager = myStat;
+        //statManager = myStat;
     }
 
     private void SwitchCharacterInfo()
