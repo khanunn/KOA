@@ -42,6 +42,7 @@ public class DialogueManager : MonoBehaviour
         EventManager.instance.dialogueEvents.onDialogueFinish += FinishDialogue;
         EventManager.instance.dialogueEvents.onAddQuestStep += AddQuestStepDialogue;
         EventManager.instance.dialogueEvents.onUpdateAmount += UpdateAmount;
+        EventManager.instance.dialogueEvents.onDialogueCancle += CancleDialogue;
     }
 
     private void OnDisable()
@@ -50,6 +51,7 @@ public class DialogueManager : MonoBehaviour
         EventManager.instance.dialogueEvents.onDialogueFinish -= FinishDialogue;
         EventManager.instance.dialogueEvents.onAddQuestStep -= AddQuestStepDialogue;
         EventManager.instance.dialogueEvents.onUpdateAmount -= UpdateAmount;
+        EventManager.instance.dialogueEvents.onDialogueCancle -= CancleDialogue;
     }
 
     private void Start()
@@ -163,6 +165,20 @@ public class DialogueManager : MonoBehaviour
 
         InstantiateReward(info);
     }
+    private void CancleDialogue()
+    {
+        questDialogObj.SetActive(false);
+        foreach (var item in allReward)
+        {
+            Destroy(item);
+        }
+        questTitle.text = "";
+        questDescription.text = "";
+        currentAmount.text = "";
+        requiredAmount.text = "";
+        objectiveText.text = "";
+        buttonText.text = "";
+    }
 
     private void AddQuestStepDialogue(GameObject obj)
     {
@@ -171,7 +187,7 @@ public class DialogueManager : MonoBehaviour
         questStep = obj.GetComponent<QuestStep>();
     }
 
-    public void ButtonQuest()
+    public void ButtonQuestAccept()
     {
         if (currentQuestState.Equals(QuestState.CAN_START))
         {
@@ -190,6 +206,10 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(item);
         }
+    }
+    public void ButtonQuestCloseWindow()
+    {
+        CancleDialogue();
     }
 
     private void InstantiateReward(QuestInfoSO questInfoSO)

@@ -46,4 +46,13 @@ public class DialogueEvents
             onUpdateAmount(current, require);
         }
     }
+
+    public event Action onDialogueCancle;
+    public void DialogueCancle()
+    {
+        if (onDialogueCancle != null)
+        {
+            onDialogueCancle();
+        }
+    }
 }
