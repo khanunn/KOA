@@ -429,7 +429,7 @@ public class PlayerController : MonoBehaviour
     // Dragon's Part
 
     public void StopSequence()
-    {
+    {            
         agent.SetDestination(transform.position);
     }
 }
