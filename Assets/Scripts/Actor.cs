@@ -33,6 +33,8 @@ public class Actor : MonoBehaviour
     private void Awake()
     {
         interactable = GetComponent<Interactable>();
+        Debug.Log("Current: " + currentHealth);
+        Debug.Log("Max: " + maxHealth);
         /* maxHealth = stat.statValue;
         currentHealth = maxHealth; */
     }

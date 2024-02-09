@@ -19,7 +19,7 @@ MonoBehaviour:
   <Mana>k__BackingField: 100
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0
-  <Experience>k__BackingField: 1000
+  <Experience>k__BackingField: 0
   <GoldMin>k__BackingField: 1
   <GoldMax>k__BackingField: 10
   items:
