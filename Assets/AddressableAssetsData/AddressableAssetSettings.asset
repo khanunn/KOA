@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: f5c83db544883a748a9d893c24149c29
   m_currentHash:
     serializedVersion: 2
-    Hash: 203b7d38105ed607b4a2225f6dc9d9c7
+    Hash: 25a23ebf2c6f42e3d310852012c05499
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -35,10 +35,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 7a135133aec3be84bad68685f8646ff5
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: <default settings path>
+    m_Id: 6b33b48f39fa526429b088ae3b94a6f0
+  m_ContentStateBuildPathProfileVariableName: Remote.BuildPath
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -67,9 +67,9 @@ MonoBehaviour:
       - m_Id: 6b33b48f39fa526429b088ae3b94a6f0
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: d1bd0787ed4713b438eac8547340e575
-        m_Value: 'ServerData/[BuildTarget]'
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: dcfad5f099e4b1e439ae2e18332c26ac
-        m_Value: 'http://[PrivateIpAddress]:[HostingServicePort]'
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 89adfffb32b59ea4c9794dc3eabb1998
       m_Name: BuildTarget

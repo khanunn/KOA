@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Preview Model Settings")]
+    [SerializeField] GameObject PreviewModel;
+    [SerializeField] Material [] SkinMaterial;
+
+    [Header("Scene Settings")]
     [SerializeField] Animator CameraMovement;
     public bool NextScene = false;
     public void GoToNextScene()
@@ -16,7 +21,16 @@ public class MainMenu : MonoBehaviour
     {
         CameraMovement.Play("A to B");
     }
+    public void GoToCharacterSelection()
+    {
+        CameraMovement.Play("Character Selection");
+    }
 
+    public void ChangeColorSKin(int Index)
+    {
+        PreviewModel.GetComponent<SkinnedMeshRenderer>().material = SkinMaterial[Index];
+    }
+    
     private void Update()
     {
         if(NextScene) {

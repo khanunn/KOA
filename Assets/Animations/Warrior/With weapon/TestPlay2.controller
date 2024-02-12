@@ -397,7 +397,8 @@ AnimatorStateTransition:
     m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 2569941726363179482, guid: 8e944536ec395364492ba1703fd82451, type: 2}
+  m_DstState: {fileID: 2569941726363179482, guid: 8e944536ec395364492ba1703fd82451,
+    type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -539,16 +540,16 @@ AnimatorStateMachine:
     m_Position: {x: 430, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1374192977093844978}
-    m_Position: {x: 1100, y: 10, z: 0}
+    m_Position: {x: 880, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 98177808579576610}
-    m_Position: {x: 990, y: -340, z: 0}
+    m_Position: {x: 840, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4982802082794860694}
     m_Position: {x: -280, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8541955445680090408}
-    m_Position: {x: 1010, y: 330, z: 0}
+    m_Position: {x: 820, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1973303596432694296}
     m_Position: {x: -390, y: -560, z: 0}
@@ -557,7 +558,7 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: -350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1677616087359466638}
-    m_Position: {x: 30, y: -290, z: 0}
+    m_Position: {x: 70, y: -260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5612049160099706581}
     m_Position: {x: -120, y: -470, z: 0}
@@ -590,7 +591,8 @@ AnimatorStateTransition:
     m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -1236738591753470804, guid: 8e944536ec395364492ba1703fd82451, type: 2}
+  m_DstState: {fileID: -1236738591753470804, guid: 8e944536ec395364492ba1703fd82451,
+    type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -654,6 +656,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: Blend
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -675,7 +683,7 @@ AnimatorController:
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
