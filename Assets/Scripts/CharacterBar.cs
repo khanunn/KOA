@@ -41,7 +41,7 @@ public class CharacterBar : MonoBehaviour
     }
     private void Start()
     {
-        healthMax = myActor.currentHealth;
+        healthMax = myActor.CurrentHealth;
         health = healthMax;
         UpdateUI(healthMax);
         //EventManager.instance.healthEvents.HealthChange(health);

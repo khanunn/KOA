@@ -136,7 +136,7 @@ public class PatrolController : MonoBehaviour
         //target.myPlayer.SetPlayerHealth(punchDamage);
         //GiveDamageToPlayer(punchDamage);
 
-        if (target.myActor.currentHealth <= 0)
+        if (target.myActor.CurrentHealth <= 0)
         {
             //Debug.Log("Enemy DEATH");
             target.myPlayer.SetPlayerDie(true);

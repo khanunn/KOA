@@ -78,6 +78,8 @@ public class PlayerSkill : MonoBehaviour
 
     private StatController statController;
 
+    private Actor myActor;
+
     void OnEnable()
     {
         EventManager.instance.statEvents.onSendStatController += StartStatus;
@@ -95,6 +97,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
+        myActor = GetComponent<Actor>();
 
         LoadScriptObject();
 
@@ -313,6 +316,13 @@ public class PlayerSkill : MonoBehaviour
         Vector3 position = controller.target.transform.position;
         EventManager.instance.playerEvents.AttackPopUp(position, skillPhysicDamage.ToString(), Color.green);
         controller.SendEnemy();
+    }
+
+    private void HealingSkill()
+    {
+        int percent = 10;
+        int healing = myActor.MaxHealth * percent / 100;
+        EventManager.instance.healthEvents.HealthGained(healing);
     }
 }
 

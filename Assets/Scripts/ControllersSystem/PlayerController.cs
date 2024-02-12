@@ -341,7 +341,7 @@ public class PlayerController : MonoBehaviour
     //==========================================//
     public void SendEnemy()
     {
-        if (target.myActor.currentHealth <= 0)
+        if (target.myActor.CurrentHealth <= 0)
         {
             //Debug.Log("Enemy DEATH");
             target.myPatrol.SetPatrolDie(true);
