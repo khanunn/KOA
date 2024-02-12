@@ -33,12 +33,19 @@ public class Actor : MonoBehaviour
     private void Awake()
     {
         interactable = GetComponent<Interactable>();
-        Debug.Log("Current: " + currentHealth);
-        Debug.Log("Max: " + maxHealth);
         /* maxHealth = stat.statValue;
         currentHealth = maxHealth; */
     }
-
+    private void Start()
+    {
+        Debug.Log("Start Actor");
+        if (interactable.interactionType == InteractableType.ENEMY)
+        {
+            PatrolController patrolController = GetComponent<PatrolController>();
+            currentHealth = patrolController.monsterInfoSO.Health;
+            //currentHealth = maxHealth;
+        }
+    }
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;

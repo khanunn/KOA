@@ -30,6 +30,7 @@ public class MonsterInfoSO : ScriptableObject
     [field: SerializeField] public string DisplayName { get; private set; }
     [field: SerializeField] public int Damage { get; private set; }
     [field: SerializeField] public int Level { get; private set; }
+    [field: SerializeField] public int Health { get; private set; }
     [field: SerializeField] public int Mana { get; private set; }
     [field: SerializeField] public MonsterName MonsterName { get; private set; }
     [field: SerializeField] public MonsterRace MonsterRace { get; private set; }

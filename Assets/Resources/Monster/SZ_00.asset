@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0a2cd7e521bd3149aeb3582ad2b6696, type: 3}
-  m_Name: SkeletonZombie
+  m_Name: SZ_00
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: SkeletonZombie
+  <Id>k__BackingField: SZ_00
   <DisplayName>k__BackingField: Skeleton Zombie
   <Damage>k__BackingField: 5
   <Level>k__BackingField: 1
+  <Health>k__BackingField: 20
   <Mana>k__BackingField: 100
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0
-  <Experience>k__BackingField: 0
+  <Experience>k__BackingField: 100
   <GoldMin>k__BackingField: 1
   <GoldMax>k__BackingField: 10
   items:

@@ -25,7 +25,6 @@ public class StatController : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log("hp" + v_hp_max);
         Debug.Log("statmanager" + statManager);
         v_hp_max = statManager.GetStat(StatKey.v_hp_max);
         v_mp_max = statManager.GetStat(StatKey.v_mp_max);
