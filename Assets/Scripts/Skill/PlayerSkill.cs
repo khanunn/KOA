@@ -13,14 +13,14 @@ public class PlayerSkill : MonoBehaviour
 {
     public class SkillAction : IDisposable //Special Interface for destroy after doing something
     {
-        private int lifeTime = 3000; 
+        private int lifeTime = 3000;
         private GameObject prefab;
         private GameObject instanceVFX;
 
         public async void Init(int skillId, SkillInfoSO SkillData, Transform parent, quaternion rotation)
-        {                        
+        {
             //Load VFX to memory as Prefab
-            var op = Addressables.LoadAssetAsync<GameObject>($"Assets/VFX/InScene/{skillId}.prefab"); 
+            var op = Addressables.LoadAssetAsync<GameObject>($"Assets/VFX/InScene/{skillId}.prefab");
             prefab = await op.Task;
 
             //Bring Prefab to the scene as gameobject
@@ -33,7 +33,7 @@ public class PlayerSkill : MonoBehaviour
 
             //Set Lifetime base on each skill            
             lifeTime = SkillData.LifetimeVFX;
-            
+
 
             Debug.Log("lifeTime: " + lifeTime);
             await Task.Delay(lifeTime); //Like yield return waitforsecond(second) in IEnumerator
@@ -46,12 +46,12 @@ public class PlayerSkill : MonoBehaviour
             Addressables.Release(prefab);
         }
     }
-    
+
 
     [Header("Skill Settings")]
     Animator animator;
     [SerializeField] int Skill_ID;
-    [SerializeField] bool isSkillPlaying = false;
+    public bool isSkillPlaying = false;
     [SerializeField] SkillSlotManager slotManager;
 
     [Header("Equipment Settings")]
@@ -62,7 +62,6 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
-    private MeshCollider meshCollider;
 
     public float[] MaxCooldown; //Set Max CD
     public float[] skillCooldowns; //using for Count CD
@@ -96,7 +95,6 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         animator = this.GetComponent<Animator>();
-        meshCollider = this.GetComponentInChildren<MeshCollider>();
 
         LoadScriptObject();
 
@@ -119,10 +117,7 @@ public class PlayerSkill : MonoBehaviour
 
         StartCoroutine(CooldownTimer());
     }
-    private void Start()
-    {
-        meshCollider.enabled = false;
-    }
+
 
     IEnumerator CooldownTimer()
     {
@@ -150,6 +145,8 @@ public class PlayerSkill : MonoBehaviour
 
     void SkillSystem()
     {
+        if (Player.PlayerDie) return;
+
         if (!isSkillPlaying)
         {
             if (Input.GetKeyUp(KeyCode.Alpha1))
@@ -161,7 +158,7 @@ public class PlayerSkill : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Alpha2))
             {
                 TryStartSkill(CurrentSkill[1], 1);
-               // Debug.Log(CurrentSkill[1]);
+                // Debug.Log(CurrentSkill[1]);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha3))
@@ -178,8 +175,6 @@ public class PlayerSkill : MonoBehaviour
                     //Debug.Log(CurrentSkill[3]);
                 }
             }
-
-
         }
     }
 
@@ -188,7 +183,7 @@ public class PlayerSkill : MonoBehaviour
         // Check if the skill is not on cooldown
         if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
         {
-           // isSkillPlaying = true;
+            // isSkillPlaying = true;
             StartSkill(skillId, ButtonID);
             Invoke("ResetSkill", 0.01f);
             // Set cooldown for the skill
@@ -196,7 +191,7 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-    private void ResetSkill()
+    public void ResetSkill()
     {
         animator.SetInteger("Skill_ID", -1);
     }
@@ -205,16 +200,15 @@ public class PlayerSkill : MonoBehaviour
     {
         if (isSkillPlaying)
             return;
-           
-        meshCollider.enabled = true;
-        
+
+
         Player.StopSequence(); //using to player stop moving
 
         animator.Play(skillId.ToString()); //Player SKill Movement
 
         Debug.Log(skillId);
         var action = new SkillAction();
-        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation);     
+        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation);
     }
 
     private float[] GetSkillCooldowns()
@@ -243,7 +237,7 @@ public class PlayerSkill : MonoBehaviour
             }
             i++;
         }
-        
+
         slotManager.SettingIconAsync();
 
     }
@@ -291,14 +285,15 @@ public class PlayerSkill : MonoBehaviour
 
         }
 
-        if (isSkillPlaying)
-        {            
-            Player.StopSequence();            
-        }
+        /* if (isSkillPlaying)
+        {
+            Player.StopSequence();
+        } */
     }
     public void SkillPLaying()
     {
         isSkillPlaying = true;
+        Player.StopSequence();
     }
 
     public void SkillNotPLaying()

@@ -45,7 +45,7 @@ public class PatrolController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     // Update is called once per frame
@@ -72,6 +72,11 @@ public class PatrolController : MonoBehaviour
     void FollowTarget()
     {
         if (target == null) return;
+
+        if (agent.obstacleAvoidanceType != ObstacleAvoidanceType.LowQualityObstacleAvoidance)
+        {
+            agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+        }
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
         if (Vector3.Distance(target.transform.position, transform.position) <= attackDistance)
         {
@@ -105,7 +110,7 @@ public class PatrolController : MonoBehaviour
 
         patrolBusy = true;
 
-        switch (target.interactionType)
+        /* switch (target.interactionType)
         {
             case InteractableType.PLAYER:
                 //Debug.Log("Interacted Player");
@@ -113,7 +118,7 @@ public class PatrolController : MonoBehaviour
                 Invoke(nameof(SendAttack), attackDelay);
                 Invoke(nameof(ResetBusy), attackSpeed);
                 break;
-        }
+        } */
     }
     //================โจมตี==========================//
     private void SendAttack()
@@ -121,6 +126,8 @@ public class PatrolController : MonoBehaviour
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
         target.myActor.TakeDamage(punchDamage);
+        Vector3 position = target.transform.position;
+        EventManager.instance.playerEvents.AttackPopUp(position, punchDamage.ToString(), Color.red);
         target.myActor.DamageOnHealthBar();
         SendPlayer();
     }
@@ -194,11 +201,13 @@ public class PatrolController : MonoBehaviour
 
     public void SetPatrolDie(bool die)
     {
+        Debug.Log("Boss Die");
         target = null;
         patrolDie = die;
         agent.enabled = !agent.enabled;
         capsuleCollider.enabled = !capsuleCollider.enabled;
         animator.SetTrigger(DEATH);
+        animator.Play(DEATH);
 
         //int gold = Random.Range(monsterInfoSO.GoldMin, monsterInfoSO.GoldMax);
         GiveRewardToPlayer(monsterInfoSO);

@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private float talkDistance = 1.5f;
     private float targetDistance;
     private CapsuleCollider capsuleCollider;
-    private bool playerDie;
+    public bool PlayerDie { get; private set; }
     private Actor playerActor;
     private PlayerSkill playerSkill;
     private StatController statController;
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
             EventManager.instance.inputEvents.InventoryItemOptionalClose();
             return;
         } */
-        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
+        if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
@@ -141,8 +141,9 @@ public class PlayerController : MonoBehaviour
     private void ClickToMove()
     {
         //Debug.Log("Click Success");
-        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
+        if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
 
+        if (playerSkill.isSkillPlaying) { playerSkill.isSkillPlaying = false; }
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
         {
@@ -175,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
                 if (clickEffect != null)
                 {
-                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
+                    Instantiate(clickEffect, hit.point += new Vector3(0, 0f, 0), clickEffect.transform.rotation);
                 }
             }
             else
@@ -257,6 +258,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        if (playerSkill.isSkillPlaying) return;
         //PlayAnimations();
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
         if (Vector3.Distance(target.transform.position, transform.position) <= targetDistance)
@@ -297,8 +299,8 @@ public class PlayerController : MonoBehaviour
             {
                 case InteractableType.ENEMY:
                     AnimAttack(true);
-                    Invoke(nameof(SendAttack), attackDelay);
-                    Invoke(nameof(ResetBusy), attackSpeed);
+                    /* Invoke(nameof(SendAttack), attackDelay);
+                    Invoke(nameof(ResetBusy), attackSpeed); */
                     break;
                 case InteractableType.ITEM_QUEST:
                     //Debug.Log("Interacted Item");
@@ -410,7 +412,7 @@ public class PlayerController : MonoBehaviour
     public async void SetPlayerDie(bool die)
     {
         target = null;
-        playerDie = die;
+        PlayerDie = die;
         agent.enabled = !agent.enabled;
         capsuleCollider.enabled = !capsuleCollider.enabled;
         animator.SetTrigger(DEATH);
@@ -429,7 +431,8 @@ public class PlayerController : MonoBehaviour
     // Dragon's Part
 
     public void StopSequence()
-    {            
+    {
         agent.SetDestination(transform.position);
+        ResetBusy();
     }
 }
