@@ -193,19 +193,8 @@ public class PlayerController : MonoBehaviour
                             ResetBusy();
                             SendNpc(false);
                             ResetTarget();
+                            EventManager.instance.dialogueEvents.DialogueCancle();
                             break;
-                        /* case InteractableType.ENEMY:
-                            ResetBusy();
-                            ResetTarget();
-                            break;
-                        case InteractableType.ITEM_QUEST:
-                            ResetBusy();
-                            ResetTarget();
-                            break;
-                        case InteractableType.ITEM_INVENTORY:
-                            ResetBusy();
-                            ResetTarget();
-                            break; */
                         default:
                             ResetBusy();
                             ResetTarget();

@@ -72,11 +72,15 @@ public class Actor : MonoBehaviour
 
     private void UpHealth(int health)
     {
-        CurrentHealth += health;
-
-        if (CurrentHealth > MaxHealth)
+        switch (interactable.interactionType)
         {
-            CurrentHealth = MaxHealth;
+            case InteractableType.PLAYER:
+                CurrentHealth += health;
+                if (CurrentHealth > MaxHealth)
+                {
+                    CurrentHealth = MaxHealth;
+                }
+                break;
         }
     }
 

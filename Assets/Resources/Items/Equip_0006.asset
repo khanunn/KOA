@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3091027c92cd3584da55907aa3d72314, type: 3}
+  m_Name: Equip_0006
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: Equip_0006
+  <DisplayName>k__BackingField: SwordKnight
+  <Value>k__BackingField: 0
+  <Price>k__BackingField: 9999
+  <Icon>k__BackingField: {fileID: 21300000, guid: 827acb2a270739c47a0d7fcdce77d9f5,
+    type: 3}
+  <ItemName>k__BackingField: 7
+  <ItemStatus>k__BackingField: 0
+  scriptableObject: {fileID: 11400000, guid: 9b02f2c5007fdff42833481371534374, type: 2}

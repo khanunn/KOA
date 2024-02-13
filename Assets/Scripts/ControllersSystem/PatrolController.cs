@@ -125,9 +125,9 @@ public class PatrolController : MonoBehaviour
     {
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
-        target.myActor.TakeDamage(punchDamage);
+        target.myActor.TakeDamage(monsterInfoSO.Damage);
         Vector3 position = target.transform.position;
-        EventManager.instance.playerEvents.AttackPopUp(position, punchDamage.ToString(), Color.red);
+        EventManager.instance.playerEvents.AttackPopUp(position, monsterInfoSO.Damage.ToString(), Color.red);
         target.myActor.DamageOnHealthBar();
         SendPlayer();
     }

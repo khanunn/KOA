@@ -83,6 +83,10 @@ public class QuestPoint : MonoBehaviour
     public void PlayerIsNear(bool isNear)
     {
         playerIsNear = isNear;
+        if (!playerIsNear)
+        {
+            isDialogShowing = false;
+        }
         //Debug.Log("PlayerIsNear: " + isNear);
     }
 
@@ -105,8 +109,8 @@ public class QuestPoint : MonoBehaviour
         {
             Debug.Log("Exit Trigger QuestPoint");
             playerIsNear = false;
-            isDialogShowing = false;
-            EventManager.instance.dialogueEvents.DialogueCancle();
+            //isDialogShowing = false;
+
             //Debug.Log("PlayerIsNear: " + playerIsNear + " from QuestPoint");
         }
     }

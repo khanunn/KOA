@@ -162,40 +162,31 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 5.7132883
-      outSlope: 5.7132883
+      value: 2.75
+      inSlope: -4.375
+      outSlope: -4.375
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.16223297
-      value: 0.9268837
-      inSlope: 5.7132883
-      outSlope: 0.004087698
+      time: 0.4
+      value: 1
+      inSlope: -4.375
+      outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.739907
-      value: 0.92924505
-      inSlope: 0.004087698
-      outSlope: -4.6543865
+      time: 0.65
+      value: 1
+      inSlope: -0
+      outSlope: -3.4277837
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9334717
-      value: 0.028320312
-      inSlope: -4.6543865
-      outSlope: -4.6543865
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -205,39 +196,21 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 6.9497495
-      outSlope: 6.9497495
+      inSlope: 1.7577603
+      outSlope: 1.7577603
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.21749936
-      value: 1.511566
-      inSlope: 6.9497495
-      outSlope: -0.014910434
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 0.8545349
       value: 1.5020676
-      inSlope: -0.014910434
+      inSlope: 1.7577603
       outSlope: -10.990681
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9892711
-      value: 0.021225214
-      inSlope: -10.990681
-      outSlope: -10.990681
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -334,8 +307,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

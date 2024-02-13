@@ -160,6 +160,8 @@ public class DialogueManager : MonoBehaviour
         questDescription.text = info.DialogDescription[1];
         /* currentAmount.text = "";
         requiredAmount.text = ""; */
+        currentAmount.text = questStep.questStepToComplete.ToString();
+        requiredAmount.text = questStep.questStepToComplete.ToString();
         objectiveText.text = info.displayName;
         buttonText.text = "Finish";
 
@@ -201,11 +203,7 @@ public class DialogueManager : MonoBehaviour
             EventManager.instance.questEvents.FinishQuest(questId);
         }
 
-        questDialogObj.SetActive(false);
-        foreach (var item in allReward)
-        {
-            Destroy(item);
-        }
+        CancleDialogue();
     }
     public void ButtonQuestCloseWindow()
     {

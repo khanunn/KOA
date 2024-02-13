@@ -45,6 +45,7 @@ public class StatManager : MonoBehaviour
 
         IncreaseStatRandomly(statContainer.v_hp_max, classInfoSO.v_hp_max, maxIncrease);
         IncreaseStatRandomly(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
+        IncreaseStatRandomly(statContainer.v_patk, classInfoSO.v_patk, maxIncrease);
 
     }
 
