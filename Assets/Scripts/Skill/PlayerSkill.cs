@@ -79,6 +79,8 @@ public class PlayerSkill : MonoBehaviour
     private StatController statController;
 
     private Actor myActor;
+    private PlayerController player;
+    AnimatorStateInfo stateInfo;
 
     void OnEnable()
     {
@@ -98,6 +100,7 @@ public class PlayerSkill : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         myActor = GetComponent<Actor>();
+        player = GetComponent<PlayerController>();
 
         LoadScriptObject();
 
@@ -323,6 +326,20 @@ public class PlayerSkill : MonoBehaviour
         int percent = 10;
         int healing = myActor.MaxHealth * percent / 100;
         EventManager.instance.healthEvents.HealthGained(healing);
+    }
+
+    private async void BoostSkill()
+    {
+        float defaultAnimatorSpeed = animator.speed;
+        animator.speed = 2;
+        player.MoveSpeed(7f);
+        /* Animation animation = animator.GetComponent<Animation>();
+        Debug.Log("Animation: " + animation);
+        animation["Walk"].speed = 1.5f; */
+        await Task.Delay(10000);
+
+        animator.speed = defaultAnimatorSpeed;
+        player.MoveSpeed(3.5f);
     }
 }
 

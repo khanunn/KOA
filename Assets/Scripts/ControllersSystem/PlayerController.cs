@@ -435,4 +435,9 @@ public class PlayerController : MonoBehaviour
         agent.SetDestination(transform.position);
         ResetBusy();
     }
+
+    public void MoveSpeed(float speed)
+    {
+        agent.speed = speed;
+    }
 }

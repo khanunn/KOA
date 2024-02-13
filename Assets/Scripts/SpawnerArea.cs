@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,14 +27,14 @@ public class SpawnerArea : MonoBehaviour
         //SpawnRandomObject();
     }
 
-    private void SpawnRandomObject()
+    private async void SpawnRandomObject()
     {
         float randomX = Random.Range(areaCenter.x - areaSize.x / 2, areaCenter.x + areaSize.x / 2);
         float randomY = Random.Range(areaCenter.y - areaSize.y / 2, areaCenter.y + areaSize.y / 2);
         float randomZ = Random.Range(areaCenter.z - areaSize.z / 2, areaCenter.z + areaSize.z / 2);
 
         Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
-
+        await Task.Delay(2000);
         Instantiate(objectToSpawn, randomPosition, Quaternion.identity);
     }
 
