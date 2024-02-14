@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: AM_00
   <DisplayName>k__BackingField: Rabbit Reindeer
-  <Damage>k__BackingField: 555
+  <Damage>k__BackingField: 10
   <Level>k__BackingField: 10
-  <Health>k__BackingField: 10000
+  <Health>k__BackingField: 5000
   <Mana>k__BackingField: 100
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0

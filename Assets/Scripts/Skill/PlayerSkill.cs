@@ -28,7 +28,7 @@ public class PlayerSkill : MonoBehaviour
 
             //Bring it into child and set pos and set 0 rotation at player (Specific detail are setting in child of VFX)
             instanceVFX.transform.SetParent(parent);
-            instanceVFX.transform.localPosition = new Vector3(0, 0, 0);
+            instanceVFX.transform.localPosition = new Vector3(prefab.transform.position.x, prefab.transform.position.y, prefab.transform.position.z);
             instanceVFX.transform.rotation = rotation;
 
             //Set Lifetime base on each skill            

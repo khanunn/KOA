@@ -32,7 +32,7 @@ public class Actor : MonoBehaviour
 
     private void Awake()
     {
-        interactable = GetComponent<Interactable>();
+        interactable = GetComponent<Interactable>();       
         /* maxHealth = stat.statValue;
         currentHealth = maxHealth; */
     }
@@ -44,6 +44,7 @@ public class Actor : MonoBehaviour
             //PatrolController patrolController = GetComponent<PatrolController>();
 
             CurrentHealth = interactable.myPatrol.monsterInfoSO.Health;
+            MaxHealth = interactable.myPatrol.monsterInfoSO.Health;
             //currentHealth = maxHealth;
         }
     }

@@ -122,14 +122,21 @@ public class PatrolController : MonoBehaviour
     }
     //================โจมตี==========================//
     private void SendAttack()
-    {
+    {        
+        //Dragon's Addition Code        
+        if (this.GetComponent<BossBehaviourScript>() != null) //Using for hitCount in BossBehaviourScript
+        {
+            BossBehaviourScript bossBehaviour = this.GetComponent<BossBehaviourScript>();
+            bossBehaviour.HitCount += 1;
+        }
+
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
         target.myActor.TakeDamage(monsterInfoSO.Damage);
         Vector3 position = target.transform.position;
         EventManager.instance.playerEvents.AttackPopUp(position, monsterInfoSO.Damage.ToString(), Color.red);
         target.myActor.DamageOnHealthBar();
-        SendPlayer();
+        SendPlayer();       
     }
     private void SendPlayer()
     {
@@ -162,7 +169,7 @@ public class PatrolController : MonoBehaviour
         if (animator != null)
         {
             if (patrolBusy)
-            {
+            {                
                 animator.SetBool(ATTACK, true);
                 return;
             }

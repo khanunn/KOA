@@ -19,7 +19,7 @@ public class StatManager : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log("Start StatManager");
+        //Debug.Log("Start StatManager");
         EventManager.instance.statEvents.SendStatManager(this);
     }
     public void SetStat()
