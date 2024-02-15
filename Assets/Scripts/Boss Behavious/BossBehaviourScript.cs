@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -13,11 +14,10 @@ public class BossBehaviourScript : MonoBehaviour
 
     [Header("Property Setting")]
     public int HitCount = 0; //Added when entity attack (in PatrolController.cs)    
-    public int EntityPhase = 1;
-    public Vector3 TargetPosition;
+    public int EntityPhase = 1;    
 
-    private float animationTimer;
-   
+    private float animationTimer;    
+
     void LunchAttackAnimation()
     {
         if (EntityPhase == 1) //Now for using with RabbitReindeer
@@ -41,7 +41,7 @@ public class BossBehaviourScript : MonoBehaviour
                     break;
                 case 7:                    
                     animator.SetInteger("SkillID", 2); //Jumping Attack
-                    animationTimer = 3.24f;                
+                    animationTimer = 4f;                
                     HitCount = 0;
                     this.GetComponent<NavMeshAgent>().isStopped = true;
                     break;
