@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: KillBoss
   m_EditorClassIdentifier: 
   <id>k__BackingField: KillBoss
-  displayName: Skeleton Zombie
+  displayName: Rabbit Reindeer
   levelRequirements: 5
   questPrerequisites:
   - {fileID: 11400000, guid: 096190962b77a2a4e9cafdebe9aa0090, type: 2}
+  TargetMonster: {fileID: 11400000, guid: 0ead3b86ce44a9e478f664ab9dcdc4b3, type: 2}
   questStepPrefab:
-  - {fileID: 8424634330161713993, guid: ee3178c5615aa564ab7073eef0024ca9, type: 3}
+  - {fileID: 8424634330161713993, guid: 554cc2c1ecb1dc04ead4c5875f1cfb74, type: 3}
   goldReward: 6666
   rubyReward: 10
   expReward: 20000

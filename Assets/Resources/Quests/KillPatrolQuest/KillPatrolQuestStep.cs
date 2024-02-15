@@ -24,19 +24,22 @@ public class KillPatrolQuestStep : QuestStep
         Debug.Log(" Set " + this.name + " To QuestStep ");
     }
 
-    private void PatrolKilled()
+    private void PatrolKilled(string monsterID)
     {
-        if (patrolsKilled < patrolsKillToComplete)
+        if(monsterID == info.TargetMonster.Id)
         {
-            patrolsKilled++;
-            EventManager.instance.dialogueEvents.UpdateAmount(patrolsKilled, patrolsKillToComplete);
-            //questStepCurrent++;
-        }
+            if (patrolsKilled < patrolsKillToComplete)
+            {
+                patrolsKilled++;
+                EventManager.instance.dialogueEvents.UpdateAmount(patrolsKilled, patrolsKillToComplete);
+                //questStepCurrent++;
+            }
 
-        if (patrolsKilled >= patrolsKillToComplete)
-        {
-            FinishQuestStep();
-        }
+            if (patrolsKilled >= patrolsKillToComplete)
+            {
+                FinishQuestStep();
+            }
+        }        
     }
     /* private void PatrolKilled()
     {

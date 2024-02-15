@@ -17,6 +17,7 @@ MonoBehaviour:
   levelRequirements: 1
   questPrerequisites:
   - {fileID: 11400000, guid: 79170aafdddebf04bbc6fc726f7ff42e, type: 2}
+  TargetMonster: {fileID: 0}
   questStepPrefab:
   - {fileID: 2669833320497560501, guid: e9eb371c1daf5344688f1776d2a8aa67, type: 3}
   goldReward: 0

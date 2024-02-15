@@ -13,6 +13,7 @@ public class QuestInfoSO : ScriptableObject
     [Header("Requirements")]
     public int levelRequirements;
     public QuestInfoSO[] questPrerequisites;
+    public MonsterInfoSO TargetMonster;
 
     [Header("Steps")]
     public GameObject[] questStepPrefab;
@@ -40,6 +41,8 @@ public class QuestInfoSO : ScriptableObject
         //Debug.Log("OnValidate");
 #if UNITY_EDITOR
         id = this.name;
+        if (TargetMonster != null) displayName = this.TargetMonster.DisplayName;
+
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
     }

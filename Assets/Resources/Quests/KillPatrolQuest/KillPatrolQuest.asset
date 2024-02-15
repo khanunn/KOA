@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: Skeleton Zombie
   levelRequirements: 1
   questPrerequisites: []
+  TargetMonster: {fileID: 11400000, guid: 56c1a953d0244374a8ffe7cc99e0e5d8, type: 2}
   questStepPrefab:
   - {fileID: 8424634330161713993, guid: e9f385f2a6ab5e146b8f1e83e3f5320f, type: 3}
   goldReward: 10

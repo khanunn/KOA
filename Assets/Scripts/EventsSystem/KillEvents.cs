@@ -1,12 +1,12 @@
 using System;
 public class KillEvents
 {
-    public event Action onMonsterKilled;
-    public void MonsterKilled()
+    public event Action<string> onMonsterKilled;
+    public void MonsterKilled(string monsterID)
     {
         if(onMonsterKilled != null)
         {
-            onMonsterKilled();
+            onMonsterKilled(monsterID);
         }
     }
 }

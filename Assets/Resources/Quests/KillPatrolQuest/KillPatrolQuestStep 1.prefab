@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStepCurrent: 0
-  questStepToComplete: 20
+  questStepToComplete: 4
   patrolsKilled: 0
-  patrolsKillToComplete: 20
+  patrolsKillToComplete: 4

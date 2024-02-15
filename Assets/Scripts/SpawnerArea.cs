@@ -27,7 +27,7 @@ public class SpawnerArea : MonoBehaviour
         //SpawnRandomObject();
     }
 
-    private async void SpawnRandomObject()
+    private async void SpawnRandomObject(string monsterID)
     {
         float randomX = Random.Range(areaCenter.x - areaSize.x / 2, areaCenter.x + areaSize.x / 2);
         float randomY = Random.Range(areaCenter.y - areaSize.y / 2, areaCenter.y + areaSize.y / 2);

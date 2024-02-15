@@ -44,7 +44,7 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
-    private void PatrolKilled()
+    private void PatrolKilled(string monsterID)
     {
         patrolsKilled++;
 

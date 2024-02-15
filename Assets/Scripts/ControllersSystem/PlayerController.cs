@@ -361,8 +361,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void KillMonster()
-    {
-        EventManager.instance.killEvents.MonsterKilled();
+    {        
+        EventManager.instance.killEvents.MonsterKilled(target.myPatrol.monsterInfoSO.Id);
     }
 
     private void PickupItem()
