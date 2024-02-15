@@ -2,22 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
+
 
 public class BossBehaviourScript : MonoBehaviour
 {    
     Animator animator;
     MonsterInfoSO monsterInfoSO;
-    Actor actor;    
+    Actor actor;
+
+    private float animationTimer;
+
 
     [Header("Property Setting")]
     public int HitCount = 0; //Added when entity attack (in PatrolController.cs)    
-    public int EntityPhase = 1;    
+    public int EntityPhase = 1;
+    [Header("UI Setting")]
+    [SerializeField] Slider BossHpBar;
+    [SerializeField] TMP_Text DisplayText;
 
-    private float animationTimer;    
-
+    [Header("Sound Setting")]
+    [SerializeField] AudioClip BossTheme;
     void LunchAttackAnimation()
     {
         if (EntityPhase == 1) //Now for using with RabbitReindeer
@@ -26,6 +34,8 @@ public class BossBehaviourScript : MonoBehaviour
             {
                 HitCount = 0;
                 animator.SetInteger("SkillID", 1); //Roaring
+                animationTimer = 6f;
+                this.GetComponent<NavMeshAgent>().isStopped = true;
             }
             else animator.SetInteger("SkillID", 0);            
         }
@@ -35,7 +45,7 @@ public class BossBehaviourScript : MonoBehaviour
             {                
                 case 3:                    
                     animator.SetInteger("SkillID", 1); //Roaring                                      
-                    animationTimer = 5.15f;  // Animation Length                                      
+                    animationTimer = 6f;  // Animation Length                                      
                     HitCount++;
                     this.GetComponent<NavMeshAgent>().isStopped = true;                                      
                     break;
@@ -55,13 +65,20 @@ public class BossBehaviourScript : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         monsterInfoSO = this.GetComponent<PatrolController>().monsterInfoSO;
-        actor = this.GetComponent<Actor>();          
+        actor = this.GetComponent<Actor>();
+
+        //Just In case forget to set false
+        BossHpBar.gameObject.SetActive(false);
+        DisplayText.gameObject.SetActive(false);
     }
     
     // Update is called once per frame
     void Update()
     {
-        if(animationTimer > 0)
+        LunchAttackAnimation();
+
+        //Set Counter
+        if (animationTimer > 0)
         {
             animationTimer -= Time.deltaTime;
         }
@@ -69,9 +86,46 @@ public class BossBehaviourScript : MonoBehaviour
         if (animationTimer <= 0)
         {
             this.GetComponent<NavMeshAgent>().isStopped = false;
-        }
+        }       
+
 
         if (actor.CurrentHealth <= actor.MaxHealth / 2) EntityPhase = 2; // When this Entity have current hp lower than 50%        
-        LunchAttackAnimation();
+        if (actor.CurrentHealth <= 0 )
+        {
+            BossHpBar.gameObject.SetActive(false);
+            DisplayText.gameObject.SetActive(false);
+        }      
+
+        BossHpBar.value = actor.CurrentHealth; //Set HP bar
     }
+
+    bool AlreadyIn = false;
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if(other.tag == "Player")
+        {
+            DisplayText.text = monsterInfoSO.DisplayName + "( Lv: " + monsterInfoSO.Level + " )";
+            BossHpBar.maxValue = actor.MaxHealth;
+            BossHpBar.gameObject.SetActive(true);
+            DisplayText.gameObject.SetActive(true);
+
+            if(!AlreadyIn)
+            {
+                other.gameObject.GetComponent<AudioSource>().clip = BossTheme;
+                other.gameObject.GetComponent<AudioSource>().Play();
+                AlreadyIn = true;
+            }
+            
+        }
+    }
+
+    /*private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {            
+            BossHpBar.gameObject.SetActive(false);
+            DisplayText.gameObject.SetActive(false);
+        }
+    }*/
 }

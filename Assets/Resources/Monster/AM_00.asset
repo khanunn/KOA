@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: AM_00
   <DisplayName>k__BackingField: Rabbit Reindeer
-  <Damage>k__BackingField: 200
+  <Damage>k__BackingField: 250
   <Level>k__BackingField: 10
-  <Health>k__BackingField: 3000
+  <Health>k__BackingField: 5000
   <Mana>k__BackingField: 100
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0
   <Experience>k__BackingField: 10000
-  <GoldMin>k__BackingField: 20
-  <GoldMax>k__BackingField: 50
+  <GoldMin>k__BackingField: 50
+  <GoldMax>k__BackingField: 100
   items:
   - {fileID: 11400000, guid: f750b43bf57464c43b6bfb86fc8d535c, type: 2}
   dropRate:

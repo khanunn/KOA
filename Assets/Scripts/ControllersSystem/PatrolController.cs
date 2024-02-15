@@ -33,8 +33,7 @@ public class PatrolController : MonoBehaviour
     //====================================================//
     [Header("Infomation")]
     public MonsterInfoSO monsterInfoSO;
-    //====================================================//
-
+    //====================================================//  
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -136,6 +135,7 @@ public class PatrolController : MonoBehaviour
         Vector3 position = target.transform.position;
         EventManager.instance.playerEvents.AttackPopUp(position, monsterInfoSO.Damage.ToString(), Color.red);
         target.myActor.DamageOnHealthBar();
+        this.GetComponent<AudioSource>().Play();
         SendPlayer();       
     }
     private void SendPlayer()
@@ -146,7 +146,7 @@ public class PatrolController : MonoBehaviour
         if (target.myActor.CurrentHealth <= 0)
         {
             //Debug.Log("Enemy DEATH");
-            target.myPlayer.SetPlayerDie(true);
+            //target.myPlayer.SetPlayerDie(true);
             //target.myActor.OnDeath();
             ResetTarget();
             ResetMoveing();

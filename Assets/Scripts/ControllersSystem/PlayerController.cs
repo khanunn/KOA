@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         FollowTarget();
         //PlayAnimations();
+        if (playerActor.CurrentHealth <= 0 && !PlayerDie) SetPlayerDie(true);
     }
 
     void AssignInput()
@@ -429,4 +430,6 @@ public class PlayerController : MonoBehaviour
     {
         agent.speed = speed;
     }
+
+    
 }
