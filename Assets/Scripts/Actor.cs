@@ -38,7 +38,7 @@ public class Actor : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log("Start Actor");
+        //Debug.Log("Start Actor");
         if (interactable.interactionType == InteractableType.ENEMY)
         {
             //PatrolController patrolController = GetComponent<PatrolController>();
@@ -71,7 +71,7 @@ public class Actor : MonoBehaviour
         EventManager.instance.healthEvents.HealthChange(CurrentHealth);
     }
 
-    private void UpHealth(int health)
+    public void UpHealth(int health)
     {
         switch (interactable.interactionType)
         {

@@ -11,7 +11,7 @@ public class KillPatrolQuestStep : QuestStep
     private void OnEnable()
     {
         EventManager.instance.killEvents.onMonsterKilled += PatrolKilled;
-        Debug.Log("OnEnable from KillPatrolQuestStep");
+        //Debug.Log("OnEnable from KillPatrolQuestStep");
     }
     private void OnDisable()
     {
@@ -21,7 +21,7 @@ public class KillPatrolQuestStep : QuestStep
     {
         questStepCurrent = patrolsKilled;
         questStepToComplete = patrolsKillToComplete;
-        Debug.Log(" Set " + this.name + " To QuestStep ");
+        //Debug.Log(" Set " + this.name + " To QuestStep ");
     }
 
     private void PatrolKilled(string monsterID)
