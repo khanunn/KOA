@@ -19,11 +19,11 @@ public class StatusBehavious : MonoBehaviour
 
     public async Task ActiveSkill()
     {
-        int milliseconds = Mathf.RoundToInt(duration * 1000); // as the effect of duration
+        int milliseconds = Mathf.RoundToInt(duration * 1000); // as the effect of duration      
         switch (statusID)
         {
             case 0:
-                //Movement Status like: Slow, Stun , Root , Speed
+                //Movement Status like: Slow, Stun , Root , Speed              
                 previousSpeed = target.GetComponent<NavMeshAgent>().speed; //store previous speed
 
                 target.GetComponent<NavMeshAgent>().speed = statusIntensity; //set speed as effect intensity
@@ -79,8 +79,7 @@ public class StatusBehavious : MonoBehaviour
                 //float CheckTime = duration;             
                 for (int i = (int)duration; duration > 0; i--)
                 {
-                    float totalDamage = (target.GetComponent<Actor>().MaxHealth - target.GetComponent<Actor>().CurrentHealth) * (statusIntensity / 100);
-                    Debug.Log(totalDamage);
+                    float totalDamage = (target.GetComponent<Actor>().MaxHealth - target.GetComponent<Actor>().CurrentHealth) * (statusIntensity / 100);                    
                     target.GetComponent<Actor>().TakeDamage((int)totalDamage);
                     target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
                     EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.red);
@@ -102,6 +101,19 @@ public class StatusBehavious : MonoBehaviour
                     CheckTime -= 1;
                 }
                 break;
+            case 6:
+                //Slient                 
+                if(target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
+                {
+                    target.GetComponent<PlayerSkill>().CanUseSkill = false;
+                    Debug.Log("target.GetComponent<PlayerSkill>().isSkillPlaying: " + target.GetComponent<PlayerSkill>().CanUseSkill);                    
+                    
+                    await Task.Delay(milliseconds);
+
+                    Debug.Log("target.GetComponent<PlayerSkill>().isSkillPlaying: " + target.GetComponent<PlayerSkill>().CanUseSkill);
+                    target.GetComponent<PlayerSkill>().CanUseSkill = true;
+                }
+                break;                           
         }
     }
     public void CancelStatus()

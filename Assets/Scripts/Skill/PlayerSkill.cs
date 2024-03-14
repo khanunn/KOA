@@ -52,6 +52,7 @@ public class PlayerSkill : MonoBehaviour
     Animator animator;
     [SerializeField] int Skill_ID;
     public bool isSkillPlaying = false;
+    public bool CanUseSkill = true;
     [SerializeField] SkillSlotManager slotManager;
 
     [Header("Equipment Settings")]
@@ -186,6 +187,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void TryStartSkill(int skillId, int ButtonID)
     {
+        if (!CanUseSkill) return;
         // Check if the skill is not on cooldown
         if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
         {

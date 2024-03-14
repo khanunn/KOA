@@ -17,8 +17,8 @@ MonoBehaviour:
   <Intensity>k__BackingField: 5
   <Duration>k__BackingField: 5
   <Tier>k__BackingField: 1
-  <DisplayName>k__BackingField: Bleeding
+  <DisplayName>k__BackingField: Venom
   <Desciption>k__BackingField: Decrease the Maximum health points by 5% every second
     for a duration of 5 seconds.
-  <Icon>k__BackingField: {fileID: 374495580, guid: da642b4bbc31be04e86280319394d4c8,
+  <Icon>k__BackingField: {fileID: 2047992146, guid: 0a485cca57a74a5489c7171effcbf663,
     type: 3}
