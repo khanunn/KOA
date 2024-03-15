@@ -32,9 +32,10 @@ public class Actor : MonoBehaviour
 
     private void Awake()
     {
-        interactable = GetComponent<Interactable>();       
+        interactable = GetComponent<Interactable>();
         /* maxHealth = stat.statValue;
-        currentHealth = maxHealth; */
+        */
+        CurrentHealth = MaxHealth;
     }
     private void Start()
     {
@@ -54,9 +55,7 @@ public class Actor : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             CurrentHealth = 0;
-        }
-
-        DamageOnHealthBar();
+        }        
     }
 
     public void OnDeath()

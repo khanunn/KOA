@@ -58,7 +58,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   IsFire: 0
   Damage: 0
-  LifeTime: 10
+  LifeTime: 5
   Speed: 5
 --- !u!23 &2998099313469283539
 MeshRenderer:

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,7 +22,11 @@ public class PatrolController : MonoBehaviour
     [SerializeField] private float moveRadius;
     [SerializeField] private float ramdomDelayMin;
     [SerializeField] private float ramdomDelayMax;
+
+    //====================================================//
+    [Header("Aggro System")]
     [SerializeField] float AggroTime;
+    [SerializeField] bool StartCheckAggro = false;
     //=====================================================//
     [Header("Attacking")]
     [SerializeField] private float attackSpeed;
@@ -45,6 +50,7 @@ public class PatrolController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AggroTime = monsterInfoSO.AggroTime;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
@@ -53,7 +59,27 @@ public class PatrolController : MonoBehaviour
     {
         RandomToMove();
         PlayAnimations();
+
         FollowTarget();
+        AggroCheck();
+
+        if (AggroTime <= 0)
+        {
+            target = null;
+            AggroTime = monsterInfoSO.AggroTime;
+            StartCheckAggro = false;
+            
+        }
+    }
+
+    void AggroCheck()
+    {
+        if (!StartCheckAggro) return;
+     
+        if (Vector3.Distance(target.transform.position, transform.position) > attackDistance)
+        {
+            AggroTime -= Time.deltaTime;            
+        }
     }
 
     void RandomToMove()
@@ -83,6 +109,7 @@ public class PatrolController : MonoBehaviour
             if (target.interactionType == InteractableType.PLAYER)
             {
                 ReachDistance();
+                StartCheckAggro = true;
             }
         }
         else
