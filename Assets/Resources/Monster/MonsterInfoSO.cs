@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum MonsterName
 {
-    SkeletonZombie, RockOgre
+    SkeletonZombie, RockOgre, MutantCharger
 }
 public enum MonsterRace
 {

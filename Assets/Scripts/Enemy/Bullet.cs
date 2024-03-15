@@ -45,7 +45,8 @@ public class Bullet : MonoBehaviour
     {
         transform.Rotate(Vector3.down * 1000 * Time.deltaTime);              
 
-        transform.position = Vector3.MoveTowards(transform.position, CurrentTargetPosition, Speed * Time.deltaTime);        
+        transform.position = Vector3.MoveTowards(transform.position, CurrentTargetPosition, Speed * Time.deltaTime);
+        if(Vector3.Distance(transform.position, CurrentTargetPosition) <= 1) Invoke(nameof(DestroySelf), 0.1f);
 
     }
 }

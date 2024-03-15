@@ -12,6 +12,7 @@ public class StatusManager : MonoBehaviour
     [SerializeField] GameObject IconStatusPanal;
     [SerializeField] GameObject DisplayIcon;
     public async void AddStatus(StatusInfoSO statusInfo)
+        
     {
         if (CurrentStatus.ContainsKey(statusInfo))
         {
