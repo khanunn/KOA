@@ -55,6 +55,8 @@ public class Actor : MonoBehaviour
         {
             CurrentHealth = 0;
         }
+
+        DamageOnHealthBar();
     }
 
     public void OnDeath()

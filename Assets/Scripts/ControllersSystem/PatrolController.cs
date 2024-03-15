@@ -11,7 +11,7 @@ public class PatrolController : MonoBehaviour
     bool patrolBusy = false;
     bool patrolDie = false;
     bool patrolMoveing = false;
-    Interactable target;
+    public Interactable target;
     const string WALK = "Walk";
     const string IDLE = "Idle";
     const string ATTACK = "Attack";
@@ -21,6 +21,7 @@ public class PatrolController : MonoBehaviour
     [SerializeField] private float moveRadius;
     [SerializeField] private float ramdomDelayMin;
     [SerializeField] private float ramdomDelayMax;
+    [SerializeField] float AggroTime;
     //=====================================================//
     [Header("Attacking")]
     [SerializeField] private float attackSpeed;
