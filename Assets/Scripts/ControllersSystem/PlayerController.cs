@@ -26,13 +26,16 @@ public class PlayerController : MonoBehaviour
     public bool PlayerDie { get; private set; }
     private Actor playerActor;
     private PlayerSkill playerSkill;
-    private StatController statController;
+    [SerializeField] StatController statController;
+    [Header("HitChangeSystem")]
+    public int Accuracy = 50; //base Acc is 50
+    public int Evade = 10;
     //=====================================================//
     [Header("Attack")]
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackDistance;
-    [SerializeField] private ParticleSystem attackEffect;
+    [SerializeField] private ParticleSystem attackEffect;  
     private bool playerBusy = false;
     public Interactable target { get; private set; }
     //=====================================================//
@@ -80,6 +83,7 @@ public class PlayerController : MonoBehaviour
         //PlayAnimations();
         if (playerActor.CurrentHealth <= 0 && !PlayerDie) SetPlayerDie(true);
     }
+    
 
     void AssignInput()
     {
@@ -322,11 +326,32 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
-        physicDamage = statController.v_patk.statValue;
-        target.myActor.TakeDamage(physicDamage);
-        Vector3 position = target.transform.position;
-        EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);
-        SendEnemy();
+
+        //Accuracy = Accuracy + statController.v_acc.statValue;
+        //Evade = statController.v_evade.statValue;
+
+        // Calculate hit rate 
+        int hitRate = Accuracy - target.myPatrol.Evade;
+        Debug.LogWarning("HitRate: " + hitRate);
+        // Generate random number between 0 and 100
+        int randomNum = Random.Range(0, 100);
+        Debug.LogWarning("Random chance: " + randomNum);
+
+        if (randomNum > hitRate)
+        {
+            //if Hit
+            physicDamage = statController.v_patk.statValue;
+            Debug.Log(physicDamage);            
+            target.myActor.TakeDamage(physicDamage);
+            Vector3 position = target.transform.position;
+            EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);
+            SendEnemy();
+        }
+        else
+        {
+            Vector3 position = target.transform.position;
+            EventManager.instance.playerEvents.AttackPopUp(position, "Miss", Color.green);
+        }        
     }
     //==========================================//
     public void SendEnemy()

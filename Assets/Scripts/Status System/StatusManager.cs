@@ -28,19 +28,16 @@ public class StatusManager : MonoBehaviour
         behavious.statusID = statusInfo.StatusID;
 
         CurrentStatus.Add(statusInfo, behavious);
-        //Debug.Log("Check CurrentStatus Count " + CurrentStatus.Count);
-
-
-        //Debug.Log(statusInfo.DisplayName + " Duration: " + statusInfo.Duration);              
-
-        DisplayIcon.transform.GetChild(0).GetComponent<Image>().sprite = statusInfo.Icon; 
-        DisplayIcon.transform.GetChild(1).GetComponent<Text>().text = statusInfo.Duration.ToString();
-        DisplayIcon.GetComponent<IconStatus>().DurationTime = statusInfo.Duration;
-        DisplayIcon.GetComponent<IconStatus>().StartCD = true;
-        // Instantiate the image object
-        Instantiate(DisplayIcon, IconStatusPanal.transform);
-
-        
+     
+        if(this.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
+        {
+            DisplayIcon.transform.GetChild(0).GetComponent<Image>().sprite = statusInfo.Icon;
+            DisplayIcon.transform.GetChild(1).GetComponent<Text>().text = statusInfo.Duration.ToString();
+            DisplayIcon.GetComponent<IconStatus>().DurationTime = statusInfo.Duration;
+            DisplayIcon.GetComponent<IconStatus>().StartCD = true;
+            // Instantiate the image object
+            Instantiate(DisplayIcon, IconStatusPanal.transform);
+        }        
 
         await behavious.ActiveSkill();
 

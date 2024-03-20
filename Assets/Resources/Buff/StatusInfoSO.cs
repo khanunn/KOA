@@ -27,5 +27,15 @@ public class StatusInfoSO : ScriptableObject
     {
         this.Duration += duration;
     }
+
+    public void SetDuration(float duration)
+    {
+        this.Duration = duration;
+    }
+
+    public void ChangeIntensity(float intensity)
+    {
+        this.Intensity = intensity;
+    }
 }
 

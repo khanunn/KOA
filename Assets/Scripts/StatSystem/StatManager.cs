@@ -15,7 +15,13 @@ public class StatManager : MonoBehaviour
     }
     private void Awake()
     {
-        SetStat();
+        if (statContainer == null)
+        {
+            statContainer = new StatContainer(classInfoSO);
+        }
+
+        //for solving noob stat on the start game
+        SetStartStat();
     }
     private void Start()
     {
@@ -31,7 +37,22 @@ public class StatManager : MonoBehaviour
         for (int i = 0; i < levelManager.level; i++)
         {
             LevelUpStat(levelManager.level);
-        }
+        }        
+    }
+
+    private void SetStartStat()
+    {
+        const int maxIncrease = 10;
+        DirectAddingStat(statContainer.Constitution, classInfoSO.Constitution, 3);
+        DirectAddingStat(statContainer.Dexterity, classInfoSO.Dexterity, maxIncrease);
+        DirectAddingStat(statContainer.Strength, classInfoSO.Strength, maxIncrease);
+        DirectAddingStat(statContainer.Wisdom, classInfoSO.Wisdom, maxIncrease);
+        DirectAddingStat(statContainer.Intelligent, classInfoSO.Intelligent, maxIncrease);
+        DirectAddingStat(statContainer.Lucky, classInfoSO.Lucky, maxIncrease);
+        DirectAddingStat(statContainer.v_hp_max, classInfoSO.v_hp_max, maxIncrease);
+        DirectAddingStat(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
+        DirectAddingStat(statContainer.v_patk, classInfoSO.v_patk, maxIncrease);
+
     }
     private void LevelUpStat(int level)
     {
@@ -53,6 +74,11 @@ public class StatManager : MonoBehaviour
     {
         float randomValue = Random.Range(0f, 1f);
         stat.statValue += Mathf.RoundToInt(statBase.BaseStatModifier.Evaluate(randomValue) * maxIncrease);
+    }
+
+    private void DirectAddingStat(Stat stat, StatBase statBase, int StatIncrease)
+    {        
+        stat.statValue += Mathf.RoundToInt(statBase.BaseStatModifier.Evaluate(1) * StatIncrease);
     }
 
     public Stat GetStat(StatKey statName)

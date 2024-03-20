@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class PatrolController : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class PatrolController : MonoBehaviour
     [Header("Damage")]
     [SerializeField] private int punchDamage;
     [SerializeField] private int meleeDamage;
+    public int Evade;
     //====================================================//
     [Header("Infomation")]
     public MonsterInfoSO monsterInfoSO;
@@ -51,7 +53,8 @@ public class PatrolController : MonoBehaviour
     void Start()
     {
         AggroTime = monsterInfoSO.AggroTime;
-        agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        Evade = monsterInfoSO.Evade;
+        //agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     // Update is called once per frame
@@ -66,6 +69,7 @@ public class PatrolController : MonoBehaviour
         if (AggroTime <= 0)
         {
             target = null;
+            animator.SetBool("Attack", false);
             AggroTime = monsterInfoSO.AggroTime;
             StartCheckAggro = false;
             
@@ -75,7 +79,8 @@ public class PatrolController : MonoBehaviour
     void AggroCheck()
     {
         if (!StartCheckAggro) return;
-     
+        if (!target) return;
+
         if (Vector3.Distance(target.transform.position, transform.position) > attackDistance)
         {
             AggroTime -= Time.deltaTime;            
@@ -99,10 +104,18 @@ public class PatrolController : MonoBehaviour
     {
         if (target == null) return;
 
-        if (agent.obstacleAvoidanceType != ObstacleAvoidanceType.LowQualityObstacleAvoidance)
+        //Cancel this feature due to wierd attcking system
+
+        /*  if (agent.obstacleAvoidanceType != ObstacleAvoidanceType.LowQualityObstacleAvoidance)
+          {
+              agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance; //using for block player to pass though enemy 
+          }*/
+
+        if (agent.obstacleAvoidanceType == ObstacleAvoidanceType.LowQualityObstacleAvoidance)
         {
-            agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+            agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; //using for block player to pass though enemy 
         }
+
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
         if (Vector3.Distance(target.transform.position, transform.position) <= attackDistance)
         {
@@ -149,22 +162,36 @@ public class PatrolController : MonoBehaviour
     }
     //================โจมตี==========================//
     private void SendAttack()
-    {        
-        //Dragon's Addition Code        
-        if (this.GetComponent<BossBehaviourScript>() != null) //Using for hitCount in BossBehaviourScript
-        {
-            BossBehaviourScript bossBehaviour = this.GetComponent<BossBehaviourScript>();
-            bossBehaviour.HitCount += 1;
-        }
+    {    
+        // Calculate hit rate (Enemy hit rate = 100 % since it has no stat
+        int hitRate = 100 - target.myPlayer.Evade;
 
-        //Debug.Log("Attacked Enemy");
-        if (target == null) return;
-        target.myActor.TakeDamage(monsterInfoSO.Damage);
-        Vector3 position = target.transform.position;
-        EventManager.instance.playerEvents.AttackPopUp(position, monsterInfoSO.Damage.ToString(), Color.red);
-        target.myActor.DamageOnHealthBar();
-        this.GetComponent<AudioSource>().Play();
-        SendPlayer();       
+        int randomNum = Random.Range(0, 100);
+
+        if (randomNum >= hitRate) {
+
+            //Dragon's Addition Code        
+            if (this.GetComponent<BossBehaviourScript>() != null) //Using for hitCount in BossBehaviourScript
+            {
+                BossBehaviourScript bossBehaviour = this.GetComponent<BossBehaviourScript>();
+                bossBehaviour.HitCount += 1;
+            }
+
+            //Debug.Log("Attacked Enemy");
+            if (target == null) return;
+            target.myActor.TakeDamage(monsterInfoSO.Damage);
+            Vector3 position = target.transform.position;
+            EventManager.instance.playerEvents.AttackPopUp(position, monsterInfoSO.Damage.ToString(), Color.red);
+            target.myActor.DamageOnHealthBar();
+            this.GetComponent<AudioSource>().Play();
+            SendPlayer();
+        }
+        else
+        {
+            Vector3 position = target.transform.position;
+            EventManager.instance.playerEvents.AttackPopUp(position, "Miss", Color.red);
+        }
+            
     }
     private void SendPlayer()
     {

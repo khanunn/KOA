@@ -32,7 +32,8 @@ public class MonsterInfoSO : ScriptableObject
     [field: SerializeField] public int Level { get; private set; }
     [field: SerializeField] public int Health { get; private set; }
     [field: SerializeField] public int Mana { get; private set; }
-    [field: SerializeField] public int AggroTime { get; private set; } //using for reset chasing player.
+    [field: SerializeField] public int AggroTime { get; private set; } //using for reset chasing player                                                                      
+    [field: SerializeField] public int Evade { get; private set; } //using for calculate Evade
     [field: SerializeField] public MonsterName MonsterName { get; private set; }
     [field: SerializeField] public MonsterRace MonsterRace { get; private set; }
 

@@ -19,6 +19,7 @@ public class Interactable : MonoBehaviour
     public QuestPoint myQuestPoint { get; private set; }
     public ItemController myItem { get; private set; }
     public PlayerSkill myPlayerSkill { get; private set; }
+
     public InteractableType interactionType;
     private void Awake()
     {
