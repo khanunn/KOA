@@ -71,6 +71,14 @@ public class StatManager : MonoBehaviour
         IncreaseStatRandomly(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
         IncreaseStatRandomly(statContainer.v_patk, classInfoSO.v_patk, maxIncrease);
 
+        DirectAddingStat(statContainer.v_pdef, classInfoSO.v_pdef, 2);
+        DirectAddingStat(statContainer.v_evade, classInfoSO.v_evade, statContainer.Dexterity.statValue / 2);
+        DirectAddingStat(statContainer.v_acc, classInfoSO.v_acc, statContainer.Dexterity.statValue / 4);
+    }
+
+    void calculatedNewStat()
+    {
+        
     }
 
     private void IncreaseStatRandomly(Stat stat, StatBase statBase, int maxIncrease)
@@ -100,9 +108,16 @@ public class StatManager : MonoBehaviour
             case StatKey.v_mp_recovery: return statContainer.v_mp_recovery;
             case StatKey.v_patk: return statContainer.v_patk;
             case StatKey.v_matk: return statContainer.v_matk;
+            case StatKey.v_pdef: return statContainer.v_pdef;
+            case StatKey.v_mdef: return statContainer.v_mdef;
 
             case StatKey.v_acc: return statContainer.v_acc;
             case StatKey.v_evade: return statContainer.v_evade;
+            case StatKey.v_crit_change: return statContainer.v_crit_change;
+            case StatKey.v_crit_dam: return statContainer.v_crit_dam;
+            case StatKey.v_pdam: return statContainer.v_pdam;
+            case StatKey.v_mdam: return statContainer.v_mdam;
+
             default: return statContainer.v_hp_max;
         }
     }

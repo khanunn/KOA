@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackDistance;
-    [SerializeField] private ParticleSystem attackEffect;  
+    [SerializeField] private ParticleSystem attackEffect;    
     private bool playerBusy = false;
     public Interactable target { get; private set; }
     //=====================================================//
@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     [Header("Damage")]
     [SerializeField] private int physicDamage;
     [SerializeField] private int meleeDamage;
+    public int MagicDefend = 0;
+    public int PhysicalDefend = 0;
     //====================================================//
     [Header("Health")]
     [SerializeField] private int playerCurrentHealth;
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
         FollowTarget();
         //PlayAnimations();
         if (playerActor.CurrentHealth <= 0 && !PlayerDie) SetPlayerDie(true);
+
+        PhysicalDefend = statController.v_pdef.statValue;
     }
     
 
@@ -332,15 +336,15 @@ public class PlayerController : MonoBehaviour
 
         // Calculate hit rate 
         int hitRate = Accuracy - target.myPatrol.Evade;
-        Debug.LogWarning("HitRate: " + hitRate);
+        //Debug.LogWarning("HitRate: " + hitRate);
         // Generate random number between 0 and 100
         int randomNum = Random.Range(0, 100);
-        Debug.LogWarning("Random chance: " + randomNum);
+        //Debug.LogWarning("Random chance: " + randomNum);
 
-        if (randomNum > hitRate)
+        if (randomNum <= hitRate)
         {
             //if Hit
-            physicDamage = statController.v_patk.statValue;            
+            physicDamage = statController.v_patk.statValue - target.myPatrol.PhysicalDefend;            
             Debug.Log(physicDamage);            
             target.myActor.TakeDamage(physicDamage);
             Vector3 position = target.transform.position;

@@ -20,6 +20,9 @@ MonoBehaviour:
   <Mana>k__BackingField: 100
   <AggroTime>k__BackingField: 10
   <Evade>k__BackingField: 10
+  <PhysicalDefend>k__BackingField: 50
+  <MagicDefend>k__BackingField: 50
+  <Accuracy>k__BackingField: 300
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0
   <Experience>k__BackingField: 10000

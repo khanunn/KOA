@@ -33,11 +33,14 @@ public class PatrolController : MonoBehaviour
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackDistance;
+    public int Accuracy = 100;
     //====================================================//
     [Header("Damage")]
     [SerializeField] private int punchDamage;
     [SerializeField] private int meleeDamage;
     public int Evade;
+    public int MagicDefend = 0;
+    public int PhysicalDefend = 0;
     //====================================================//
     [Header("Infomation")]
     public MonsterInfoSO monsterInfoSO;
@@ -54,6 +57,9 @@ public class PatrolController : MonoBehaviour
     {
         AggroTime = monsterInfoSO.AggroTime;
         Evade = monsterInfoSO.Evade;
+        MagicDefend = monsterInfoSO.MagicDefend;
+        PhysicalDefend = monsterInfoSO.PhysicalDefend;
+        Accuracy = monsterInfoSO.Accuracy;
         //agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
@@ -162,13 +168,17 @@ public class PatrolController : MonoBehaviour
     }
     //================โจมตี==========================//
     private void SendAttack()
-    {    
+    {
+        //Debug.Log("Attacked Enemy");
+        if (target == null) return;
+
         // Calculate hit rate (Enemy hit rate = 100 % since it has no stat
-        int hitRate = 100 - target.myPlayer.Evade;
-
+        int hitRate = Accuracy - target.myPlayer.Evade;
+        //Debug.LogWarning("Enemy hitrate = " + hitRate);
         int randomNum = Random.Range(0, 100);
+        //Debug.LogWarning("Random Chance: " + randomNum);
 
-        if (randomNum >= hitRate) {
+        if (randomNum <= hitRate) {
 
             //Dragon's Addition Code        
             if (this.GetComponent<BossBehaviourScript>() != null) //Using for hitCount in BossBehaviourScript
@@ -177,11 +187,18 @@ public class PatrolController : MonoBehaviour
                 bossBehaviour.HitCount += 1;
             }
 
-            //Debug.Log("Attacked Enemy");
-            if (target == null) return;
-            target.myActor.TakeDamage(monsterInfoSO.Damage);
+            int TotalDamage = monsterInfoSO.Damage - target.myPlayer.PhysicalDefend;
             Vector3 position = target.transform.position;
-            EventManager.instance.playerEvents.AttackPopUp(position, monsterInfoSO.Damage.ToString(), Color.red);
+
+            if (TotalDamage <= 0 )
+            {
+                EventManager.instance.playerEvents.AttackPopUp(position, "Block", Color.red);
+                this.GetComponent<AudioSource>().Play();
+                return;
+            }
+
+            target.myActor.TakeDamage(TotalDamage);            
+            EventManager.instance.playerEvents.AttackPopUp(position, TotalDamage.ToString(), Color.red);
             target.myActor.DamageOnHealthBar();
             this.GetComponent<AudioSource>().Play();
             SendPlayer();

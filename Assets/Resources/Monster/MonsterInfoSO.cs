@@ -34,6 +34,9 @@ public class MonsterInfoSO : ScriptableObject
     [field: SerializeField] public int Mana { get; private set; }
     [field: SerializeField] public int AggroTime { get; private set; } //using for reset chasing player                                                                      
     [field: SerializeField] public int Evade { get; private set; } //using for calculate Evade
+    [field: SerializeField] public int PhysicalDefend { get; private set; } //using for calculate PAtk - PDef
+    [field: SerializeField] public int MagicDefend { get; private set; } //using for calculate MAtk - MDef
+    [field: SerializeField] public int Accuracy { get; private set; } //using for calculate Acc
     [field: SerializeField] public MonsterName MonsterName { get; private set; }
     [field: SerializeField] public MonsterRace MonsterRace { get; private set; }
 
