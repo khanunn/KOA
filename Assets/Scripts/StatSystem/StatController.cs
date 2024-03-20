@@ -28,10 +28,25 @@ public class StatController : MonoBehaviour
         Debug.Log("statmanager" + statManager);
         v_hp_max = statManager.GetStat(StatKey.v_hp_max);
         v_mp_max = statManager.GetStat(StatKey.v_mp_max);
+
         v_hp_recovery = statManager.GetStat(StatKey.v_hp_recovery);
         v_mp_recovery = statManager.GetStat(StatKey.v_mp_recovery);
+
         v_patk = statManager.GetStat(StatKey.v_patk);
         v_matk = statManager.GetStat(StatKey.v_matk);
+
+        //Added
+        v_acc = statManager.GetStat(StatKey.v_acc);
+        v_evade = statManager.GetStat(StatKey.v_evade);
+
+        v_pdef = statManager.GetStat(StatKey.v_pdef);
+        v_mdef = statManager.GetStat(StatKey.v_mdef);
+
+        v_crit_change = statManager.GetStat(StatKey.v_crit_change);
+        v_crit_dam = statManager.GetStat(StatKey.v_crit_dam);
+
+        v_pdam = statManager.GetStat(StatKey.v_pdam);
+        v_mdam = statManager.GetStat(StatKey.v_mdam);
 
         EventManager.instance.statEvents.SendStatController(this);
     }

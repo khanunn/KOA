@@ -327,8 +327,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
 
-        //Accuracy = Accuracy + statController.v_acc.statValue;
-        //Evade = statController.v_evade.statValue;
+        Accuracy = statController.v_acc.statValue;
+        Evade = statController.v_evade.statValue;
 
         // Calculate hit rate 
         int hitRate = Accuracy - target.myPatrol.Evade;
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour
         if (randomNum > hitRate)
         {
             //if Hit
-            physicDamage = statController.v_patk.statValue;
+            physicDamage = statController.v_patk.statValue;            
             Debug.Log(physicDamage);            
             target.myActor.TakeDamage(physicDamage);
             Vector3 position = target.transform.position;

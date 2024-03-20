@@ -53,6 +53,9 @@ public class StatManager : MonoBehaviour
         DirectAddingStat(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
         DirectAddingStat(statContainer.v_patk, classInfoSO.v_patk, maxIncrease);
 
+        DirectAddingStat(statContainer.v_evade, classInfoSO.v_evade, 0);
+        DirectAddingStat(statContainer.v_acc, classInfoSO.v_acc, 0);
+
     }
     private void LevelUpStat(int level)
     {
@@ -97,6 +100,9 @@ public class StatManager : MonoBehaviour
             case StatKey.v_mp_recovery: return statContainer.v_mp_recovery;
             case StatKey.v_patk: return statContainer.v_patk;
             case StatKey.v_matk: return statContainer.v_matk;
+
+            case StatKey.v_acc: return statContainer.v_acc;
+            case StatKey.v_evade: return statContainer.v_evade;
             default: return statContainer.v_hp_max;
         }
     }
