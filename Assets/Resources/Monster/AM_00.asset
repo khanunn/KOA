@@ -23,6 +23,8 @@ MonoBehaviour:
   <PhysicalDefend>k__BackingField: 50
   <MagicDefend>k__BackingField: 50
   <Accuracy>k__BackingField: 300
+  <CritRate>k__BackingField: 10
+  <CritDMG>k__BackingField: 1.5
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0
   <Experience>k__BackingField: 10000

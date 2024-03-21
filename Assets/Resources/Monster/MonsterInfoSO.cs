@@ -37,6 +37,8 @@ public class MonsterInfoSO : ScriptableObject
     [field: SerializeField] public int PhysicalDefend { get; private set; } //using for calculate PAtk - PDef
     [field: SerializeField] public int MagicDefend { get; private set; } //using for calculate MAtk - MDef
     [field: SerializeField] public int Accuracy { get; private set; } //using for calculate Acc
+    [field: SerializeField] public int CritRate { get; private set; }
+    [field: SerializeField] public float CritDMG { get; private set; }
     [field: SerializeField] public MonsterName MonsterName { get; private set; }
     [field: SerializeField] public MonsterRace MonsterRace { get; private set; }
 

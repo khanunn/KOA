@@ -41,6 +41,8 @@ public class PatrolController : MonoBehaviour
     public int Evade;
     public int MagicDefend = 0;
     public int PhysicalDefend = 0;
+    public int CritRate = 0;
+    public float CritDMG = 0;
     //====================================================//
     [Header("Infomation")]
     public MonsterInfoSO monsterInfoSO;
@@ -60,6 +62,8 @@ public class PatrolController : MonoBehaviour
         MagicDefend = monsterInfoSO.MagicDefend;
         PhysicalDefend = monsterInfoSO.PhysicalDefend;
         Accuracy = monsterInfoSO.Accuracy;
+        CritDMG = monsterInfoSO.CritDMG;
+        CritRate = monsterInfoSO.CritRate;
         //agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
@@ -176,7 +180,7 @@ public class PatrolController : MonoBehaviour
         int hitRate = Accuracy - target.myPlayer.Evade;
         //Debug.LogWarning("Enemy hitrate = " + hitRate);
         int randomNum = Random.Range(0, 100);
-        //Debug.LogWarning("Random Chance: " + randomNum);
+        //Debug.LogWarning("Random Chance: " + randomNum);     
 
         if (randomNum <= hitRate) {
 
@@ -189,6 +193,13 @@ public class PatrolController : MonoBehaviour
 
             int TotalDamage = monsterInfoSO.Damage - target.myPlayer.PhysicalDefend;
             Vector3 position = target.transform.position;
+
+            int CritResult = Random.Range(0, 100);
+
+            if (CritResult <= CritRate)
+            {
+                TotalDamage = Mathf.RoundToInt(TotalDamage * CritDMG); //Crit DMG will start at 2 of TotalDamage                
+            }           
 
             if (TotalDamage <= 0 )
             {

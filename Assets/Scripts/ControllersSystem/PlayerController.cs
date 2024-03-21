@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int meleeDamage;
     public int MagicDefend = 0;
     public int PhysicalDefend = 0;
+    [SerializeField] private int CritRate = 0;
+    [SerializeField] private int CritDMG = 0;
     //====================================================//
     [Header("Health")]
     [SerializeField] private int playerCurrentHealth;
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         input = new CustomAction();
         AssignInput();
         playerActor = GetComponent<Actor>();
-        playerSkill = GetComponent<PlayerSkill>();
+        playerSkill = GetComponent<PlayerSkill>();        
     }
     // Start is called before the first frame update
     void Start()
@@ -333,6 +335,8 @@ public class PlayerController : MonoBehaviour
 
         Accuracy = statController.v_acc.statValue;
         Evade = statController.v_evade.statValue;
+        CritDMG = statController.v_crit_dam.statValue;
+        CritRate = statController.v_crit_change.statValue;
 
         // Calculate hit rate 
         int hitRate = Accuracy - target.myPatrol.Evade;
@@ -343,12 +347,39 @@ public class PlayerController : MonoBehaviour
 
         if (randomNum <= hitRate)
         {
-            //if Hit
-            physicDamage = statController.v_patk.statValue - target.myPatrol.PhysicalDefend;            
-            Debug.Log(physicDamage);            
-            target.myActor.TakeDamage(physicDamage);
+            //Calculated TotalDamage
+            physicDamage = statController.v_patk.statValue - target.myPatrol.PhysicalDefend;             
+            Debug.Log(physicDamage);
+
             Vector3 position = target.transform.position;
-            EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);
+
+            int CritResult = Random.Range(0, 100); //Calculated Critical
+            Debug.Log("Crit Result: " + CritResult);
+
+            //if Critical
+            if (CritResult <= CritRate) {                 
+                physicDamage = Mathf.RoundToInt(physicDamage * (CritDMG - 0.5f)); //Reduce 2 into 1.5                
+                if (physicDamage <= 0)
+                {
+                    EventManager.instance.playerEvents.AttackPopUp(position, "Block", Color.red);                    
+                    return;
+                }
+
+                target.myActor.TakeDamage(physicDamage);
+                EventManager.instance.playerEvents.AttackPopUp(position, "Crit " + physicDamage.ToString(), Color.green);
+                SendEnemy();
+                return;
+            }
+
+            //if Not Critical
+            if (physicDamage <= 0)
+            {
+                EventManager.instance.playerEvents.AttackPopUp(position, "Block", Color.red);
+                return;
+            }
+
+            target.myActor.TakeDamage(physicDamage);            
+            EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);            
             SendEnemy();
         }
         else

@@ -466,7 +466,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   v_crit_change:
     StatID: crit_change
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 10
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -493,7 +493,7 @@ MonoBehaviour:
       m_RotationOrder: 4
   v_crit_dam:
     StatID: crit_dam
-    <BaseStatValue>k__BackingField: 0
+    <BaseStatValue>k__BackingField: 2
     <BaseStatModifier>k__BackingField:
       serializedVersion: 2
       m_Curve:
