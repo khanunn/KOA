@@ -16,6 +16,6 @@ MonoBehaviour:
   <EquipmentType>k__BackingField: 0
   <EquipmentRarity>k__BackingField: 1
   <MainStat>k__BackingField: 10
-  <MainValue>k__BackingField: 1000
+  <MainValue>k__BackingField: 300
   <SubStat>k__BackingField: 10
   <SubValue>k__BackingField: 0

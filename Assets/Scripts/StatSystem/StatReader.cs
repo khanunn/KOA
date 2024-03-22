@@ -36,7 +36,7 @@ public class StatReader : MonoBehaviour
         currentValue = stat.statValue;
         currentLevel = statManager.levelManager.level;
         SetText();
-        valueText.text = stat.statValue.ToString();
+        valueText.text = stat.statValue.ToString();       
     }
     private void SetText()
     {
@@ -79,7 +79,10 @@ public class StatReader : MonoBehaviour
             valueText.text = $"{currentValue}";
         }
     }
-
+    private void Update()
+    {
+        UpdateStatText(statManager.levelManager.level);
+    }
     /* private void Update()
     {
         UpdateText();

@@ -317,7 +317,7 @@ public class PlayerSkill : MonoBehaviour
         Debug.Log("skill Target: " + controller.target);
 
         if (controller.target == null) return;
-        controller.target.myActor.TakeDamage(skillPhysicDamage);
+        controller.target.myActor.TakeDamage(skillPhysicDamage - controller.target.myPatrol.MagicDefend);
         Vector3 position = controller.target.transform.position;
         EventManager.instance.playerEvents.AttackPopUp(position, skillPhysicDamage.ToString(), Color.green);
         controller.SendEnemy();

@@ -59,7 +59,7 @@ public class StatManager : MonoBehaviour
     }
     private void LevelUpStat(int level)
     {
-        const int maxIncrease = 10;
+        const int maxIncrease = 5;
         IncreaseStatRandomly(statContainer.Constitution, classInfoSO.Constitution, maxIncrease);
         IncreaseStatRandomly(statContainer.Dexterity, classInfoSO.Dexterity, maxIncrease);
         IncreaseStatRandomly(statContainer.Strength, classInfoSO.Strength, maxIncrease);

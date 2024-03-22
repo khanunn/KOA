@@ -20,8 +20,8 @@ MonoBehaviour:
   <Mana>k__BackingField: 100
   <AggroTime>k__BackingField: 10
   <Evade>k__BackingField: 10
-  <PhysicalDefend>k__BackingField: 50
-  <MagicDefend>k__BackingField: 50
+  <PhysicalDefend>k__BackingField: 5
+  <MagicDefend>k__BackingField: 10
   <Accuracy>k__BackingField: 300
   <CritRate>k__BackingField: 10
   <CritDMG>k__BackingField: 1.5
