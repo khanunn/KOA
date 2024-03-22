@@ -94,11 +94,15 @@ public class BossBehaviourScript : MonoBehaviour
         {
             BossHpBar.gameObject.SetActive(false);
             DisplayText.gameObject.SetActive(false);
+            
         }      
 
         BossHpBar.value = actor.CurrentHealth; //Set HP bar
     }
-
+    public void DestroyAfterDead()
+    {
+        Destroy(this.gameObject);
+    }
     bool AlreadyIn = false;
     private void OnTriggerEnter(Collider other)
     {

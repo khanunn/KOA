@@ -37,7 +37,7 @@ public class ShopManager : MonoBehaviour
             BaseItem[i].SetActive(false);
         }
 
-        for(int i = 0; i < 7; index++, i++)
+        for(int i = 0; i < 8; index++, i++)
         {
             Debug.Log(index);
             //Debug.Log(item.name);
@@ -47,6 +47,8 @@ public class ShopManager : MonoBehaviour
             GameObject Price = BaseItem[i].transform.GetChild(2).gameObject;
             GameObject BuyButton = BaseItem[i].transform.GetChild(3).gameObject;
             GameObject SellButton = BaseItem[i].transform.GetChild(4).gameObject;
+
+            if(SellableObject[index] == null) BaseItem[i].SetActive(false);
 
             //Debug.Log(BuyButton);
             //Load Sprite

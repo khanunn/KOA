@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3091027c92cd3584da55907aa3d72314, type: 3}
+  m_Name: Gauntlet Armor
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: Gauntlet Armor
+  <DisplayName>k__BackingField: Gauntlet
+  <Value>k__BackingField: 0
+  <Price>k__BackingField: 200
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1e5abb4f469d06742ab10750618e1afb,
+    type: 3}
+  <ItemName>k__BackingField: 7
+  <ItemStatus>k__BackingField: 0
+  scriptableObject: {fileID: 11400000, guid: 961302486f8c9b2499faa22bab383f14, type: 2}

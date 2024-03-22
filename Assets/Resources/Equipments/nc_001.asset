@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c00cbf0ec84d54888891ef537312ff, type: 3}
   m_Name: nc_001
   m_EditorClassIdentifier: 
-  <EquipmentSlot>k__BackingField: 1
+  <EquipmentSlot>k__BackingField: 6
   <EquipmentType>k__BackingField: 14
   <EquipmentRarity>k__BackingField: 0
   <MainStat>k__BackingField: 14
