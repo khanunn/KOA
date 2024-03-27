@@ -113,7 +113,28 @@ public class StatusBehavious : MonoBehaviour
                     Debug.Log("target.GetComponent<PlayerSkill>().isSkillPlaying: " + target.GetComponent<PlayerSkill>().CanUseSkill);
                     target.GetComponent<PlayerSkill>().CanUseSkill = true;
                 }
-                break;                           
+                break;
+            case 7:
+                // Add Defenese or Weakness
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
+                {
+                    StatController PlayerStat = target.GetComponent<PlayerController>().statController;
+                    PlayerStat.EditPhysicalDefend((int)statusIntensity);
+                    await Task.Delay((int)duration * 1000);                    
+                    PlayerStat.EditPhysicalDefend(-(int)statusIntensity);
+                }
+
+                if(target.GetComponent<Interactable>().interactionType == InteractableType.ENEMY)
+                {                   
+                    int TargetDef = target.GetComponent<PatrolController>().PhysicalDefend;
+                    //Debug.Log(TargetDef);
+                    TargetDef += (int)statusIntensity;
+                    //Debug.Log(TargetDef);                    
+                    await Task.Delay((int)duration * 1000);
+                    TargetDef += -(int)statusIntensity;
+                    //Debug.Log(TargetDef);
+                }
+                break;          
         }
     }
     public void CancelStatus()

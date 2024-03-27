@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.CullingGroup;
 
 public class StatController : MonoBehaviour
 {
@@ -53,6 +54,11 @@ public class StatController : MonoBehaviour
     private void StartStat(StatManager myStat)
     {
         //statManager = myStat;
+    }
+
+    public void EditPhysicalDefend(int value)
+    {
+        statManager.ChangeStatBySkill(v_pdef, value);
     }
 
     private void SwitchCharacterInfo()

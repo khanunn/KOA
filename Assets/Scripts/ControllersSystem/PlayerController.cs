@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool PlayerDie { get; private set; }
     private Actor playerActor;
     private PlayerSkill playerSkill;
-    [SerializeField] StatController statController;
+    public StatController statController;
     [Header("HitChangeSystem")]
     public int Accuracy = 50; //base Acc is 50
     public int Evade = 10;
@@ -349,12 +349,12 @@ public class PlayerController : MonoBehaviour
         {
             //Calculated TotalDamage
             physicDamage = statController.v_patk.statValue - target.myPatrol.PhysicalDefend;             
-            Debug.Log(physicDamage);
+            //Debug.Log(physicDamage);
 
             Vector3 position = target.transform.position;
 
             int CritResult = Random.Range(0, 100); //Calculated Critical
-            Debug.Log("Crit Result: " + CritResult);
+            //Debug.Log("Crit Result: " + CritResult);
 
             //if Critical
             if (CritResult <= CritRate) {                 

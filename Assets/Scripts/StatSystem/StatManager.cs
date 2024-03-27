@@ -76,10 +76,7 @@ public class StatManager : MonoBehaviour
         DirectAddingStat(statContainer.v_acc, classInfoSO.v_acc, statContainer.Dexterity.statValue / 4);
     }
 
-    void calculatedNewStat()
-    {
-        
-    }
+   
 
     private void IncreaseStatRandomly(Stat stat, StatBase statBase, int maxIncrease)
     {
@@ -90,6 +87,11 @@ public class StatManager : MonoBehaviour
     private void DirectAddingStat(Stat stat, StatBase statBase, int StatIncrease)
     {        
         stat.statValue += Mathf.RoundToInt(statBase.BaseStatModifier.Evaluate(1) * StatIncrease);
+    }
+
+    public void ChangeStatBySkill(Stat stat, int StatChange) //using sundden change stat via skill 
+    {
+        stat.statValue += StatChange;
     }
 
     public Stat GetStat(StatKey statName)
@@ -121,4 +123,5 @@ public class StatManager : MonoBehaviour
             default: return statContainer.v_hp_max;
         }
     }
+
 }

@@ -239,14 +239,10 @@ public class PatrolController : MonoBehaviour
                 if (randomChance >= monsterInfoSO.SelfBuffStatusChance)
                 {
                     Debug.Log("Enemy Healing In Progress");
-                    Enemy.myStatus.AddStatus(monsterInfoSO.SelfBuffStatus);
+                    GetComponent<StatusManager>().AddStatus(monsterInfoSO.SelfBuffStatus);
                     IsBuffCooldown = true;              
                 }
-
             }
-
-
-
 
             target.myActor.TakeDamage(TotalDamage);            
             EventManager.instance.playerEvents.AttackPopUp(position, TotalDamage.ToString(), Color.red);
