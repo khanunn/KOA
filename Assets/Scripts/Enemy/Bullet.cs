@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     public int Damage;    
     [SerializeField] float LifeTime = 10.0f;
     [SerializeField] float Speed = 5.0f;
+    [SerializeField] StatusInfoSO OnHitEffect;
     NavMeshAgent agent;
     //Transform CurrentTargetPosition;
     Vector3 CurrentTargetPosition;
@@ -27,6 +28,8 @@ public class Bullet : MonoBehaviour
             other.GetComponent<Interactable>().myActor.TakeDamage(Damage);            
             EventManager.instance.playerEvents.AttackPopUp(other.transform.position, Damage.ToString(), Color.red);
             other.GetComponent<Interactable>().myActor.DamageOnHealthBar();
+
+            if (OnHitEffect != null) other.GetComponent<StatusManager>().AddStatus(OnHitEffect);
             Destroy(this.gameObject);
         }
     }
