@@ -42,6 +42,10 @@ public class MonsterInfoSO : ScriptableObject
     [field: SerializeField] public MonsterName MonsterName { get; private set; }
     [field: SerializeField] public MonsterRace MonsterRace { get; private set; }
 
+    [field: Header("Inflict BadEffect Setting")]
+    [field: SerializeField] public StatusInfoSO OnHitEffect { get; private set; }
+    [field: SerializeField] public int OnHitEffectChance { get; private set; }
+
     [field: Header("Rewards")]
 
     [field: SerializeField] public int Experience { get; private set; }

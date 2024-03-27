@@ -208,6 +208,14 @@ public class PatrolController : MonoBehaviour
                 return;
             }
 
+            //Using when Enemy have On hit effect
+            if(monsterInfoSO.OnHitEffect != null)
+            {
+                int randomChance = Random.Range(0, 100);
+
+                if (randomChance >= monsterInfoSO.OnHitEffectChance) target.myStatus.AddStatus(monsterInfoSO.OnHitEffect);
+            }
+
             target.myActor.TakeDamage(TotalDamage);            
             EventManager.instance.playerEvents.AttackPopUp(position, TotalDamage.ToString(), Color.red);
             target.myActor.DamageOnHealthBar();

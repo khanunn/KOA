@@ -27,6 +27,8 @@ MonoBehaviour:
   <CritDMG>k__BackingField: 1.5
   <MonsterName>k__BackingField: 0
   <MonsterRace>k__BackingField: 0
+  <OnHitEffect>k__BackingField: {fileID: 0}
+  <OnHitEffectChance>k__BackingField: 0
   <Experience>k__BackingField: 10000
   <GoldMin>k__BackingField: 50
   <GoldMax>k__BackingField: 100

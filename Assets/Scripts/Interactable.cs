@@ -20,6 +20,8 @@ public class Interactable : MonoBehaviour
     public ItemController myItem { get; private set; }
     public PlayerSkill myPlayerSkill { get; private set; }
 
+    public StatusManager myStatus { get; private set; }
+
     public InteractableType interactionType;
     private void Awake()
     {
@@ -35,6 +37,7 @@ public class Interactable : MonoBehaviour
                 myPatrol = GetComponent<PatrolController>();
                 myPlayer = GetComponent<PlayerController>();
                 myPlayerSkill = GetComponent<PlayerSkill>();
+                myStatus = GetComponent<StatusManager>();
                 break;
             case InteractableType.NPC:
                 myQuestPoint = GetComponent<QuestPoint>();

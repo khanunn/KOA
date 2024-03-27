@@ -1,6 +1,7 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class EquipmentManager : MonoBehaviour
     public Transform equipmentContent;
     public List<GameObject> equipmentContents = new List<GameObject>();
 
-    private Stat Constitution, Dexterity, Strength, Wisdom, Intelligent, Lucky,
+    private Stat constitution, dexterity, strength, wisdom, intelligent, lucky,
     v_hp_max, v_mp_max, v_hp_recovery, v_mp_recovery, v_patk, v_matk, v_pdef, v_mdef, v_acc, v_evade, v_crit_change, v_crit_dam, v_pdam, v_mdam;
     private StatManager statManager;
     private List<ItemClickHandler> itemClickHandlers = new List<ItemClickHandler>();
@@ -32,12 +33,12 @@ public class EquipmentManager : MonoBehaviour
     {
         v_patk = statManager.GetStat(StatKey.v_patk);
         v_pdef = statManager.GetStat(StatKey.v_pdef);
-        Constitution = statManager.GetStat(StatKey.Constitution);
-        Dexterity = statManager.GetStat(StatKey.Dexterity);
-        Strength = statManager.GetStat(StatKey.Strength);
-        Wisdom = statManager.GetStat(StatKey.Wisdom);
-        Intelligent = statManager.GetStat(StatKey.Intelligent);
-        Lucky = statManager.GetStat(StatKey.Lucky);
+        constitution = statManager.GetStat(StatKey.Constitution);
+        dexterity = statManager.GetStat(StatKey.Dexterity);
+        strength = statManager.GetStat(StatKey.Strength);
+        wisdom = statManager.GetStat(StatKey.Wisdom);
+        intelligent = statManager.GetStat(StatKey.Intelligent);
+        lucky = statManager.GetStat(StatKey.Lucky);
         v_hp_max = statManager.GetStat(StatKey.v_hp_max);
         v_mp_max = statManager.GetStat(StatKey.v_mp_max);
         v_hp_recovery = statManager.GetStat(StatKey.v_hp_recovery);
@@ -126,38 +127,208 @@ public class EquipmentManager : MonoBehaviour
         switch (script)
         {
             case EquipmentInfoSO equip:
+                if (equip.MainStat == StatKey.Constitution)
+                {
+                    constitution.statValue += equip.MainValue;
+                    Debug.Log("Constitution: " + constitution.statValue);
+                }
+                if (equip.MainStat == StatKey.Dexterity)
+                {
+                    dexterity.statValue += equip.MainValue;
+                    Debug.Log("Dexterity: " + dexterity.statValue);
+                }
+                if (equip.MainStat == StatKey.Strength)
+                {
+                    strength.statValue += equip.MainValue;
+                    Debug.Log("Strength: " + strength.statValue);
+                }
+                if (equip.MainStat == StatKey.Wisdom)
+                {
+                    wisdom.statValue += equip.MainValue;
+                    Debug.Log("Wisdom: " + wisdom.statValue);
+                }
+                if (equip.MainStat == StatKey.Intelligent)
+                {
+                    intelligent.statValue += equip.MainValue;
+                    Debug.Log("Intelligent: " + intelligent.statValue);
+                }
+                if (equip.MainStat == StatKey.Lucky)
+                {
+                    lucky.statValue += equip.MainValue;
+                    Debug.Log("Lucky: " + lucky.statValue);
+                }
+                if (equip.MainStat == StatKey.v_hp_max)
+                {
+                    v_hp_max.statValue += equip.MainValue;
+                    Debug.Log("v_hp_max: " + v_hp_max.statValue);
+                }
+                if (equip.MainStat == StatKey.v_mp_max)
+                {
+                    v_mp_max.statValue += equip.MainValue;
+                    Debug.Log("v_mp_max: " + v_mp_max.statValue);
+                }
+                if (equip.MainStat == StatKey.v_hp_recovery)
+                {
+                    v_hp_recovery.statValue += equip.MainValue;
+                    Debug.Log("v_hp_recovery: " + v_hp_recovery.statValue);
+                }
+                if (equip.MainStat == StatKey.v_mp_recovery)
+                {
+                    v_mp_recovery.statValue += equip.MainValue;
+                    Debug.Log("v_mp_recovery: " + v_mp_recovery.statValue);
+                }
                 if (equip.MainStat == StatKey.v_patk)
                 {
                     v_patk.statValue += equip.MainValue;
                     Debug.Log("patk: " + v_patk.statValue);
                 }
-                if (equip.MainStat == StatKey.Constitution)
+                if (equip.MainStat == StatKey.v_matk)
                 {
-                    Constitution.statValue += equip.MainValue;
-                    Debug.Log("Constitution: " + Constitution.statValue);
+                    v_matk.statValue += equip.MainValue;
+                    Debug.Log("v_matk: " + v_matk.statValue);
                 }
                 if (equip.MainStat == StatKey.v_pdef)
                 {
                     v_pdef.statValue += equip.MainValue;
-                    Debug.Log("pdef: " + v_pdef.statValue);
+                    Debug.Log("v_pdef: " + v_pdef.statValue);
+                }
+                if (equip.MainStat == StatKey.v_mdef)
+                {
+                    v_mdef.statValue += equip.MainValue;
+                    Debug.Log("v_mdef: " + v_mdef.statValue);
+                }
+                if (equip.MainStat == StatKey.v_acc)
+                {
+                    v_acc.statValue += equip.MainValue;
+                    Debug.Log("v_acc: " + v_acc.statValue);
+                }
+                if (equip.MainStat == StatKey.v_evade)
+                {
+                    v_evade.statValue += equip.MainValue;
+                    Debug.Log("v_evade: " + v_evade.statValue);
+                }
+                if (equip.MainStat == StatKey.v_crit_change)
+                {
+                    v_crit_change.statValue += equip.MainValue;
+                    Debug.Log("v_crit_change: " + v_crit_change.statValue);
+                }
+                if (equip.MainStat == StatKey.v_crit_dam)
+                {
+                    v_crit_dam.statValue += equip.MainValue;
+                    Debug.Log("v_crit_dam: " + v_crit_dam.statValue);
+                }
+                if (equip.MainStat == StatKey.v_pdam)
+                {
+                    v_pdam.statValue += equip.MainValue;
+                    Debug.Log("v_pdam: " + v_pdam.statValue);
+                }
+                if (equip.MainStat == StatKey.v_mdam)
+                {
+                    v_mdam.statValue += equip.MainValue;
+                    Debug.Log("v_mdam: " + v_mdam.statValue);
                 }
 
+                if (equip.SubStat == StatKey.Constitution)
+                {
+                    constitution.statValue += equip.MainValue;
+                    Debug.Log("Constitution: " + constitution.statValue);
+                }
+                if (equip.SubStat == StatKey.Dexterity)
+                {
+                    dexterity.statValue += equip.MainValue;
+                    Debug.Log("Dexterity: " + dexterity.statValue);
+                }
+                if (equip.SubStat == StatKey.Strength)
+                {
+                    strength.statValue += equip.MainValue;
+                    Debug.Log("Strength: " + strength.statValue);
+                }
+                if (equip.SubStat == StatKey.Wisdom)
+                {
+                    wisdom.statValue += equip.MainValue;
+                    Debug.Log("Wisdom: " + wisdom.statValue);
+                }
+                if (equip.SubStat == StatKey.Intelligent)
+                {
+                    intelligent.statValue += equip.MainValue;
+                    Debug.Log("Intelligent: " + intelligent.statValue);
+                }
+                if (equip.SubStat == StatKey.Lucky)
+                {
+                    lucky.statValue += equip.MainValue;
+                    Debug.Log("Lucky: " + lucky.statValue);
+                }
+                if (equip.SubStat == StatKey.v_hp_max)
+                {
+                    v_hp_max.statValue += equip.MainValue;
+                    Debug.Log("v_hp_max: " + v_hp_max.statValue);
+                }
+                if (equip.SubStat == StatKey.v_mp_max)
+                {
+                    v_mp_max.statValue += equip.MainValue;
+                    Debug.Log("v_mp_max: " + v_mp_max.statValue);
+                }
+                if (equip.SubStat == StatKey.v_hp_recovery)
+                {
+                    v_hp_recovery.statValue += equip.MainValue;
+                    Debug.Log("v_hp_recovery: " + v_hp_recovery.statValue);
+                }
+                if (equip.SubStat == StatKey.v_mp_recovery)
+                {
+                    v_mp_recovery.statValue += equip.MainValue;
+                    Debug.Log("v_mp_recovery: " + v_mp_recovery.statValue);
+                }
                 if (equip.SubStat == StatKey.v_patk)
                 {
                     v_patk.statValue += equip.MainValue;
                     Debug.Log("patk: " + v_patk.statValue);
                 }
-                if (equip.SubStat == StatKey.Constitution)
+                if (equip.SubStat == StatKey.v_matk)
                 {
-                    Constitution.statValue += equip.MainValue;
-                    Debug.Log("Constitution: " + Constitution.statValue);
+                    v_matk.statValue += equip.MainValue;
+                    Debug.Log("v_matk: " + v_matk.statValue);
                 }
                 if (equip.SubStat == StatKey.v_pdef)
                 {
                     v_pdef.statValue += equip.MainValue;
-                    Debug.Log("pdef: " + v_pdef.statValue);
+                    Debug.Log("v_pdef: " + v_pdef.statValue);
                 }
-                break;
+                if (equip.SubStat == StatKey.v_mdef)
+                {
+                    v_mdef.statValue += equip.MainValue;
+                    Debug.Log("v_mdef: " + v_mdef.statValue);
+                }
+                if (equip.SubStat == StatKey.v_acc)
+                {
+                    v_acc.statValue += equip.MainValue;
+                    Debug.Log("v_acc: " + v_acc.statValue);
+                }
+                if (equip.SubStat == StatKey.v_evade)
+                {
+                    v_evade.statValue += equip.MainValue;
+                    Debug.Log("v_evade: " + v_evade.statValue);
+                }
+                if (equip.SubStat == StatKey.v_crit_change)
+                {
+                    v_crit_change.statValue += equip.MainValue;
+                    Debug.Log("v_crit_change: " + v_crit_change.statValue);
+                }
+                if (equip.SubStat == StatKey.v_crit_dam)
+                {
+                    v_crit_dam.statValue += equip.MainValue;
+                    Debug.Log("v_crit_dam: " + v_crit_dam.statValue);
+                }
+                if (equip.SubStat == StatKey.v_pdam)
+                {
+                    v_pdam.statValue += equip.MainValue;
+                    Debug.Log("v_pdam: " + v_pdam.statValue);
+                }
+                if (equip.SubStat == StatKey.v_mdam)
+                {
+                    v_mdam.statValue += equip.MainValue;
+                    Debug.Log("v_mdam: " + v_mdam.statValue);
+                }
+                break;                
         }
         EventManager.instance.statEvents.ShowStat();
     }
@@ -174,8 +345,8 @@ public class EquipmentManager : MonoBehaviour
                 }
                 if (equip.MainStat == StatKey.Constitution)
                 {
-                    Constitution.statValue -= equip.MainValue;
-                    Debug.Log("Constitution: " + Constitution.statValue);
+                    constitution.statValue -= equip.MainValue;
+                    Debug.Log("Constitution: " + constitution.statValue);
                 }
                 if (equip.MainStat == StatKey.v_pdef)
                 {
@@ -189,9 +360,9 @@ public class EquipmentManager : MonoBehaviour
                     Debug.Log("patk: " + v_patk.statValue);
                 }
                 if (equip.SubStat == StatKey.Constitution)
-                {
-                    Constitution.statValue -= equip.MainValue;
-                    Debug.Log("Constitution: " + Constitution.statValue);
+                {   
+                    constitution.statValue -= equip.MainValue;
+                    Debug.Log("Constitution: " + constitution.statValue);
                 }
                 if (equip.SubStat == StatKey.v_pdef)
                 {
