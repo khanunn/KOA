@@ -29,6 +29,9 @@ MonoBehaviour:
   <MonsterRace>k__BackingField: 0
   <OnHitEffect>k__BackingField: {fileID: 0}
   <OnHitEffectChance>k__BackingField: 0
+  <SelfBuffStatus>k__BackingField: {fileID: 0}
+  <SelfBuffStatusChance>k__BackingField: 0
+  <SelfBuffStatusInterval>k__BackingField: 0
   <Experience>k__BackingField: 100
   <GoldMin>k__BackingField: 1
   <GoldMax>k__BackingField: 10

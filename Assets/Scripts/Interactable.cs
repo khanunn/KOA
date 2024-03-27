@@ -31,6 +31,7 @@ public class Interactable : MonoBehaviour
                 myActor = GetComponent<Actor>();
                 myPatrol = GetComponent<PatrolController>();
                 myPlayer = GetComponent<PlayerController>();
+                if(this.GetComponent<StatusManager>() != null) myStatus = GetComponent<StatusManager>();
                 break;
             case InteractableType.PLAYER:
                 myActor = GetComponent<Actor>();

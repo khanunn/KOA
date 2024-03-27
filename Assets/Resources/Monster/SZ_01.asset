@@ -30,6 +30,9 @@ MonoBehaviour:
   <OnHitEffect>k__BackingField: {fileID: 11400000, guid: dde536b286782d34281b52904b437d5c,
     type: 2}
   <OnHitEffectChance>k__BackingField: 50
+  <SelfBuffStatus>k__BackingField: {fileID: 0}
+  <SelfBuffStatusChance>k__BackingField: 0
+  <SelfBuffStatusInterval>k__BackingField: 0
   <Experience>k__BackingField: 650
   <GoldMin>k__BackingField: 75
   <GoldMax>k__BackingField: 100

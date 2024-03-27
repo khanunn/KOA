@@ -18,6 +18,8 @@ public class PatrolController : MonoBehaviour
     const string IDLE = "Idle";
     const string ATTACK = "Attack";
     const string DEATH = "Death";
+    [SerializeField] bool IsBuffCooldown = false;
+    [SerializeField] float BuffCdTimer = 0;
     //=====================================================//
     [Header("Moving")]
     [SerializeField] private float moveRadius;
@@ -46,6 +48,7 @@ public class PatrolController : MonoBehaviour
     //====================================================//
     [Header("Infomation")]
     public MonsterInfoSO monsterInfoSO;
+    public Interactable Enemy;
     //====================================================//  
     private void Awake()
     {
@@ -64,6 +67,7 @@ public class PatrolController : MonoBehaviour
         Accuracy = monsterInfoSO.Accuracy;
         CritDMG = monsterInfoSO.CritDMG;
         CritRate = monsterInfoSO.CritRate;
+        Enemy = GetComponent<Interactable>();
         //agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
@@ -81,8 +85,18 @@ public class PatrolController : MonoBehaviour
             target = null;
             animator.SetBool("Attack", false);
             AggroTime = monsterInfoSO.AggroTime;
-            StartCheckAggro = false;
-            
+            StartCheckAggro = false;            
+        }
+
+        if(IsBuffCooldown)
+        {
+            if (monsterInfoSO.SelfBuffStatus == null) return;
+            BuffCdTimer += Time.deltaTime;            
+            if(BuffCdTimer >= monsterInfoSO.SelfBuffStatusInterval)
+            {
+                BuffCdTimer = 0;
+                IsBuffCooldown = false;
+            }
         }
     }
 
@@ -208,13 +222,31 @@ public class PatrolController : MonoBehaviour
                 return;
             }
 
-            //Using when Enemy have On hit effect
-            if(monsterInfoSO.OnHitEffect != null)
-            {
-                int randomChance = Random.Range(0, 100);
+            int randomChance = 0;
 
+            //Using when Enemy have On hit effect
+            if (monsterInfoSO.OnHitEffect != null)
+            {
+                randomChance = Random.Range(0, 100);
                 if (randomChance >= monsterInfoSO.OnHitEffectChance) target.myStatus.AddStatus(monsterInfoSO.OnHitEffect);
             }
+
+            //Using when Attack Player to gain buff
+            if(monsterInfoSO.SelfBuffStatus != null)
+            {
+                if (IsBuffCooldown) return;
+                randomChance = Random.Range(0, 100);
+                if (randomChance >= monsterInfoSO.SelfBuffStatusChance)
+                {
+                    Debug.Log("Enemy Healing In Progress");
+                    Enemy.myStatus.AddStatus(monsterInfoSO.SelfBuffStatus);
+                    IsBuffCooldown = true;              
+                }
+
+            }
+
+
+
 
             target.myActor.TakeDamage(TotalDamage);            
             EventManager.instance.playerEvents.AttackPopUp(position, TotalDamage.ToString(), Color.red);

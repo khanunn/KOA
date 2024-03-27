@@ -46,6 +46,11 @@ public class MonsterInfoSO : ScriptableObject
     [field: SerializeField] public StatusInfoSO OnHitEffect { get; private set; }
     [field: SerializeField] public int OnHitEffectChance { get; private set; }
 
+    [field: Header("Spacial Status Setting")]
+    [field: SerializeField] public StatusInfoSO SelfBuffStatus { get; private set; }
+    [field: SerializeField] public int SelfBuffStatusChance { get; private set; }
+    [field: SerializeField] public int SelfBuffStatusInterval { get; private set; }
+
     [field: Header("Rewards")]
 
     [field: SerializeField] public int Experience { get; private set; }
