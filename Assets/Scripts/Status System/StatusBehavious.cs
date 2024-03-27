@@ -115,7 +115,7 @@ public class StatusBehavious : MonoBehaviour
                 }
                 break;
             case 7:
-                // Add Defenese or Weakness
+                // Add Defenese or Armor break
                 if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
                 {
                     StatController PlayerStat = target.GetComponent<PlayerController>().statController;
@@ -134,7 +134,28 @@ public class StatusBehavious : MonoBehaviour
                     TargetDef += -(int)statusIntensity;
                     //Debug.Log(TargetDef);
                 }
-                break;          
+                break;
+            case 8:
+                // Add Damage or Weakness
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
+                {
+                    StatController PlayerStat = target.GetComponent<PlayerController>().statController;
+                    PlayerStat.EditPhysicalDamage((int)statusIntensity);
+                    await Task.Delay((int)duration * 1000);
+                    PlayerStat.EditPhysicalDamage(-(int)statusIntensity);
+                }
+
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.ENEMY)
+                {
+                    int TargetDef = target.GetComponent<PatrolController>().PhysicalDamage;
+                    //Debug.Log(TargetDef);
+                    TargetDef += (int)statusIntensity;
+                    //Debug.Log(TargetDef);                    
+                    await Task.Delay((int)duration * 1000);
+                    TargetDef += -(int)statusIntensity;
+                    //Debug.Log(TargetDef);
+                }
+                break;
         }
     }
     public void CancelStatus()

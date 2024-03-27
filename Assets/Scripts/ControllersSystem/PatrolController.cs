@@ -38,7 +38,7 @@ public class PatrolController : MonoBehaviour
     public int Accuracy = 100;
     //====================================================//
     [Header("Damage")]
-    [SerializeField] private int punchDamage;
+    public int PhysicalDamage = 0;
     [SerializeField] private int meleeDamage;
     public int Evade;
     public int MagicDefend = 0;
@@ -67,6 +67,7 @@ public class PatrolController : MonoBehaviour
         Accuracy = monsterInfoSO.Accuracy;
         CritDMG = monsterInfoSO.CritDMG;
         CritRate = monsterInfoSO.CritRate;
+        PhysicalDamage = monsterInfoSO.Damage;
         Enemy = GetComponent<Interactable>();
         //agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }

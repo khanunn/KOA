@@ -61,6 +61,11 @@ public class StatController : MonoBehaviour
         statManager.ChangeStatBySkill(v_pdef, value);
     }
 
+    public void EditPhysicalDamage(int value)
+    {
+        statManager.ChangeStatBySkill(v_patk, value);
+    }
+
     private void SwitchCharacterInfo()
     {
         if (!statSwitch)

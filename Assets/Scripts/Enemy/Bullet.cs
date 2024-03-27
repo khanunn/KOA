@@ -25,8 +25,9 @@ public class Bullet : MonoBehaviour
     {      
         if (other.tag == "Player")
         {
-            other.GetComponent<Interactable>().myActor.TakeDamage(Damage);            
-            EventManager.instance.playerEvents.AttackPopUp(other.transform.position, Damage.ToString(), Color.red);
+            int TotalDamage = Damage - other.GetComponent<Interactable>().myPlayer.PhysicalDefend;
+            other.GetComponent<Interactable>().myActor.TakeDamage(TotalDamage);            
+            EventManager.instance.playerEvents.AttackPopUp(other.transform.position, TotalDamage.ToString(), Color.red);
             other.GetComponent<Interactable>().myActor.DamageOnHealthBar();
 
             if (OnHitEffect != null) other.GetComponent<StatusManager>().AddStatus(OnHitEffect);

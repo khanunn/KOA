@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //physicDamage = statController.v_patk.statValue;
         //playerMaxHealth = playerActor.currentHealth;
         //EventManager.instance.healthEvents.HealthChange(playerMaxHealth);
     }
