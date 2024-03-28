@@ -39,7 +39,7 @@ public class ShopManager : MonoBehaviour
 
         for(int i = 0; i < 8; index++, i++)
         {
-            Debug.Log(index);
+            //Debug.Log(index);
             //Debug.Log(item.name);
             //temp GameObject in BaseItem
             GameObject Icon = BaseItem[i].transform.GetChild(0).gameObject;
@@ -61,7 +61,7 @@ public class ShopManager : MonoBehaviour
             ItemName.GetComponent<TextMeshProUGUI>().text = SellableObject[index].DisplayName;
             Price.GetComponent<TextMeshProUGUI>().text = "" + SellableObject[index].Price.ToString();
 
-            Debug.Log(SellableObject[index].DisplayName);
+            //Debug.Log(SellableObject[index].DisplayName);
 
             var ID = index; //Solve Index outbound Bug 
             BuyButton.GetComponent<Button>().onClick.AddListener(() => BuyItem(ID));
@@ -107,7 +107,7 @@ public class ShopManager : MonoBehaviour
             }
             //EventManager.instance.pickupEvents.UpdateItem(SellableObject[ItemID], 1);
             //inventoryManager.UpdateItemAmount(SellableObject[ItemID], 1);
-            Debug.Log(SellableObject[ItemID]);
+            //Debug.Log(SellableObject[ItemID]);
 
         }
         else UnBuyAblePanal.SetActive(true);
