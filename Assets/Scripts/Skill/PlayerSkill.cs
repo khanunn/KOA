@@ -4,10 +4,7 @@ using System.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.Rendering;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UI;
+
 
 public class PlayerSkill : MonoBehaviour
 {
@@ -70,12 +67,11 @@ public class PlayerSkill : MonoBehaviour
 
     public SkillInfoSO[] SkillData; // List all aviable skill
 
-    //use for hard code set skill
-    int[] UnWeaponSkillSet = { 0, 3, 4 };
-    int[] WeaponSkillSet = { 1, 2, 3, 4 };
+    //use for hard code set skill    
+    public int[] WeaponSkillSet = { 1, 2, 3, 4 };
 
 
-    float[] SkillMaxSetCD = { 3, 3, 5, 7 };
+    float[] SkillMaxSetCD;
 
     private StatController statController;
 
@@ -212,7 +208,7 @@ public class PlayerSkill : MonoBehaviour
 
         Player.StopSequence(); //using to player stop moving
 
-        animator.Play(skillId.ToString()); //Player SKill Movement
+        animator.Play(skillId.ToString()); //Player SKill Movement       
 
         Debug.Log(skillId);
         var action = new SkillAction();
@@ -263,13 +259,7 @@ public class PlayerSkill : MonoBehaviour
 
             //This code suppose to call when it have skill changing panal in the future
             LoadScriptObject();
-        }
-        else
-        {
-            CurrentSkill = UnWeaponSkillSet;
-            //This code suppose to call when it have skill changing panal in the future
-            LoadScriptObject();
-        }
+        }     
 
         Skill_ID = animator.GetInteger("Skill_ID");
         animator.SetBool("IsWeapon", IsWeapon);
@@ -312,7 +302,7 @@ public class PlayerSkill : MonoBehaviour
     {
         Debug.Log("SendAttackSkill Connected");
         PlayerController controller = GetComponent<PlayerController>();
-        int skillPhysicDamage = statController.v_patk.statValue * 2;
+        int skillPhysicDamage = statController.v_patk.statValue * 2 ;
         Debug.Log("skill damage: " + skillPhysicDamage);
         Debug.Log("skill Target: " + controller.target);
 

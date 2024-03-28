@@ -15,9 +15,14 @@ MonoBehaviour:
   <DisplayName>k__BackingField: Healing
   <Icon>k__BackingField: {fileID: 0}
   <SkillId>k__BackingField: 3
+  <SkillLevel>k__BackingField: 1
+  <SkillTier>k__BackingField: 1
   <ManaCost>k__BackingField: 30
   <OutputSkill>k__BackingField: 20
   <CooldownSkill>k__BackingField: 40
   <LifetimeVFX>k__BackingField: 3000
-  <RequirementWeapon>k__BackingField: 0
   <SkillType>k__BackingField: 0
+  <StatusEffect>k__BackingField: {fileID: 0}
+  <RequirementSkillID>k__BackingField: 0
+  <RequirementLevel>k__BackingField: 0
+  <RequirementWeapon>k__BackingField: 0

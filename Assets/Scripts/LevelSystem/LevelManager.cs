@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Image experienceBar;
 
     public ClassInfoSO classInfoSO;
+    public SkillController skillController;
+
     [HideInInspector] public StatContainer statContainer;
 
     private void OnEnable()
@@ -38,6 +40,7 @@ public class LevelManager : MonoBehaviour
         CalculateRequireExp();
         EventManager.instance.playerEvents.PlayerLevelChange(level);
         EventManager.instance.statEvents.LevelUpStat();
+        skillController.SkillPoint += 1;
     }
     private void ExperienceUp(int value)
     {
