@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -200,6 +201,7 @@ public class PlayerSkill : MonoBehaviour
             // isSkillPlaying = true;
             StartSkill(skillId, ButtonID);
             Invoke("ResetSkill", 0.01f);
+            Skill_ID = skillId;
             // Set cooldown for the skill
             skillCooldowns[ButtonID] = MaxCooldown[ButtonID];
         }
@@ -270,33 +272,8 @@ public class PlayerSkill : MonoBehaviour
             //This code suppose to call when it have skill changing panal in the future
             LoadScriptObject();
         }     
-
-        Skill_ID = animator.GetInteger("Skill_ID");
-        animator.SetBool("IsWeapon", IsWeapon);
-
-        /* if (IsWeapon)
-        {
-            Sword.enabled = true;
-            Shield.enabled = true;
-        }
-        else
-        {
-            Sword.enabled = false;
-            Shield.enabled = false;
-        } */
-
-        // Check if the animation has finished
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Skill")) //Don't forget to add tag in animator
-        {
-            //isSkillPlaying = false;
-            //ResetSkill();
-
-        }
-
-        /* if (isSkillPlaying)
-        {
-            Player.StopSequence();
-        } */
+        
+        animator.SetBool("IsWeapon", IsWeapon);                  
     }
     public void SkillPLaying()
     {
@@ -307,6 +284,7 @@ public class PlayerSkill : MonoBehaviour
     public void SkillNotPLaying()
     {
         isSkillPlaying = false;
+        Skill_ID = -99;
     }
     public void SendAttackSkill()
     {
@@ -342,6 +320,14 @@ public class PlayerSkill : MonoBehaviour
 
         animator.speed = defaultAnimatorSpeed;
         player.MoveSpeed(3.5f);
+    }
+
+    public async void UsingSkill()
+    {
+        var op = Addressables.LoadAssetAsync<SkillInfoSO>($"Assets/Skill/{Skill_ID}.asset");
+        var prefab = await op.Task; 
+        
+        GetComponent<StatusManager>().AddStatus(prefab.StatusEffect);
     }
 }
 
