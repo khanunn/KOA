@@ -11,15 +11,17 @@ using UnityEngine.UIElements;
 public class StatusBehavious : MonoBehaviour
 {       
     public GameObject target;
+
+    //First Effect
     public float duration;
-    public int statusID;
-    public float statusIntensity;
+    public int statusID;    
+    public float statusIntensity; 
 
     public float previousSpeed;//store previous speed
 
     public async Task ActiveSkill()
     {
-        int milliseconds = Mathf.RoundToInt(duration * 1000); // as the effect of duration      
+        int milliseconds = Mathf.RoundToInt(duration * 1000); // as the effect of duration              
         switch (statusID)
         {
             case 0:
@@ -103,7 +105,8 @@ public class StatusBehavious : MonoBehaviour
                 break;
             case 6:
                 //Slient                 
-                if(target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
+                //Debug.Log("target.GetComponent<PlayerSkill>().isSkillPlaying: " + target.GetComponent<PlayerSkill>().CanUseSkill);
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
                 {
                     target.GetComponent<PlayerSkill>().CanUseSkill = false;
                     Debug.Log("target.GetComponent<PlayerSkill>().isSkillPlaying: " + target.GetComponent<PlayerSkill>().CanUseSkill);                    
@@ -156,7 +159,31 @@ public class StatusBehavious : MonoBehaviour
                     //Debug.Log(TargetDef);
                 }
                 break;
-        }
+
+            case 9:
+                // Furious ( ID 8 + 6 )
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
+                {
+                    StatController PlayerStat = target.GetComponent<PlayerController>().statController;
+                    PlayerStat.EditPhysicalDamage((int)statusIntensity);
+                    target.GetComponent<PlayerSkill>().CanUseSkill = false;
+                    await Task.Delay((int)duration * 1000);
+                    target.GetComponent<PlayerSkill>().CanUseSkill = true;
+                    PlayerStat.EditPhysicalDamage(-(int)statusIntensity);                                
+                }
+
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.ENEMY)
+                {
+                    int TargetDef = target.GetComponent<PatrolController>().PhysicalDamage;
+                    //Debug.Log(TargetDef);
+                    TargetDef += (int)statusIntensity;
+                    //Debug.Log(TargetDef);                    
+                    await Task.Delay((int)duration * 1000);
+                    TargetDef += -(int)statusIntensity;
+                    //Debug.Log(TargetDef);
+                }
+                break;
+        }     
     }
     public void CancelStatus()
     {

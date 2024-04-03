@@ -18,13 +18,19 @@ public class SkillController : MonoBehaviour
 
     [Header("Skill Point Config")]    
     public int SkillPoint = 0;
-
+    public int[] SkillIdObtain;
 
 
     Dictionary<SkillInfoSO, Button> SkillDict = new Dictionary<SkillInfoSO, Button>();
     // Start is called before the first frame update
     void Start()
     {
+        SkillIdObtain[0] = 1;
+        SkillIdObtain[1] = 2;
+        SkillIdObtain[2] = 3;
+        SkillIdObtain[3] = 4;
+        SkillIdObtain[4] = 5;
+
         int i = 0;
         foreach (var item in SkillList)
         {

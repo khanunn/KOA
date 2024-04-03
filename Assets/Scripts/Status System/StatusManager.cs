@@ -22,10 +22,11 @@ public class StatusManager : MonoBehaviour
 
         StatusBehavious behavious = new StatusBehavious();
 
-        behavious.duration = statusInfo.Duration;
         behavious.target = this.gameObject;
+
+        behavious.duration = statusInfo.Duration;        
         behavious.statusIntensity = statusInfo.Intensity;
-        behavious.statusID = statusInfo.StatusID;
+        behavious.statusID = statusInfo.StatusID;       
 
         CurrentStatus.Add(statusInfo, behavious);
      
@@ -37,9 +38,9 @@ public class StatusManager : MonoBehaviour
             DisplayIcon.GetComponent<IconStatus>().StartCD = true;
             // Instantiate the image object
             Instantiate(DisplayIcon, IconStatusPanal.transform);
-        }        
+        }     
 
-        await behavious.ActiveSkill();
+        await behavious.ActiveSkill();             
 
         //remove skill form dict  
 

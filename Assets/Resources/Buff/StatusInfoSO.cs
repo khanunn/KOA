@@ -11,12 +11,12 @@ public enum BuffType
 public class StatusInfoSO : ScriptableObject
 {
     [field: Header("Status Genaral")]    
-    [field: SerializeField] public int StatusID { get; private set; }
+    [field: SerializeField] public int StatusID { get; private set; }    
     [field: SerializeField] public BuffType StatusType { get; private set; }
     [field: SerializeField] public float Intensity { get; private set; }
     [field: SerializeField] public float Duration { get; private set; }
     [field: SerializeField] public float Tier { get; private set; }
-
+  
     [field: Header("Status Information")]
     [field: SerializeField] public string DisplayName { get; private set; }
     [field: SerializeField] public string Desciption { get; private set; }
@@ -36,6 +36,6 @@ public class StatusInfoSO : ScriptableObject
     public void ChangeIntensity(float intensity)
     {
         this.Intensity = intensity;
-    }
+    }   
 }
 

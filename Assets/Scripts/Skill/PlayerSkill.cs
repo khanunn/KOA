@@ -60,6 +60,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("Player Setting")]
     [SerializeField] PlayerController Player;
     [SerializeField] GameObject VFX;
+    [SerializeField] SkillController skillController;
 
     public float[] MaxCooldown; //Set Max CD
     public float[] skillCooldowns; //using for Count CD
@@ -68,8 +69,7 @@ public class PlayerSkill : MonoBehaviour
     public SkillInfoSO[] SkillData; // List all aviable skill
 
     //use for hard code set skill    
-    public int[] WeaponSkillSet = { 1, 2, 3, 4 };
-
+    public int[] WeaponSkillSet = { 1, 2, 3, 4};
 
     float[] SkillMaxSetCD;
 
@@ -98,7 +98,7 @@ public class PlayerSkill : MonoBehaviour
         animator = this.GetComponent<Animator>();
         myActor = GetComponent<Actor>();
         player = GetComponent<PlayerController>();
-
+        
         LoadScriptObject();
 
         SkillData = new SkillInfoSO[6];
