@@ -16,14 +16,15 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: 16e5f66611d711248b5baccf9b463c85,
     type: 3}
   <SkillId>k__BackingField: 5
-  <SkillLevel>k__BackingField: 20
+  <SkillLevel>k__BackingField: 26
   <SkillTier>k__BackingField: 2
   <ManaCost>k__BackingField: 50
   <OutputSkill>k__BackingField: 40
   <CooldownSkill>k__BackingField: 60
   <LifetimeVFX>k__BackingField: 4000
   <SkillType>k__BackingField: 2
-  <StatusEffect>k__BackingField: {fileID: 0}
+  <StatusEffect>k__BackingField: {fileID: 11400000, guid: 2e62e912ca0b81144aee5c3c5c6b3baf,
+    type: 2}
   <RequirementSkillID>k__BackingField: 4
   <RequirementLevel>k__BackingField: 20
   <RequirementWeapon>k__BackingField: 0

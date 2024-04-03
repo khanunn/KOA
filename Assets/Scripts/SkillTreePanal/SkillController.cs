@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,19 +19,13 @@ public class SkillController : MonoBehaviour
 
     [Header("Skill Point Config")]    
     public int SkillPoint = 0;
-    public int[] SkillIdObtain;
+    public int SkillObtain = 4;
 
 
     Dictionary<SkillInfoSO, Button> SkillDict = new Dictionary<SkillInfoSO, Button>();
     // Start is called before the first frame update
     void Start()
-    {
-        SkillIdObtain[0] = 1;
-        SkillIdObtain[1] = 2;
-        SkillIdObtain[2] = 3;
-        SkillIdObtain[3] = 4;
-        SkillIdObtain[4] = 5;
-
+    {     
         int i = 0;
         foreach (var item in SkillList)
         {
@@ -46,7 +41,10 @@ public class SkillController : MonoBehaviour
         {
             foreach (SkillInfoSO Skillinfo in SkillDict.Keys)
             {
-                if (Skillinfo.RequirementLevel <= levelManager.level) SkillDict[Skillinfo].interactable = true;
+                if (Skillinfo.RequirementLevel <= levelManager.level)
+                {                    
+                    SkillDict[Skillinfo].interactable = true;
+                }                    
             }
         }
         else
@@ -70,6 +68,7 @@ public class SkillController : MonoBehaviour
     {
         if(SkillPoint > 0)
         {
+            SkillObtain += 1;
             foreach (SkillInfoSO Skillinfo in SkillDict.Keys)
             {
                 if (Skillinfo.SkillId == skill.SkillId)
@@ -77,6 +76,29 @@ public class SkillController : MonoBehaviour
                     Skillinfo.UpgradeSkill();
                     SkillPoint -= 1;
                 }
+            }
+
+            if (SkillObtain < 6)
+            {
+                //ChangeSize of  skillCooldowns, SkillMaxSetCD and CurrentSkill in PlayerSkill and put new item into arrays
+                float[] Temp_skillCooldowns = new float[playerSkill.skillCooldowns.Length + 1];
+                float[] Temp_SkillMaxSetCD = new float[playerSkill.SkillMaxSetCD.Length + 1];
+                int[] Temp_CurrentSkill = new int[playerSkill.SkillMaxSetCD.Length + 1];
+                float[] Temp_MaxCooldown = new float[playerSkill.MaxCooldown.Length + 1];
+
+                Temp_CurrentSkill[Temp_CurrentSkill.Length - 1] = skill.SkillId;
+
+                playerSkill.skillCooldowns.CopyTo(Temp_skillCooldowns, 0);
+                playerSkill.SkillMaxSetCD.CopyTo(Temp_SkillMaxSetCD, 0);
+                playerSkill.CurrentSkill.CopyTo(Temp_CurrentSkill, 0);
+                playerSkill.MaxCooldown.CopyTo(Temp_MaxCooldown, 0);
+
+                playerSkill.skillCooldowns = Temp_skillCooldowns;
+                playerSkill.SkillMaxSetCD = Temp_SkillMaxSetCD;
+                playerSkill.CurrentSkill = Temp_CurrentSkill;
+                playerSkill.MaxCooldown = Temp_MaxCooldown;
+
+
             }
         }        
     }

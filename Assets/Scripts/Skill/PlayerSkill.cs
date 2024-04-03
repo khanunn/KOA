@@ -69,9 +69,9 @@ public class PlayerSkill : MonoBehaviour
     public SkillInfoSO[] SkillData; // List all aviable skill
 
     //use for hard code set skill    
-    public int[] WeaponSkillSet = { 1, 2, 3, 4};
+    public int[] WeaponSkillSet = { 1, 2, 3, 4, 5};
 
-    float[] SkillMaxSetCD;
+    public float[] SkillMaxSetCD;
 
     private StatController statController;
 
@@ -116,7 +116,7 @@ public class PlayerSkill : MonoBehaviour
             CurrentSkill = new int[3];
         }
 
-
+        CurrentSkill = WeaponSkillSet;
 
         StartCoroutine(CooldownTimer());
     }
@@ -169,15 +169,25 @@ public class PlayerSkill : MonoBehaviour
                 TryStartSkill(CurrentSkill[2], 2);
                 //Debug.Log(CurrentSkill[2]);
             }
-
-            if (IsWeapon)
+           
+            if (Input.GetKeyUp(KeyCode.Alpha4))
             {
-                if (Input.GetKeyUp(KeyCode.Alpha4))
-                {
-                    TryStartSkill(CurrentSkill[3], 3);
-                    //Debug.Log(CurrentSkill[3]);
-                }
+                TryStartSkill(CurrentSkill[3], 3);
+                //Debug.Log(CurrentSkill[3]);
             }
+
+            if (Input.GetKeyUp(KeyCode.Alpha5))
+            {
+                TryStartSkill(CurrentSkill[4], 4);
+                //Debug.Log(CurrentSkill[3]);
+            }
+
+            if (Input.GetKeyUp(KeyCode.Alpha6))
+            {
+                TryStartSkill(CurrentSkill[5], 5);
+                //Debug.Log(CurrentSkill[3]);
+            }
+
         }
     }
 
@@ -255,7 +265,7 @@ public class PlayerSkill : MonoBehaviour
 
         if (IsWeapon)
         {
-            CurrentSkill = WeaponSkillSet;
+            //CurrentSkill = WeaponSkillSet;
 
             //This code suppose to call when it have skill changing panal in the future
             LoadScriptObject();
