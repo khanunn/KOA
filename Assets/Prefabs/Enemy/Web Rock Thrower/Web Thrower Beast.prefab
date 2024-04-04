@@ -2430,13 +2430,14 @@ GameObject:
   - component: {fileID: 4598825343789390052}
   - component: {fileID: 4457144147503402194}
   - component: {fileID: 1523197993675092153}
+  - component: {fileID: 8527225807827182547}
   m_Layer: 7
   m_Name: Web Thrower Beast
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7499995080438010191
 Transform:
   m_ObjectHideFlags: 0
@@ -2445,7 +2446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8326600721673920632}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9997464, z: -0, w: -0.022519963}
+  m_LocalRotation: {x: -0, y: -0.99974644, z: 0, w: -0.022521509}
   m_LocalPosition: {x: 6.89, y: 42.02, z: -135.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2522,7 +2523,7 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 7.5
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
@@ -2544,7 +2545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPosition: {fileID: 1875945079764748097}
-  Bullet: {fileID: 5742408890019420737, guid: 7d3524eb61caf4c4bafc076ac7a78901, type: 3}
+  Bullet: {fileID: 5742408890019420737, guid: ffbfeafd47b994e459e69c0059fde55b, type: 3}
   Target: {fileID: 0}
   monsterInfoSO: {fileID: 11400000, guid: 30bbd7a9966614042aa321f137bff8ff, type: 2}
 --- !u!114 &4598825343789390052
@@ -2595,6 +2596,20 @@ CapsuleCollider:
   m_Height: 2.3663623
   m_Direction: 1
   m_Center: {x: 0.014426292, y: 1.0917073, z: -3.9628526e-11}
+--- !u!114 &8527225807827182547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8326600721673920632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &8362485362787933434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,7 +2662,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 909d206b9f3e9d540b6bfb9730a087ee, type: 2}
+  - {fileID: 2100000, guid: 76b975ff739069247b341660bf403aa2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

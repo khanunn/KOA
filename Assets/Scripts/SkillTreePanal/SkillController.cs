@@ -11,10 +11,10 @@ public class SkillController : MonoBehaviour
     [SerializeField] LevelManager levelManager;
 
     [Header("Class Setting")]
-    [SerializeField] SkillInfoSO[] SkillList;    
+    [SerializeField] SkillInfoSO[] SkillList;
 
     [Header("UI Setting")]
-    [SerializeField] Button[] Skillbutton;
+    [SerializeField] GameObject[] Skillbutton;    
     [SerializeField] Text SkillPointUpgrade;
 
     [Header("Skill Point Config")]    
@@ -29,7 +29,7 @@ public class SkillController : MonoBehaviour
         int i = 0;
         foreach (var item in SkillList)
         {
-            SkillDict.Add(item, Skillbutton[i]);
+            SkillDict.Add(item, Skillbutton[i].GetComponent<Button>());
             i++;
         }
     }
@@ -59,9 +59,18 @@ public class SkillController : MonoBehaviour
         if (gameObject.active == true)
         {
             if (Input.GetKeyDown(KeyCode.Escape)) this.gameObject.SetActive(false);
-        }
+        }        
 
         SkillPointUpgrade.text = "Skill Point Avaible: " + SkillPoint.ToString();
+    }
+
+    public void UpdateSkillLevel(SkillInfoSO skill)
+    {
+        /*foreach (GameObject SkillLv in Skillbutton)
+        {
+            if(skill.name == SkillLv.gameObject.name) SkillLv.transform.GetChild(1).GetComponent<Text>().text = skill.SkillLevel.ToString() + " / 5";
+        }*/
+        Skillbutton[skill.SkillId].transform.GetChild(1).GetComponent<Text>().text = skill.SkillLevel.ToString() + " / 5";
     }
 
     public void UpgradeSkill(SkillInfoSO skill)
@@ -74,12 +83,18 @@ public class SkillController : MonoBehaviour
                 if (Skillinfo.SkillId == skill.SkillId)
                 {
                     Skillinfo.UpgradeSkill();
+                    
                     SkillPoint -= 1;
                 }
             }
 
-            if (SkillObtain < 6)
+            if (SkillObtain < 6) //If already have skill it will return and prevent adding redundance skill
             {
+                foreach (SkillInfoSO ObtainSkill in playerSkill.SkillData)
+                {
+                    if (ObtainSkill.SkillId == skill.SkillId) return;
+                }
+
                 //ChangeSize of  skillCooldowns, SkillMaxSetCD and CurrentSkill in PlayerSkill and put new item into arrays
                 float[] Temp_skillCooldowns = new float[playerSkill.skillCooldowns.Length + 1];
                 float[] Temp_SkillMaxSetCD = new float[playerSkill.SkillMaxSetCD.Length + 1];

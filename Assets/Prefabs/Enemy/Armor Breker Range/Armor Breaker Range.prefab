@@ -561,7 +561,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c237f40983e4cb74c9483a296644c37d, type: 2}
+  - {fileID: 2100000, guid: ce4d5e43e7157064992d1f040ca07ca3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -850,13 +850,14 @@ GameObject:
   - component: {fileID: 746500646255443181}
   - component: {fileID: 1180927528068920202}
   - component: {fileID: 1360828131919476636}
+  - component: {fileID: 8059686396083287888}
   m_Layer: 7
   m_Name: Armor Breaker Range
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4539491956443069419
 Transform:
   m_ObjectHideFlags: 0
@@ -865,7 +866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838514666203805539}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.045028508, z: -0, w: -0.9989857}
+  m_LocalRotation: {x: 0, y: -0.045031786, z: 0, w: 0.9989856}
   m_LocalPosition: {x: -111.4948, y: 44.45, z: 33.79155}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -874,7 +875,7 @@ Transform:
   - {fileID: 1573753888748699401}
   - {fileID: 5420626756058343433}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -182.581, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -5.162, z: 0}
 --- !u!95 &1204008510285202758
 Animator:
   serializedVersion: 5
@@ -942,7 +943,7 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 7.5
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
@@ -964,7 +965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPosition: {fileID: 1573753888748699401}
-  Bullet: {fileID: 5742408890019420737, guid: fe7861b47a154ab4f9dcb89389f130d4, type: 3}
+  Bullet: {fileID: 5742408890019420737, guid: 14f173ef7a7048147a2fa55b8776779b, type: 3}
   Target: {fileID: 0}
   monsterInfoSO: {fileID: 0}
 --- !u!114 &746500646255443181
@@ -1015,6 +1016,20 @@ CapsuleCollider:
   m_Height: 2.3663623
   m_Direction: 1
   m_Center: {x: 0.014426292, y: 1.0917073, z: -3.9628526e-11}
+--- !u!114 &8059686396083287888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838514666203805539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &2005479210682103407
 GameObject:
   m_ObjectHideFlags: 0

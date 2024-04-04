@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerCurrentHealth;
     [SerializeField] private int playerMaxHealth;
     //====================================================//
+    [Header("Mouse Position")]
+    public Vector3 mousePositionInScene;
 
     private void Awake()
     {
@@ -159,6 +161,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
         {
+            mousePositionInScene = hit.point; // Mouse position in scene coordinates
             if (hit.transform.CompareTag("Interactable"))
             {
                 //เช็คเฉพาะถ้าเป้าหมายเป็น NPC ก่อนหน้านี้ ให้ ResetBusy เพื่อป้องกันไม่ให้ Attack รัวๆถ้าเป้าหมายเป็น Enemy

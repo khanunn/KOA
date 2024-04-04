@@ -51,16 +51,34 @@ public class StatusBehavious : MonoBehaviour
             case 2:
                 //Damage over Time (Damage from MaxHP)
                 //float CheckTime = duration;             
-                for (int i = (int)duration; duration > 0; i--)
+
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER)
                 {
-                    float totalDamage = target.GetComponent<Actor>().MaxHealth * (statusIntensity / 100);                    
-                    target.GetComponent<Actor>().TakeDamage((int)totalDamage);
-                    target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
-                    EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.red);
-                    //Debug.Log("CheckTime: " + CheckTime);
-                    await Task.Delay(1000);
-                    //CheckTime -= 1;
+                    for (int i = (int)duration; duration > 0; i--)
+                    {
+                        float totalDamage = target.GetComponent<Actor>().MaxHealth * (statusIntensity / 100);
+                        target.GetComponent<Actor>().TakeDamage((int)totalDamage);
+                        target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
+                        EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.red);
+                        //Debug.Log("CheckTime: " + CheckTime);
+                        await Task.Delay(1000);
+                        //CheckTime -= 1;
+                    }
                 }
+
+                if (target.GetComponent<Interactable>().interactionType == InteractableType.ENEMY)
+                {
+                    for (int i = (int)duration; duration > 0; i--)
+                    {
+                        float totalDamage = target.GetComponent<Actor>().MaxHealth * (statusIntensity / 100);
+                        target.GetComponent<Actor>().TakeDamage((int)totalDamage);                        
+                        EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.green);
+                        await Task.Delay(1000);
+                        //CheckTime -= 1;
+                    }
+                }
+
+                 
                 break;
             case 3:
                 //Damage over Time (Damage from CurrentHP)

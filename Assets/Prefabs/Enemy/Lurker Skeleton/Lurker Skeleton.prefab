@@ -1498,7 +1498,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4f70f03d5ad52641aa6e2da1a0339ed, type: 2}
+  - {fileID: 2100000, guid: b35639dc80c791243a4279c53d530640, type: 2}
   - {fileID: 7933437162560983647, guid: 97ecabfb485bdfa42a47a03afeddfc47, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2383,13 +2383,14 @@ GameObject:
   - component: {fileID: 1251120251771283553}
   - component: {fileID: 3851875455810144216}
   - component: {fileID: 5858762009443510185}
+  - component: {fileID: 8147149015749478369}
   m_Layer: 7
   m_Name: Lurker Skeleton
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6750755762889377225
 Transform:
   m_ObjectHideFlags: 0
@@ -2398,7 +2399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8643208652987454955}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18.78, y: 42.2, z: -138.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2511,6 +2512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  IsBuffCooldown: 0
+  BuffCdTimer: 0
   moveRadius: 5
   ramdomDelayMin: 2
   ramdomDelayMax: 5
@@ -2520,14 +2523,15 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 1.2
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
   PhysicalDefend: 0
   CritRate: 0
   CritDMG: 0
-  monsterInfoSO: {fileID: 11400000, guid: 6045f8041979aca4ebd3355199bd311a, type: 2}
+  monsterInfoSO: {fileID: 11400000, guid: a78996448bcbe454db2ae45ada5cd876, type: 2}
+  Enemy: {fileID: 0}
 --- !u!82 &5858762009443510185
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2625,6 +2629,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8147149015749478369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8643208652987454955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &8662607912191294847
 GameObject:
   m_ObjectHideFlags: 0

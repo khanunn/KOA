@@ -815,7 +815,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 293d918516fe8a543b5ab2d15e5583f7, type: 2}
+  - {fileID: 2100000, guid: 7cdd3e374627b424295876b1931a1aaa, type: 2}
   - {fileID: 7933437162560983647, guid: 97ecabfb485bdfa42a47a03afeddfc47, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1034,13 +1034,14 @@ GameObject:
   - component: {fileID: 4443656550180526313}
   - component: {fileID: 3488313837222407352}
   - component: {fileID: 1848431341808467726}
+  - component: {fileID: 1978240808445875104}
   m_Layer: 7
   m_Name: Agile Skeleton
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2878276370169170103
 Transform:
   m_ObjectHideFlags: 0
@@ -1049,7 +1050,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3955995085784690564}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.62, y: 42.2, z: -138.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1173,14 +1174,14 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 1.2
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
   PhysicalDefend: 0
   CritRate: 0
   CritDMG: 0
-  monsterInfoSO: {fileID: 11400000, guid: 686ee4e7c85a8474eb6dc63c96ceeff3, type: 2}
+  monsterInfoSO: {fileID: 11400000, guid: 31835542bf32ec34aba5f8c857a7ef94, type: 2}
   Enemy: {fileID: 0}
 --- !u!114 &3488313837222407352
 MonoBehaviour:
@@ -1293,6 +1294,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1978240808445875104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955995085784690564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &4016172321252108788
 GameObject:
   m_ObjectHideFlags: 0

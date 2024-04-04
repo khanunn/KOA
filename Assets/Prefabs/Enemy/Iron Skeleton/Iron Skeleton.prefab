@@ -1338,7 +1338,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7cdd3e374627b424295876b1931a1aaa, type: 2}
+  - {fileID: 2100000, guid: 9141a644a6088fb479015e085d14c277, type: 2}
   - {fileID: 7933437162560983647, guid: 97ecabfb485bdfa42a47a03afeddfc47, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1462,13 +1462,14 @@ GameObject:
   - component: {fileID: 5900776259392183036}
   - component: {fileID: 5275329874429969534}
   - component: {fileID: 7597135208027546387}
+  - component: {fileID: 2242050026619707726}
   m_Layer: 7
   m_Name: Iron Skeleton
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3592106964938928663
 Transform:
   m_ObjectHideFlags: 0
@@ -1477,7 +1478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4430478015853345006}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.73, y: 42.2, z: -130.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1601,14 +1602,14 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 1.2
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
   PhysicalDefend: 0
   CritRate: 0
   CritDMG: 0
-  monsterInfoSO: {fileID: 11400000, guid: 31835542bf32ec34aba5f8c857a7ef94, type: 2}
+  monsterInfoSO: {fileID: 11400000, guid: 63ad5a8f354324f46ac7ec5d063a82b9, type: 2}
   Enemy: {fileID: 0}
 --- !u!114 &5275329874429969534
 MonoBehaviour:
@@ -1721,6 +1722,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2242050026619707726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4430478015853345006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &4433019700032526432
 GameObject:
   m_ObjectHideFlags: 0

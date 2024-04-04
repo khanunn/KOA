@@ -406,7 +406,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dc3345aedce2c374594f1fa23a4fb986, type: 2}
+  - {fileID: 2100000, guid: 909d206b9f3e9d540b6bfb9730a087ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2049,13 +2049,14 @@ GameObject:
   - component: {fileID: 6749697915614359959}
   - component: {fileID: 5244561233465170088}
   - component: {fileID: 3108007074349246669}
+  - component: {fileID: 1700039446557383819}
   m_Layer: 7
   m_Name: Frozen Thrower Beast
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6097153292420352831
 Transform:
   m_ObjectHideFlags: 0
@@ -2064,7 +2065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6307579213266067478}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9997464, z: -0, w: -0.022519963}
+  m_LocalRotation: {x: -0, y: -0.99974644, z: 0, w: -0.022521509}
   m_LocalPosition: {x: 7.03, y: 42.02, z: -138.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2141,7 +2142,7 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 7.5
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
@@ -2163,7 +2164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPosition: {fileID: 5565021432723922478}
-  Bullet: {fileID: 5742408890019420737, guid: ea604d21b11dc784fba4e82ddafaa73d, type: 3}
+  Bullet: {fileID: 5742408890019420737, guid: 7d3524eb61caf4c4bafc076ac7a78901, type: 3}
   Target: {fileID: 0}
   monsterInfoSO: {fileID: 11400000, guid: 30bbd7a9966614042aa321f137bff8ff, type: 2}
 --- !u!114 &6749697915614359959
@@ -2214,6 +2215,20 @@ CapsuleCollider:
   m_Height: 2.3663623
   m_Direction: 1
   m_Center: {x: 0.014426292, y: 1.0917073, z: -3.9628526e-11}
+--- !u!114 &1700039446557383819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307579213266067478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &6516601304009447013
 GameObject:
   m_ObjectHideFlags: 0

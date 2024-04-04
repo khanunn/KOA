@@ -21,7 +21,7 @@ public class SkillInfoSO : ScriptableObject
     [field: SerializeField] public int SkillLevel  { get; private set; } //using to calculated Damage base on skill level
     [field: SerializeField] public int SkillTier { get; private set; } //using as index in skill tree
     [field: SerializeField] public float ManaCost { get; private set; }
-    [field: SerializeField] public float OutputSkill { get; private set; }
+    [field: SerializeField] public int BaseSkillValue { get; private set; }
     [field: SerializeField] public float CooldownSkill { get; private set; }
     [field: SerializeField] public int LifetimeVFX { get; private set; }    
     [field: SerializeField] public SkillType SkillType { get; private set; }
@@ -32,6 +32,10 @@ public class SkillInfoSO : ScriptableObject
     [field: SerializeField] public int RequirementLevel { get; private set; }
     [field: SerializeField] public RequirementWeapon RequirementWeapon { get; private set; }
 
+    private void Reset()
+    {
+        SkillLevel = 1;
+    }
     public void UpgradeSkill()
     {
         SkillLevel += 1;
@@ -42,6 +46,9 @@ public class SkillInfoSO : ScriptableObject
 #if UNITY_EDITOR
         this.name = SkillId.ToString();
         UnityEditor.EditorUtility.SetDirty(this);
+
+        SkillLevel = 1;
+
 #endif
     }      
 }

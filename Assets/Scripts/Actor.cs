@@ -8,7 +8,9 @@ public class Actor : MonoBehaviour
 {
     public int MaxHealth { get; private set; }
     public int MaxMana { get; private set; }
-    public int CurrentHealth { get; private set; }
+
+    public int CurrentHealth;
+
 
     private StatManager statManager;
     private Stat con;
@@ -55,7 +57,7 @@ public class Actor : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             CurrentHealth = 0;
-        }        
+        }                
     }
 
     public void OnDeath()

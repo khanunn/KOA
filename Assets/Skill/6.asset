@@ -16,10 +16,10 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: 16e5f66611d711248b5baccf9b463c85,
     type: 3}
   <SkillId>k__BackingField: 6
-  <SkillLevel>k__BackingField: 10
+  <SkillLevel>k__BackingField: 1
   <SkillTier>k__BackingField: 2
   <ManaCost>k__BackingField: 50
-  <OutputSkill>k__BackingField: 40
+  <BaseSkillValue>k__BackingField: 0
   <CooldownSkill>k__BackingField: 10
   <LifetimeVFX>k__BackingField: 4000
   <SkillType>k__BackingField: 1

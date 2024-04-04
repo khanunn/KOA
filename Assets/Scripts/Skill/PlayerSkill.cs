@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Unity.Mathematics;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -48,7 +47,7 @@ public class PlayerSkill : MonoBehaviour
 
     [Header("Skill Settings")]
     Animator animator;
-    [SerializeField] int Skill_ID;
+    public int Skill_ID; //using as reference of currently skill
     public bool isSkillPlaying = false;
     public bool CanUseSkill = true;
     [SerializeField] SkillSlotManager slotManager;
@@ -74,7 +73,7 @@ public class PlayerSkill : MonoBehaviour
 
     public float[] SkillMaxSetCD;
 
-    private StatController statController;
+    public StatController statController;
 
     private Actor myActor;
     private PlayerController player;
@@ -289,8 +288,9 @@ public class PlayerSkill : MonoBehaviour
     public void SendAttackSkill()
     {
         Debug.Log("SendAttackSkill Connected");
+        Debug.Log("Test Skill LV: " + SkillData[Skill_ID].SkillLevel);
         PlayerController controller = GetComponent<PlayerController>();
-        int skillPhysicDamage = statController.v_patk.statValue * 2 ;
+        int skillPhysicDamage = (SkillData[Skill_ID].SkillLevel * 2) + statController.v_patk.statValue * 2;
         Debug.Log("skill damage: " + skillPhysicDamage);
         Debug.Log("skill Target: " + controller.target);
 

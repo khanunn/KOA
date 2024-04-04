@@ -99,6 +99,8 @@ public class PatrolController : MonoBehaviour
                 IsBuffCooldown = false;
             }
         }
+
+        if (GetComponent<Actor>().CurrentHealth <= 0 && !patrolDie) SetPatrolDie(true);
     }
 
     void AggroCheck()

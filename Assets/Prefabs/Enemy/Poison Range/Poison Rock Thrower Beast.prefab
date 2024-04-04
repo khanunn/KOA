@@ -467,7 +467,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c237f40983e4cb74c9483a296644c37d, type: 2}
+  - {fileID: 2100000, guid: 2bad01ca10e39a543aabb05d1094f84e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2786,13 +2786,14 @@ GameObject:
   - component: {fileID: 2207221887774302614}
   - component: {fileID: 215032809401263221}
   - component: {fileID: 8672891387656114120}
+  - component: {fileID: 3999077531455394200}
   m_Layer: 7
   m_Name: Poison Rock Thrower Beast
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1433883280299573319
 Transform:
   m_ObjectHideFlags: 0
@@ -2801,7 +2802,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9118639244314380764}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9997464, z: -0, w: -0.022519963}
+  m_LocalRotation: {x: -0, y: -0.99974644, z: 0, w: -0.022521509}
   m_LocalPosition: {x: 10.75, y: 42.02, z: -136.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2878,7 +2879,7 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDistance: 7.5
   Accuracy: 100
-  punchDamage: 5
+  PhysicalDamage: 0
   meleeDamage: 0
   Evade: 0
   MagicDefend: 0
@@ -2900,9 +2901,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPosition: {fileID: 5656105472959596511}
-  Bullet: {fileID: 5742408890019420737, guid: c0995c3613d0c804cba41add9de4600a, type: 3}
+  Bullet: {fileID: 5742408890019420737, guid: e7b0a3ad8f3706b479d3569f63a395d5, type: 3}
   Target: {fileID: 0}
-  monsterInfoSO: {fileID: 0}
+  monsterInfoSO: {fileID: 11400000, guid: 30bbd7a9966614042aa321f137bff8ff, type: 2}
 --- !u!114 &2207221887774302614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2951,6 +2952,20 @@ CapsuleCollider:
   m_Height: 2.3663623
   m_Direction: 1
   m_Center: {x: 0.014426292, y: 1.0917073, z: -3.9628526e-11}
+--- !u!114 &3999077531455394200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9118639244314380764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7ebb73642aad448565a0fb635ff19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconStatusPanal: {fileID: 0}
+  DisplayIcon: {fileID: 0}
 --- !u!1 &9200579750813966038
 GameObject:
   m_ObjectHideFlags: 0
