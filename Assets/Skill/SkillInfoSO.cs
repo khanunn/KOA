@@ -27,6 +27,8 @@ public class SkillInfoSO : ScriptableObject
     [field: SerializeField] public SkillType SkillType { get; private set; }
     [field: SerializeField] public StatusInfoSO StatusEffect { get; private set; }
 
+    [field: SerializeField] public bool OnMousePositionSkill { get; private set; }
+
     [field: Header("Requirement Setting")]
     [field: SerializeField] public int RequirementSkillID { get; private set; }
     [field: SerializeField] public int RequirementLevel { get; private set; }

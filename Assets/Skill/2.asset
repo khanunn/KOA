@@ -23,6 +23,7 @@ MonoBehaviour:
   <LifetimeVFX>k__BackingField: 1000
   <SkillType>k__BackingField: 1
   <StatusEffect>k__BackingField: {fileID: 0}
+  <OnMousePositionSkill>k__BackingField: 0
   <RequirementSkillID>k__BackingField: 0
   <RequirementLevel>k__BackingField: 0
   <RequirementWeapon>k__BackingField: 1

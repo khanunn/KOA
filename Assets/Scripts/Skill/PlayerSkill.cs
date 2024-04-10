@@ -14,7 +14,7 @@ public class PlayerSkill : MonoBehaviour
         private GameObject prefab;
         private GameObject instanceVFX;
 
-        public async void Init(int skillId, SkillInfoSO SkillData, Transform parent, quaternion rotation)
+        public async void Init(int skillId, SkillInfoSO SkillData, Transform parent, quaternion rotation, Vector3 MousePosition)
         {
             //Load VFX to memory as Prefab
             var op = Addressables.LoadAssetAsync<GameObject>($"Assets/VFX/InScene/{skillId}.prefab");
@@ -25,7 +25,16 @@ public class PlayerSkill : MonoBehaviour
 
             //Bring it into child and set pos and set 0 rotation at player (Specific detail are setting in child of VFX)
             instanceVFX.transform.SetParent(parent);
-            instanceVFX.transform.localPosition = new Vector3(prefab.transform.position.x, prefab.transform.position.y, prefab.transform.position.z);
+
+            if (SkillData.OnMousePositionSkill == true)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) MousePosition = hit.point; // Mouse position in scene coordinates
+                                                                                                                            // 
+                instanceVFX.transform.position = MousePosition;
+            }                
+            else instanceVFX.transform.localPosition = new Vector3(prefab.transform.position.x, prefab.transform.position.y, prefab.transform.position.z);
+
             instanceVFX.transform.rotation = rotation;
 
             //Set Lifetime base on each skill            
@@ -78,7 +87,7 @@ public class PlayerSkill : MonoBehaviour
     private Actor myActor;
     private PlayerController player;
     AnimatorStateInfo stateInfo;
-
+    
     void OnEnable()
     {
         EventManager.instance.statEvents.onSendStatController += StartStatus;
@@ -223,7 +232,11 @@ public class PlayerSkill : MonoBehaviour
 
         Debug.Log(skillId);
         var action = new SkillAction();
-        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation);
+
+        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation,Player.mousePositionInScene);
+        
+
+
     }
 
     private float[] GetSkillCooldowns()

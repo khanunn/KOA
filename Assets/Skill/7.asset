@@ -25,6 +25,7 @@ MonoBehaviour:
   <SkillType>k__BackingField: 1
   <StatusEffect>k__BackingField: {fileID: 11400000, guid: 93d71841231d52b4fb512db0b207f5d6,
     type: 2}
-  <RequirementSkillID>k__BackingField: 4
+  <OnMousePositionSkill>k__BackingField: 0
+  <RequirementSkillID>k__BackingField: 1
   <RequirementLevel>k__BackingField: 20
   <RequirementWeapon>k__BackingField: 0
