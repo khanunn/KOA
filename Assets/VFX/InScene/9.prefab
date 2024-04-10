@@ -54266,7 +54266,7 @@ GameObject:
   - component: {fileID: 1864848386175062639}
   m_Layer: 0
   m_Name: Collison Damage
-  m_TagString: Untagged
+  m_TagString: PlayerSkill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

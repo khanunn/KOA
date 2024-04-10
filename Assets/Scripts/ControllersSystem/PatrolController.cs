@@ -424,7 +424,18 @@ public class PatrolController : MonoBehaviour
             target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
             target.myPlayer.InteractableChange(this.gameObject);
             target.myPlayerSkill.SendAttackSkill();
+        /*    GameObject PlayerTemp = GameObject.FindGameObjectWithTag("Player");
+            PlayerController PlayerControl = PlayerTemp.GetComponent<PlayerController>();
+            Debug.Log(PlayerControl);
+            SetTargetToPlayer(PlayerControl);*/
             //Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
+        }
+
+        if(other.tag == "PlayerSkill")
+        {
+            target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
+            target.myPlayer.InteractableChange(this.gameObject);
+            target.myPlayerSkill.SendAttackSkill();
         }
     }
 
