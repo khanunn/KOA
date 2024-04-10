@@ -54,6 +54,7 @@ public class PlayerSkill : MonoBehaviour
     [Header("Skill Settings")]
     Animator animator;
     public int Skill_ID; //using as reference of currently skill
+    public int Skill_ButtonID;
     public bool isSkillPlaying = false;
     public bool CanUseSkill = true;
     [SerializeField] SkillSlotManager slotManager;
@@ -84,7 +85,7 @@ public class PlayerSkill : MonoBehaviour
     private Actor myActor;
     private PlayerController player;
     AnimatorStateInfo stateInfo;
-    int Skill_ButtonID;
+    
     
     void OnEnable()
     {
@@ -309,7 +310,7 @@ public class PlayerSkill : MonoBehaviour
         Debug.Log("SendAttackSkill Connected");
         Debug.Log("Test Skill LV: " + SkillData[Skill_ButtonID].SkillLevel);
         PlayerController controller = GetComponent<PlayerController>();
-        int skillPhysicDamage = (SkillData[Skill_ButtonID].SkillLevel * 2) + statController.v_patk.statValue * 2;
+        int skillPhysicDamage = SkillData[Skill_ButtonID].BaseSkillValue + (SkillData[Skill_ButtonID].SkillLevel * 2) + statController.v_patk.statValue * 2;
         Debug.Log("skill damage: " + skillPhysicDamage);
         Debug.Log("skill Target: " + controller.target);
 

@@ -39,11 +39,14 @@ public class CollisonDamage : MonoBehaviour
         if(other.tag == "Interactable")
         {
             if (IsTargetPlayer) return;
-            if (other.GetComponent<Interactable>().interactionType != InteractableType.ENEMY) return;            
-            if(IsAlreadyDamage) return;
+            if (other.GetComponent<Interactable>().interactionType != InteractableType.ENEMY) return;
+            //if (IsAlreadyDamage) return;            
+
+            playerSkill = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerSkill>();
             Debug.LogWarning("Test playerSkill: " + playerSkill);            
 
-            Damage = playerSkill.statController.v_patk.statValue * 2;
+            //Damage = playerSkill.statController.v_patk.statValue * 2; 
+            Damage = playerSkill.SkillData[playerSkill.Skill_ButtonID].BaseSkillValue + (playerSkill.SkillData[playerSkill.Skill_ButtonID].SkillLevel * 2) + playerSkill.statController.v_patk.statValue * 2;
             Debug.LogWarning("Test Collison Damage: " + Damage);
             Damage = Damage - other.GetComponent<Interactable>().myPatrol.MagicDefend;
             Debug.LogWarning("Test Collison Damage: " + Damage);

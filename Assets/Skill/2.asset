@@ -22,7 +22,8 @@ MonoBehaviour:
   <CooldownSkill>k__BackingField: 7
   <LifetimeVFX>k__BackingField: 1000
   <SkillType>k__BackingField: 1
-  <StatusEffect>k__BackingField: {fileID: 0}
+  <StatusEffect>k__BackingField: {fileID: 11400000, guid: f9e713fe47a635647afebbe00c3d14a3,
+    type: 2}
   <OnMousePositionSkill>k__BackingField: 0
   <RequirementSkillID>k__BackingField: 0
   <RequirementLevel>k__BackingField: 0

@@ -54261,15 +54261,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2048836825116141408}
-  - component: {fileID: 2468878842674904882}
   - component: {fileID: 6983235168491005561}
+  - component: {fileID: 452570329015690534}
+  - component: {fileID: 1864848386175062639}
   m_Layer: 0
   m_Name: Collison Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2048836825116141408
 Transform:
   m_ObjectHideFlags: 0
@@ -54285,22 +54286,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1183363915240446289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2468878842674904882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8740391729553769700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c34bb439e0898b46834b01731990158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 0
-  StatusOnDamage: {fileID: 11400000, guid: 36b55d7144e448d499158525591253d8, type: 2}
-  IsTargetPlayer: 0
-  playerSkill: {fileID: 0}
 --- !u!65 &6983235168491005561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54320,8 +54305,51 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.49834734, y: 0.47649837, z: 1.0060439}
-  m_Center: {x: -0.009114236, y: 0.016182598, z: -0.15520602}
+  m_Size: {x: 5.632419, y: 5.959174, z: 5.482248}
+  m_Center: {x: -0.009114265, y: -2.340501, z: -0.15520594}
+--- !u!54 &452570329015690534
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740391729553769700}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1864848386175062639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740391729553769700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c34bb439e0898b46834b01731990158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  StatusOnDamage: {fileID: 11400000, guid: 36b55d7144e448d499158525591253d8, type: 2}
+  IsTargetPlayer: 0
+  playerSkill: {fileID: 0}
 --- !u!1001 &1677334750720560915
 PrefabInstance:
   m_ObjectHideFlags: 0

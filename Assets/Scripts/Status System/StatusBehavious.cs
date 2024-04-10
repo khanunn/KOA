@@ -41,7 +41,7 @@ public class StatusBehavious : MonoBehaviour
                 for (int i = (int)duration; duration > 0; i--)
                 {
                     target.GetComponent<Actor>().TakeDamage((int)statusIntensity);
-                    target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
+                    if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER) target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
                     EventManager.instance.playerEvents.AttackPopUp(target.transform.position, statusIntensity.ToString(), Color.red);
                     //Debug.Log("CheckTime: " + CheckTime);
                     await Task.Delay(1000);                    
@@ -87,7 +87,7 @@ public class StatusBehavious : MonoBehaviour
                 {
                     float totalDamage = target.GetComponent<Actor>().CurrentHealth * (statusIntensity / 100);                    
                     target.GetComponent<Actor>().TakeDamage((int)totalDamage);
-                    target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
+                    if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER) target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
                     EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.red);
                     //Debug.Log("CheckTime: " + CheckTime);
                     await Task.Delay(1000);
@@ -101,7 +101,7 @@ public class StatusBehavious : MonoBehaviour
                 {
                     float totalDamage = (target.GetComponent<Actor>().MaxHealth - target.GetComponent<Actor>().CurrentHealth) * (statusIntensity / 100);                    
                     target.GetComponent<Actor>().TakeDamage((int)totalDamage);
-                    target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
+                    if (target.GetComponent<Interactable>().interactionType == InteractableType.PLAYER) target.GetComponent<Interactable>().myActor.DamageOnHealthBar();
                     EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.red);
                     //Debug.Log("CheckTime: " + CheckTime);
                     await Task.Delay(1000);
