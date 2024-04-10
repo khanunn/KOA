@@ -159,7 +159,7 @@ public class PatrolController : MonoBehaviour
         }
     }
     //=============="หันหน้าไปยังทิศทางของเป้าหมาย"=====================//
-    void FaceToTarget()
+    public void FaceToTarget()
     {
         Vector3 direction = (agent.destination - target.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));

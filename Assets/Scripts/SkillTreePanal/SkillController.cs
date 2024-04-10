@@ -70,7 +70,7 @@ public class SkillController : MonoBehaviour
         {
             if(skill.name == SkillLv.gameObject.name) SkillLv.transform.GetChild(1).GetComponent<Text>().text = skill.SkillLevel.ToString() + " / 5";
         }*/
-        Skillbutton[skill.SkillId].transform.GetChild(1).GetComponent<Text>().text = skill.SkillLevel.ToString() + " / 5";
+        Skillbutton[skill.SkillId - 1].transform.GetChild(1).GetComponent<Text>().text = skill.SkillLevel.ToString() + " / 5";
     }
 
     public void UpgradeSkill(SkillInfoSO skill)

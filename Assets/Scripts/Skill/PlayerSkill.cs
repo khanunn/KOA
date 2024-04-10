@@ -27,10 +27,7 @@ public class PlayerSkill : MonoBehaviour
             instanceVFX.transform.SetParent(parent);
 
             if (SkillData.OnMousePositionSkill == true)
-            {
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) MousePosition = hit.point; // Mouse position in scene coordinates
-                                                                                                                            // 
+            {              
                 instanceVFX.transform.position = MousePosition;
             }                
             else instanceVFX.transform.localPosition = new Vector3(prefab.transform.position.x, prefab.transform.position.y, prefab.transform.position.z);
@@ -87,6 +84,7 @@ public class PlayerSkill : MonoBehaviour
     private Actor myActor;
     private PlayerController player;
     AnimatorStateInfo stateInfo;
+    int Skill_ButtonID;
     
     void OnEnable()
     {
@@ -224,7 +222,7 @@ public class PlayerSkill : MonoBehaviour
     {
         if (isSkillPlaying)
             return;
-
+        Skill_ButtonID = ButtonID;
 
         Player.StopSequence(); //using to player stop moving
 
@@ -233,7 +231,15 @@ public class PlayerSkill : MonoBehaviour
         Debug.Log(skillId);
         var action = new SkillAction();
 
-        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation,Player.mousePositionInScene);
+        RaycastHit hit;
+        Vector3 MousePosition = new Vector3();
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) MousePosition = hit.point; // Mouse position in scene coordinates
+
+        Vector3 direction = (this.transform.position - MousePosition).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));
+        this.transform.rotation = lookRotation;
+
+        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation, MousePosition);
         
 
 
@@ -301,9 +307,9 @@ public class PlayerSkill : MonoBehaviour
     public void SendAttackSkill()
     {
         Debug.Log("SendAttackSkill Connected");
-        Debug.Log("Test Skill LV: " + SkillData[Skill_ID].SkillLevel);
+        Debug.Log("Test Skill LV: " + SkillData[Skill_ButtonID].SkillLevel);
         PlayerController controller = GetComponent<PlayerController>();
-        int skillPhysicDamage = (SkillData[Skill_ID].SkillLevel * 2) + statController.v_patk.statValue * 2;
+        int skillPhysicDamage = (SkillData[Skill_ButtonID].SkillLevel * 2) + statController.v_patk.statValue * 2;
         Debug.Log("skill damage: " + skillPhysicDamage);
         Debug.Log("skill Target: " + controller.target);
 
