@@ -64,6 +64,10 @@ public class ShopManager : MonoBehaviour
             //Debug.Log(SellableObject[index].DisplayName);
 
             var ID = index; //Solve Index outbound Bug 
+
+            BuyButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            SellButton.GetComponent<Button>().onClick.RemoveAllListeners();
+
             BuyButton.GetComponent<Button>().onClick.AddListener(() => BuyItem(ID));
             SellButton.GetComponent<Button>().onClick.AddListener(() => SellItem(ID));
 
