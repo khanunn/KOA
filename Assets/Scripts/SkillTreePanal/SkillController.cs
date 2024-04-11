@@ -82,7 +82,7 @@ public class SkillController : MonoBehaviour
         if(SkillPoint > 0)
         {
             SkillObtain += 1;
-            foreach (SkillInfoSO Skillinfo in SkillDict.Keys)
+            foreach (SkillInfoSO Skillinfo in SkillDict.Keys) //Upgrade Part
             {
                 if (Skillinfo.SkillId == skill.SkillId)
                 {
@@ -92,9 +92,9 @@ public class SkillController : MonoBehaviour
                 }
             }
 
-            if (SkillObtain < 6) //If already have skill it will return and prevent adding redundance skill
+            if (SkillObtain <= 6) //Add to Slot Part
             {
-                foreach (SkillInfoSO ObtainSkill in playerSkill.SkillData)
+                foreach (SkillInfoSO ObtainSkill in playerSkill.SkillData) //If already have skill it will return and prevent adding redundance skill
                 {
                     if (ObtainSkill.SkillId == skill.SkillId) return;
                 }
