@@ -20,7 +20,9 @@ public class SkillController : MonoBehaviour
     [Header("Skill Point Config")]    
     public int SkillPoint = 0;
     public int SkillObtain = 4;
-
+    [Header("UI Config")]
+    public bool isEnable = true;
+    [SerializeField] GameObject SkillPanalUI;
 
     Dictionary<SkillInfoSO, Button> SkillDict = new Dictionary<SkillInfoSO, Button>();
     // Start is called before the first frame update
@@ -32,6 +34,8 @@ public class SkillController : MonoBehaviour
             SkillDict.Add(item, Skillbutton[i].GetComponent<Button>());
             i++;
         }
+
+        SkillPanalUI = this.gameObject;
     }
 
     // Update is called once per frame
@@ -116,5 +120,25 @@ public class SkillController : MonoBehaviour
 
             }
         }        
+    }
+
+    public void SwitchInventory()
+    {
+        if (isEnable)
+        {
+            if (SkillPanalUI.active == false)
+            {
+                SkillPanalUI.SetActive(true);
+                
+            }
+            else
+            {
+                SkillPanalUI.SetActive(false);               
+            }
+        }
+        else
+        {
+            SkillPanalUI.SetActive(false);            
+        }
     }
 }

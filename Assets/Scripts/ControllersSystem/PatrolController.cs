@@ -431,7 +431,7 @@ public class PatrolController : MonoBehaviour
             //Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
         }
 
-        if(other.tag == "PlayerSkill")
+        if(other.tag == "PlayerSkill" && meshCollider != null)
         {
             target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
             target.myPlayer.InteractableChange(this.gameObject);

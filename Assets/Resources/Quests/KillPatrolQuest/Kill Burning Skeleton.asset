@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3467c6b38847248815a7d2083c3e20, type: 3}
+  m_Name: Kill Burning Skeleton
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: Kill Burning Skeleton
+  displayName: Burn Skeleton Zombie
+  levelRequirements: 20
+  questPrerequisites:
+  - {fileID: 11400000, guid: 6ee82a9b18ca17142b12540af9bb5fc1, type: 2}
+  TargetMonster: {fileID: 11400000, guid: 6045f8041979aca4ebd3355199bd311a, type: 2}
+  questStepPrefab:
+  - {fileID: 8424634330161713993, guid: ca23c667b7c215643aac8214bdc36501, type: 3}
+  goldReward: 10000
+  rubyReward: 50
+  expReward: 30000
+  <Items>k__BackingField:
+  - {fileID: 11400000, guid: 7057651b1d5b82d4aa76267f0e7cd1de, type: 2}
+  - {fileID: 11400000, guid: 8ccff327c7403a14bb75ae0220769784, type: 2}
+  - {fileID: 11400000, guid: 4e09a75472f0187479c9b43b53536351, type: 2}
+  - {fileID: 11400000, guid: 97cac8129359fd84887d70d1b35e9b77, type: 2}
+  - {fileID: 11400000, guid: b8bf866acbfd50c4483d1f9f6d5d4f8a, type: 2}
+  - {fileID: 11400000, guid: df76f94114abfb5488b65abc1a308607, type: 2}
+  <DialogueInfoSOStart>k__BackingField: {fileID: 11400000, guid: 26e74003dff16b94caf61435aa1115e6,
+    type: 2}
+  <DialogueInfoSOFinish>k__BackingField: {fileID: 11400000, guid: 3c176999532a5954da07367c0bc24cf2,
+    type: 2}
+  <DialogTitle>k__BackingField: Invasion of the burning legion.
+  <DialogDescription>k__BackingField:
+  - In the heart of a realm shrouded in myth and legend, a new terror has emerged
+    from the depths of ancient crypts and forgotten catacombs. Known as the Burning
+    Skeletons, these spectral beings blaze with an infernal fire, their skeletal
+    forms wreathed in flames that dance with malicious intent. Once guardians of
+    peace in the realm, they have been twisted by dark sorcery into agents of chaos,
+    their very existence threatening to engulf the land in an unrelenting conflagration.
+  - Whispers of fear ripple through villages and towns as the Burning Skeletons multiply,
+    leaving scorched earth and despair in their wake. Desperate cries for aid echo
+    across the realm as brave adventurers are called upon to stand against this fiery
+    scourge. Armed with courage and resolve, these heroes must venture forth into
+    the unknown, confronting the Burning Skeletons and quelling the flames of terror
+    before they consume everything in their path.

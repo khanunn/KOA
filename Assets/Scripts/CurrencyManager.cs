@@ -17,7 +17,7 @@ public class CurrencyManager : MonoBehaviour
     }
     private void Start()
     {
-        textGold.text = "" + gold;
+        textGold.text = "" + this.gold.ToString() + " Gold";
     }
     private void GoldGained(int gold)
     {
@@ -26,6 +26,11 @@ public class CurrencyManager : MonoBehaviour
     }
     private void Update()
     {
-        textGold.text = "" + this.gold.ToString();
+        textGold.text = "" + this.gold.ToString() + " Gold";        
+    }
+
+    public void UpdateGoldText()
+    {
+        textGold.text = "" + this.gold.ToString() + " Gold";
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   <DisplayName>k__BackingField: Burn Skeleton Zombie
   <Damage>k__BackingField: 150
   <Level>k__BackingField: 6
-  <Health>k__BackingField: 40
+  <Health>k__BackingField: 500
   <Mana>k__BackingField: 100
   <AggroTime>k__BackingField: 5
   <Evade>k__BackingField: 20

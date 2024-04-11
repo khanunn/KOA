@@ -20,7 +20,7 @@ MonoBehaviour:
   TargetMonster: {fileID: 11400000, guid: 0ead3b86ce44a9e478f664ab9dcdc4b3, type: 2}
   questStepPrefab:
   - {fileID: 8424634330161713993, guid: 554cc2c1ecb1dc04ead4c5875f1cfb74, type: 3}
-  goldReward: 6666
+  goldReward: 666
   rubyReward: 10
   expReward: 20000
   <Items>k__BackingField:

@@ -242,9 +242,12 @@ public class PlayerSkill : MonoBehaviour
         Vector3 MousePosition = new Vector3();
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) MousePosition = hit.point; // Mouse position in scene coordinates
 
-        Vector3 direction = (this.transform.position - MousePosition).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));
-        this.transform.rotation = lookRotation;
+        if(SkillData[ButtonID].OnMousePositionSkill == true)
+        {
+            Vector3 direction = (this.transform.position - MousePosition).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));
+            this.transform.rotation = lookRotation;
+        }
 
         action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation, MousePosition);      
     }  
