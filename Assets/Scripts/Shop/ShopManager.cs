@@ -91,6 +91,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(int ItemID)
     {
+        if (BuyAblePanal.active == true || UnBuyAblePanal.active == true) return;
         Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Price));
         if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].Price)
         {
@@ -119,6 +120,7 @@ public class ShopManager : MonoBehaviour
 
     public void SellItem(int ItemID)
     {
+        if (BuyAblePanal.active == true || UnBuyAblePanal.active == true) return;
         //Clone Player item in inventory from Inventory Manager
         Dictionary<ItemName, int> CloneItemAmount = inventoryManager.GetItemAmount();
         List<ItemInfoSO> CloneItems = inventoryManager.GetItems();

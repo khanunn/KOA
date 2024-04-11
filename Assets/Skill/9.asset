@@ -16,7 +16,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: 78846f2c99b79a0438a41155ac45c515,
     type: 3}
   <SkillId>k__BackingField: 9
-  <SkillLevel>k__BackingField: 2
+  <SkillLevel>k__BackingField: 1
   <SkillTier>k__BackingField: 2
   <ManaCost>k__BackingField: 200
   <BaseSkillValue>k__BackingField: 500
