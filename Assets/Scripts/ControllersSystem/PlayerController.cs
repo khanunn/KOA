@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 public class PlayerController : MonoBehaviour
 {
     CustomAction input;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     Animator animator;
     //PatrolController patrolController;
     const string IDLE = "Idle";

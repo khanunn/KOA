@@ -219,7 +219,7 @@ public class PlayerSkill : MonoBehaviour
         animator.SetInteger("Skill_ID", -1);
     }
 
-    void StartSkill(int skillId, int ButtonID)
+    async void StartSkill(int skillId, int ButtonID)
     {
         if (isSkillPlaying)
             return;
@@ -227,11 +227,17 @@ public class PlayerSkill : MonoBehaviour
 
         Player.StopSequence(); //using to player stop moving
 
-        animator.Play(skillId.ToString()); //Player SKill Movement       
+        if (SkillData[ButtonID].SkillId == 12) //blink skill
+        {
+            Task.Delay(1000);
+            animator.Play(skillId.ToString());                   
+        }
+        else animator.Play(skillId.ToString());   
 
         Debug.Log(skillId);
         var action = new SkillAction();
 
+        //Using when skill are using mouse position to calculated skill instaniate position
         RaycastHit hit;
         Vector3 MousePosition = new Vector3();
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) MousePosition = hit.point; // Mouse position in scene coordinates
@@ -240,11 +246,8 @@ public class PlayerSkill : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));
         this.transform.rotation = lookRotation;
 
-        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation, MousePosition);
-        
-
-
-    }
+        action.Init(skillId, SkillData[ButtonID], VFX.transform, Player.transform.rotation, MousePosition);      
+    }  
 
     private float[] GetSkillCooldowns()
     {
