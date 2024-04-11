@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <StatusID>k__BackingField: 0
   <StatusType>k__BackingField: 1
-  <Intensity>k__BackingField: 0
-  <Duration>k__BackingField: 3
-  <Tier>k__BackingField: 1
+  <Intensity>k__BackingField: 0.01
+  <Duration>k__BackingField: 5
+  <Tier>k__BackingField: 2
   <DisplayName>k__BackingField: Root
   <Desciption>k__BackingField: Make character unable to walk
   <Icon>k__BackingField: {fileID: 21300000, guid: 1c6e27fab0449af4f9e24bdceb55c7e2,
