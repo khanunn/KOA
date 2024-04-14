@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c6d9c7eb8acd1489f1367697ac274a, type: 3}
+  m_Name: Regenaration
+  m_EditorClassIdentifier: 
+  <StatusID>k__BackingField: 5
+  <StatusType>k__BackingField: 0
+  <Intensity>k__BackingField: 5
+  <Duration>k__BackingField: 5
+  <Tier>k__BackingField: 1
+  <DisplayName>k__BackingField: Regenaration
+  <Desciption>k__BackingField: Increase the health points by 5 points every second
+    for a duration of 5 seconds.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 95e966569e3a7de44a9c813ea4a34ed4,
+    type: 2}

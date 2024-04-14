@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: befe935d337166b4ab92a102c334c58e
+<<<<<<<< HEAD:Assets/TriForge Assets/Top Down - Fantasy Forest/Scenes/URP/SC_tdFF_DemoScene_URP.unity.meta
+guid: 287273b97cefeaa439f41bdee12e0d92
+DefaultImporter:
+========
+guid: 325e56509bc77c546a7a127224768149
 NativeFormatImporter:
+>>>>>>>> TextMeshPro:Assets/TextMesh Pro/Resources/Fonts & Materials/LongaIberica-DEMO SDF.asset.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

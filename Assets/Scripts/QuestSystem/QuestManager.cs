@@ -8,6 +8,9 @@ public class QuestManager : MonoBehaviour
 {
     public Dictionary<string, Quest> questMap;
     private int currentPlayerLevel = 1;
+
+    //Dragon's Part (using for check current quest)
+    [SerializeField] int CurrentQuestID = 0;
     private void Awake()
     {
         questMap = CreateQuestMap();
@@ -24,7 +27,7 @@ public class QuestManager : MonoBehaviour
         EventManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
         EventManager.instance.questEvents.onFinishQuest += FinishQuest;
         EventManager.instance.playerEvents.onPlayerLevelChange += LevelUp;
-        EventManager.instance.questEvents.onStartDialogue += StartDialogue;
+        EventManager.instance.questEvents.onStartDialogue += StartDialogue;        
     }
     private void OnDisable()
     {
@@ -92,6 +95,10 @@ public class QuestManager : MonoBehaviour
         Quest quest = GetQuestById(id);
         quest.InstantiateCurrentQuestStep(this.transform);
         ChangeQuestState(quest.info.id, QuestState.IN_PROGRESS);
+
+        Debug.Log(quest.info.id);
+
+        CurrentQuestID++; 
     }
     private void AdvanceQuest(string id)
     {
@@ -169,5 +176,13 @@ public class QuestManager : MonoBehaviour
     {
         currentPlayerLevel = level;
         Debug.Log("Level up from QuestManager: " + currentPlayerLevel);
+    }
+
+
+
+    //Dragon's Part
+    int GetCurreentQuestID()
+    {        
+        return CurrentQuestID;
     }
 }

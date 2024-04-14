@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 public class PlayerController : MonoBehaviour
 {
     CustomAction input;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     Animator animator;
     //PatrolController patrolController;
     const string IDLE = "Idle";
@@ -23,16 +23,19 @@ public class PlayerController : MonoBehaviour
     private float talkDistance = 1.5f;
     private float targetDistance;
     private CapsuleCollider capsuleCollider;
-    private bool playerDie;
+    public bool PlayerDie { get; private set; }
     private Actor playerActor;
     private PlayerSkill playerSkill;
-    private StatController statController;
+    public StatController statController;
+    [Header("HitChangeSystem")]
+    public int Accuracy = 50; //base Acc is 50
+    public int Evade = 10;
     //=====================================================//
     [Header("Attack")]
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackDistance;
-    [SerializeField] private ParticleSystem attackEffect;
+    [SerializeField] private ParticleSystem attackEffect;    
     private bool playerBusy = false;
     public Interactable target { get; private set; }
     //=====================================================//
@@ -49,11 +52,17 @@ public class PlayerController : MonoBehaviour
     [Header("Damage")]
     [SerializeField] private int physicDamage;
     [SerializeField] private int meleeDamage;
+    public int MagicDefend = 0;
+    public int PhysicalDefend = 0;
+    [SerializeField] private int CritRate = 0;
+    [SerializeField] private int CritDMG = 0;
     //====================================================//
     [Header("Health")]
     [SerializeField] private int playerCurrentHealth;
     [SerializeField] private int playerMaxHealth;
     //====================================================//
+    [Header("Mouse Position")]
+    public Vector3 mousePositionInScene;
 
     private void Awake()
     {
@@ -64,11 +73,12 @@ public class PlayerController : MonoBehaviour
         input = new CustomAction();
         AssignInput();
         playerActor = GetComponent<Actor>();
-        playerSkill = GetComponent<PlayerSkill>();
+        playerSkill = GetComponent<PlayerSkill>();        
     }
     // Start is called before the first frame update
     void Start()
     {
+        //physicDamage = statController.v_patk.statValue;
         //playerMaxHealth = playerActor.currentHealth;
         //EventManager.instance.healthEvents.HealthChange(playerMaxHealth);
     }
@@ -78,7 +88,11 @@ public class PlayerController : MonoBehaviour
     {
         FollowTarget();
         //PlayAnimations();
+        if (playerActor.CurrentHealth <= 0 && !PlayerDie) SetPlayerDie(true);
+
+        PhysicalDefend = statController.v_pdef.statValue;
     }
+    
 
     void AssignInput()
     {
@@ -119,7 +133,7 @@ public class PlayerController : MonoBehaviour
             EventManager.instance.inputEvents.InventoryItemOptionalClose();
             return;
         } */
-        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
+        if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
@@ -141,11 +155,13 @@ public class PlayerController : MonoBehaviour
     private void ClickToMove()
     {
         //Debug.Log("Click Success");
-        if (EventSystem.current.IsPointerOverGameObject() || playerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
+        if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
 
+        if (playerSkill.isSkillPlaying) { playerSkill.isSkillPlaying = false; }
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
         {
+            mousePositionInScene = hit.point; // Mouse position in scene coordinates
             if (hit.transform.CompareTag("Interactable"))
             {
                 //เช็คเฉพาะถ้าเป้าหมายเป็น NPC ก่อนหน้านี้ ให้ ResetBusy เพื่อป้องกันไม่ให้ Attack รัวๆถ้าเป้าหมายเป็น Enemy
@@ -175,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
                 if (clickEffect != null)
                 {
-                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
+                    Instantiate(clickEffect, hit.point += new Vector3(0, 0f, 0), clickEffect.transform.rotation);
                 }
             }
             else
@@ -192,19 +208,8 @@ public class PlayerController : MonoBehaviour
                             ResetBusy();
                             SendNpc(false);
                             ResetTarget();
+                            EventManager.instance.dialogueEvents.DialogueCancle();
                             break;
-                        /* case InteractableType.ENEMY:
-                            ResetBusy();
-                            ResetTarget();
-                            break;
-                        case InteractableType.ITEM_QUEST:
-                            ResetBusy();
-                            ResetTarget();
-                            break;
-                        case InteractableType.ITEM_INVENTORY:
-                            ResetBusy();
-                            ResetTarget();
-                            break; */
                         default:
                             ResetBusy();
                             ResetTarget();
@@ -257,6 +262,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        if (playerSkill.isSkillPlaying) return;
         //PlayAnimations();
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
         if (Vector3.Distance(target.transform.position, transform.position) <= targetDistance)
@@ -297,8 +303,8 @@ public class PlayerController : MonoBehaviour
             {
                 case InteractableType.ENEMY:
                     AnimAttack(true);
-                    Invoke(nameof(SendAttack), attackDelay);
-                    Invoke(nameof(ResetBusy), attackSpeed);
+                    /* Invoke(nameof(SendAttack), attackDelay);
+                    Invoke(nameof(ResetBusy), attackSpeed); */
                     break;
                 case InteractableType.ITEM_QUEST:
                     //Debug.Log("Interacted Item");
@@ -330,16 +336,66 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
-        physicDamage = statController.v_patk.statValue;
-        target.myActor.TakeDamage(physicDamage);
-        Vector3 position = target.transform.position;
-        EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);
-        SendEnemy();
+
+        Accuracy = statController.v_acc.statValue;
+        Evade = statController.v_evade.statValue;
+        CritDMG = statController.v_crit_dam.statValue;
+        CritRate = statController.v_crit_change.statValue;
+
+        // Calculate hit rate 
+        int hitRate = Accuracy - target.myPatrol.Evade;
+        //Debug.LogWarning("HitRate: " + hitRate);
+        // Generate random number between 0 and 100
+        int randomNum = Random.Range(0, 100);
+        //Debug.LogWarning("Random chance: " + randomNum);
+
+        if (randomNum <= hitRate)
+        {
+            //Calculated TotalDamage
+            physicDamage = statController.v_patk.statValue - target.myPatrol.PhysicalDefend;             
+            //Debug.Log(physicDamage);
+
+            Vector3 position = target.transform.position;
+
+            int CritResult = Random.Range(0, 100); //Calculated Critical
+            //Debug.Log("Crit Result: " + CritResult);
+
+            //if Critical
+            if (CritResult <= CritRate) {                 
+                physicDamage = Mathf.RoundToInt(physicDamage * (CritDMG - 0.5f)); //Reduce 2 into 1.5                
+                if (physicDamage <= 0)
+                {
+                    EventManager.instance.playerEvents.AttackPopUp(position, "Block", Color.red);                    
+                    return;
+                }
+
+                target.myActor.TakeDamage(physicDamage);
+                EventManager.instance.playerEvents.AttackPopUp(position, "Crit " + physicDamage.ToString(), Color.green);
+                SendEnemy();
+                return;
+            }
+
+            //if Not Critical
+            if (physicDamage <= 0)
+            {
+                EventManager.instance.playerEvents.AttackPopUp(position, "Block", Color.red);
+                return;
+            }
+
+            target.myActor.TakeDamage(physicDamage);            
+            EventManager.instance.playerEvents.AttackPopUp(position, physicDamage.ToString(), Color.green);            
+            SendEnemy();
+        }
+        else
+        {
+            Vector3 position = target.transform.position;
+            EventManager.instance.playerEvents.AttackPopUp(position, "Miss", Color.green);
+        }        
     }
     //==========================================//
     public void SendEnemy()
     {
-        if (target.myActor.currentHealth <= 0)
+        if (target.myActor.CurrentHealth <= 0)
         {
             //Debug.Log("Enemy DEATH");
             target.myPatrol.SetPatrolDie(true);
@@ -370,8 +426,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void KillMonster()
-    {
-        EventManager.instance.killEvents.MonsterKilled();
+    {        
+        EventManager.instance.killEvents.MonsterKilled(target.myPatrol.monsterInfoSO.Id);
     }
 
     private void PickupItem()
@@ -410,7 +466,7 @@ public class PlayerController : MonoBehaviour
     public async void SetPlayerDie(bool die)
     {
         target = null;
-        playerDie = die;
+        PlayerDie = die;
         agent.enabled = !agent.enabled;
         capsuleCollider.enabled = !capsuleCollider.enabled;
         animator.SetTrigger(DEATH);
@@ -431,5 +487,13 @@ public class PlayerController : MonoBehaviour
     public void StopSequence()
     {
         agent.SetDestination(transform.position);
+        ResetBusy();
     }
+
+    public void MoveSpeed(float speed)
+    {
+        agent.speed = speed;
+    }
+
+    
 }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: sh_001
   m_EditorClassIdentifier: 
   <EquipmentSlot>k__BackingField: 1
-  <EquipmentType>k__BackingField: 0
+  <EquipmentType>k__BackingField: 14
   <EquipmentRarity>k__BackingField: 0
   <MainStat>k__BackingField: 0
-  <MainValue>k__BackingField: 0
-  <SubStat>k__BackingField: 0
-  <SubValue>k__BackingField: 0
+  <MainValue>k__BackingField: 5
+  <SubStat>k__BackingField: 12
+  <SubValue>k__BackingField: 5

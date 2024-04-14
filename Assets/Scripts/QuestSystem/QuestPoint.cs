@@ -20,7 +20,7 @@ public class QuestPoint : MonoBehaviour
     private Interactable target;
     public GameObject canvas;
     //private UIController uIController;
-    private DialogueInfoSO[] questDialog;
+    private bool isDialogShowing;
 
     private void Awake()
     {
@@ -50,8 +50,9 @@ public class QuestPoint : MonoBehaviour
             return;
         }
 
-        if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+        if (currentQuestState.Equals(QuestState.CAN_START) && startPoint && !isDialogShowing)
         {
+            isDialogShowing = true;
             //Debug.Log("quest start");
             //EventManager.instance.questEvents.StartQuest(questId);
             //Debug.Log("Quest ID from QuestPoint: " + questId);
@@ -60,8 +61,9 @@ public class QuestPoint : MonoBehaviour
             EventManager.instance.questEvents.StartDialogue(questId);
             EventManager.instance.dialogueEvents.DialogueStart(questInfoForPoint, currentQuestState);
         }
-        else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+        else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint && !isDialogShowing)
         {
+            isDialogShowing = true;
             //EventManager.instance.questEvents.FinishQuest(questId);
             //canvas.SetActive(false);
             //EventManager.instance.questEvents.FinishDialogue(questId);
@@ -81,6 +83,10 @@ public class QuestPoint : MonoBehaviour
     public void PlayerIsNear(bool isNear)
     {
         playerIsNear = isNear;
+        if (!playerIsNear)
+        {
+            isDialogShowing = false;
+        }
         //Debug.Log("PlayerIsNear: " + isNear);
     }
 
@@ -88,6 +94,7 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Enter Trigger QuestPoint");
             playerIsNear = true;
             //Debug.Log("PlayerIsNear: " + playerIsNear + " from QuestPoint");
 
@@ -100,7 +107,10 @@ public class QuestPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Exit Trigger QuestPoint");
             playerIsNear = false;
+            //isDialogShowing = false;
+
             //Debug.Log("PlayerIsNear: " + playerIsNear + " from QuestPoint");
         }
     }

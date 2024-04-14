@@ -67,6 +67,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0834e69af789224aa20d0d4af21daf6
+    m_Address: Assets/Icons/icon/Potion/7.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa180400b9815d1489472f4626bfa1cf
+    m_Address: Assets/Icons/icon/Potion/8.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75cffaceb67b9084b8234123f6d2feb9
+    m_Address: Assets/Icons/icon/Potion/9.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e5abb4f469d06742ab10750618e1afb
+    m_Address: Assets/Icons/icon/Potion/10.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c888a419f8e399d4392e46244b51eb0a
+    m_Address: Assets/Icons/icon/Potion/11.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62f7dd2a7fda27d4b9bb281e7b8ba8e2, type: 2}
   m_SchemaSet:

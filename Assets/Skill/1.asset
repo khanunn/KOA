@@ -15,9 +15,15 @@ MonoBehaviour:
   <DisplayName>k__BackingField: Vertical Slash
   <Icon>k__BackingField: {fileID: 0}
   <SkillId>k__BackingField: 1
+  <SkillLevel>k__BackingField: 1
+  <SkillTier>k__BackingField: 1
   <ManaCost>k__BackingField: 20
-  <OutputSkill>k__BackingField: 10
+  <BaseSkillValue>k__BackingField: 0
   <CooldownSkill>k__BackingField: 5
   <LifetimeVFX>k__BackingField: 600
-  <RequirementWeapon>k__BackingField: 1
   <SkillType>k__BackingField: 1
+  <StatusEffect>k__BackingField: {fileID: 0}
+  <OnMousePositionSkill>k__BackingField: 0
+  <RequirementSkillID>k__BackingField: 0
+  <RequirementLevel>k__BackingField: 0
+  <RequirementWeapon>k__BackingField: 1

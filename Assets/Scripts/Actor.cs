@@ -6,9 +6,11 @@ using UnityEngine.AI;
 
 public class Actor : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int maxMana;
-    public int currentHealth { get; private set; }
+    public int MaxHealth { get; private set; }
+    public int MaxMana { get; private set; }
+
+    public int CurrentHealth;
+
 
     private StatManager statManager;
     private Stat con;
@@ -34,16 +36,28 @@ public class Actor : MonoBehaviour
     {
         interactable = GetComponent<Interactable>();
         /* maxHealth = stat.statValue;
-        currentHealth = maxHealth; */
+        */
+        CurrentHealth = MaxHealth;
     }
+    private void Start()
+    {
+        //Debug.Log("Start Actor");
+        if (interactable.interactionType == InteractableType.ENEMY)
+        {
+            //PatrolController patrolController = GetComponent<PatrolController>();
 
+            CurrentHealth = interactable.myPatrol.monsterInfoSO.Health;
+            MaxHealth = interactable.myPatrol.monsterInfoSO.Health;
+            //currentHealth = maxHealth;
+        }
+    }
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        CurrentHealth -= amount;
+        if (CurrentHealth <= 0)
         {
-            currentHealth = 0;
-        }
+            CurrentHealth = 0;
+        }                
     }
 
     public void OnDeath()
@@ -57,16 +71,20 @@ public class Actor : MonoBehaviour
 
     public void DamageOnHealthBar()
     {
-        EventManager.instance.healthEvents.HealthChange(currentHealth);
+        EventManager.instance.healthEvents.HealthChange(CurrentHealth);
     }
 
-    private void UpHealth(int health)
+    public void UpHealth(int health)
     {
-        currentHealth += health;
-
-        if (currentHealth > maxHealth)
+        switch (interactable.interactionType)
         {
-            currentHealth = maxHealth;
+            case InteractableType.PLAYER:
+                CurrentHealth += health;
+                if (CurrentHealth > MaxHealth)
+                {
+                    CurrentHealth = MaxHealth;
+                }
+                break;
         }
     }
 
@@ -79,11 +97,11 @@ public class Actor : MonoBehaviour
         switch (interactable.interactionType)
         {
             case InteractableType.PLAYER:
-                maxHealth = con.statValue * v_hp_max.statValue;
-                currentHealth = maxHealth;
+                MaxHealth = con.statValue * v_hp_max.statValue;
+                CurrentHealth = MaxHealth;
                 break;
             default:
-                currentHealth = maxHealth;
+                CurrentHealth = interactable.myPatrol.monsterInfoSO.Health;
                 break;
         }
     }
@@ -92,9 +110,9 @@ public class Actor : MonoBehaviour
         switch (interactable.interactionType)
         {
             case InteractableType.PLAYER:
-                maxHealth = con.statValue * v_hp_max.statValue;
-                currentHealth = maxHealth;
-                EventManager.instance.healthEvents.HealthMaxChange(maxHealth);
+                MaxHealth = con.statValue * v_hp_max.statValue;
+                CurrentHealth = MaxHealth;
+                EventManager.instance.healthEvents.HealthMaxChange(MaxHealth);
                 break;
             default: return;
         }

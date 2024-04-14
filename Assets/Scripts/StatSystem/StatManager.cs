@@ -15,10 +15,17 @@ public class StatManager : MonoBehaviour
     }
     private void Awake()
     {
-        SetStat();
+        if (statContainer == null)
+        {
+            statContainer = new StatContainer(classInfoSO);
+        }
+
+        //for solving noob stat on the start game
+        SetStartStat();
     }
     private void Start()
     {
+        //Debug.Log("Start StatManager");
         EventManager.instance.statEvents.SendStatManager(this);
     }
     public void SetStat()
@@ -30,11 +37,29 @@ public class StatManager : MonoBehaviour
         for (int i = 0; i < levelManager.level; i++)
         {
             LevelUpStat(levelManager.level);
-        }
+        }        
+    }
+
+    private void SetStartStat()
+    {
+        const int maxIncrease = 10;
+        DirectAddingStat(statContainer.Constitution, classInfoSO.Constitution, 3);
+        DirectAddingStat(statContainer.Dexterity, classInfoSO.Dexterity, maxIncrease);
+        DirectAddingStat(statContainer.Strength, classInfoSO.Strength, maxIncrease);
+        DirectAddingStat(statContainer.Wisdom, classInfoSO.Wisdom, maxIncrease);
+        DirectAddingStat(statContainer.Intelligent, classInfoSO.Intelligent, maxIncrease);
+        DirectAddingStat(statContainer.Lucky, classInfoSO.Lucky, maxIncrease);
+        DirectAddingStat(statContainer.v_hp_max, classInfoSO.v_hp_max, maxIncrease);
+        DirectAddingStat(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
+        DirectAddingStat(statContainer.v_patk, classInfoSO.v_patk, maxIncrease);
+
+        DirectAddingStat(statContainer.v_evade, classInfoSO.v_evade, 0);
+        DirectAddingStat(statContainer.v_acc, classInfoSO.v_acc, 0);
+
     }
     private void LevelUpStat(int level)
     {
-        const int maxIncrease = 10;
+        const int maxIncrease = 5;
         IncreaseStatRandomly(statContainer.Constitution, classInfoSO.Constitution, maxIncrease);
         IncreaseStatRandomly(statContainer.Dexterity, classInfoSO.Dexterity, maxIncrease);
         IncreaseStatRandomly(statContainer.Strength, classInfoSO.Strength, maxIncrease);
@@ -44,13 +69,29 @@ public class StatManager : MonoBehaviour
 
         IncreaseStatRandomly(statContainer.v_hp_max, classInfoSO.v_hp_max, maxIncrease);
         IncreaseStatRandomly(statContainer.v_mp_max, classInfoSO.v_mp_max, maxIncrease);
+        IncreaseStatRandomly(statContainer.v_patk, classInfoSO.v_patk, maxIncrease);
 
+        DirectAddingStat(statContainer.v_pdef, classInfoSO.v_pdef, 2);
+        DirectAddingStat(statContainer.v_evade, classInfoSO.v_evade, statContainer.Dexterity.statValue / 2);
+        DirectAddingStat(statContainer.v_acc, classInfoSO.v_acc, statContainer.Dexterity.statValue / 4);
     }
+
+   
 
     private void IncreaseStatRandomly(Stat stat, StatBase statBase, int maxIncrease)
     {
         float randomValue = Random.Range(0f, 1f);
         stat.statValue += Mathf.RoundToInt(statBase.BaseStatModifier.Evaluate(randomValue) * maxIncrease);
+    }
+
+    private void DirectAddingStat(Stat stat, StatBase statBase, int StatIncrease)
+    {        
+        stat.statValue += Mathf.RoundToInt(statBase.BaseStatModifier.Evaluate(1) * StatIncrease);
+    }
+
+    public void ChangeStatBySkill(Stat stat, int StatChange) //using sundden change stat via skill 
+    {
+        stat.statValue += StatChange;
     }
 
     public Stat GetStat(StatKey statName)
@@ -69,7 +110,18 @@ public class StatManager : MonoBehaviour
             case StatKey.v_mp_recovery: return statContainer.v_mp_recovery;
             case StatKey.v_patk: return statContainer.v_patk;
             case StatKey.v_matk: return statContainer.v_matk;
+            case StatKey.v_pdef: return statContainer.v_pdef;
+            case StatKey.v_mdef: return statContainer.v_mdef;
+
+            case StatKey.v_acc: return statContainer.v_acc;
+            case StatKey.v_evade: return statContainer.v_evade;
+            case StatKey.v_crit_change: return statContainer.v_crit_change;
+            case StatKey.v_crit_dam: return statContainer.v_crit_dam;
+            case StatKey.v_pdam: return statContainer.v_pdam;
+            case StatKey.v_mdam: return statContainer.v_mdam;
+
             default: return statContainer.v_hp_max;
         }
     }
+
 }

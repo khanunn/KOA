@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a2cd7e521bd3149aeb3582ad2b6696, type: 3}
+  m_Name: SZ_10
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: SZ_10
+  <DisplayName>k__BackingField: Hevay Skeleton Zombie
+  <Damage>k__BackingField: 150
+  <Level>k__BackingField: 6
+  <Health>k__BackingField: 40
+  <Mana>k__BackingField: 100
+  <AggroTime>k__BackingField: 5
+  <Evade>k__BackingField: 20
+  <PhysicalDefend>k__BackingField: 0
+  <MagicDefend>k__BackingField: 0
+  <Accuracy>k__BackingField: 150
+  <CritRate>k__BackingField: 10
+  <CritDMG>k__BackingField: 1.25
+  <MonsterName>k__BackingField: 0
+  <MonsterRace>k__BackingField: 0
+  <OnHitEffect>k__BackingField: {fileID: 11400000, guid: 93d71841231d52b4fb512db0b207f5d6,
+    type: 2}
+  <OnHitEffectChance>k__BackingField: 50
+  <SelfBuffStatus>k__BackingField: {fileID: 0}
+  <SelfBuffStatusChance>k__BackingField: 0
+  <SelfBuffStatusInterval>k__BackingField: 0
+  <Experience>k__BackingField: 650
+  <GoldMin>k__BackingField: 75
+  <GoldMax>k__BackingField: 100
+  items:
+  - {fileID: 11400000, guid: c977a544022ea904c83548b75c44e205, type: 2}
+  - {fileID: 11400000, guid: 0d6e842ade47c9246895fff07b75e66e, type: 2}
+  - {fileID: 11400000, guid: 5b0ec7e4e9955e54fb2b7c6d2fcec6fb, type: 2}
+  - {fileID: 11400000, guid: c53fd567cb2bd8c4d852349e2a5c8956, type: 2}
+  - {fileID: 11400000, guid: 701908823bfc0cf44b3d5cc24531e282, type: 2}
+  - {fileID: 11400000, guid: 8ccff327c7403a14bb75ae0220769784, type: 2}
+  - {fileID: 11400000, guid: 4e09a75472f0187479c9b43b53536351, type: 2}
+  dropRate:
+  - 0.205
+  - 0.5
+  - 0.3
+  - 0.763
+  - 0.598
+  - 0.027
+  - 0.067

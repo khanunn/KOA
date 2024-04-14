@@ -13,6 +13,7 @@ public class QuestInfoSO : ScriptableObject
     [Header("Requirements")]
     public int levelRequirements;
     public QuestInfoSO[] questPrerequisites;
+    public MonsterInfoSO TargetMonster;
 
     [Header("Steps")]
     public GameObject[] questStepPrefab;
@@ -29,6 +30,7 @@ public class QuestInfoSO : ScriptableObject
     [field: SerializeField] public DialogueInfoSO DialogueInfoSOStart { get; private set; }
     [field: SerializeField] public DialogueInfoSO DialogueInfoSOFinish { get; private set; }
 
+    [field: Header("Window Dialogue")]
     [field: SerializeField] public string DialogTitle { get; private set; }
     [field: TextArea(3, 10)]
     [field: SerializeField] public string[] DialogDescription { get; private set; }
@@ -39,6 +41,8 @@ public class QuestInfoSO : ScriptableObject
         //Debug.Log("OnValidate");
 #if UNITY_EDITOR
         id = this.name;
+        if (TargetMonster != null) displayName = this.TargetMonster.DisplayName;
+
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
     }

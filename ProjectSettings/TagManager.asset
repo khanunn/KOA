@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Interactable
   - Sword
+  - EnemySkill
+  - Fire
+  - PlayerSkill
   layers:
   - Default
   - TransparentFX
@@ -16,8 +19,8 @@ TagManager:
   - Terrain
   - Interactable
   - Character
-  - 
-  - 
+  - MainMenuCamera
+  - Object
   - 
   - 
   - 

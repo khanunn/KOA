@@ -9,11 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: e17f6c989cc771d48b08a21c1e0d1ec8
   - enabled: 1
-    path: Assets/Scenes/FOREST_STARTER.unity
-    guid: f79e8bb267b52f84c918c9a103b8995d
-  - enabled: 0
-    path: Assets/Scenes/FIRE_REGION.unity
-    guid: d161098791850904abf6ddde5cf3936d
+    path: Assets/Scenes/FOREST_URP.unity
+    guid: 7fb2bd3a58358db49b19990aef721842
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: 29ee7f4e3bad8ba4ea0aa14f9aa145f8, type: 2}
-  m_UseUCBPForAssetBundles: 0
+    com.unity.addressableassets: {fileID: 11400000, guid: 29ee7f4e3bad8ba4ea0aa14f9aa145f8,
+      type: 2}

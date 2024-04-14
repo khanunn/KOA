@@ -24,27 +24,31 @@ public class ShopManager : MonoBehaviour
     [SerializeField] GameObject ShopPanal;
     [SerializeField] GameObject BuyAblePanal;
     [SerializeField] GameObject UnBuyAblePanal;
+    [SerializeField] int PageIndex = 0;
 
 
-    private async void GenerateItem()
+    private async void GenerateItem(int Index)
     {
-        var index = 0;
-
+        PageIndex = Index;
+        int index = Index;
         //using for deActive unusing panal
-        for (var i = SellableObject.Length; i < BaseItem.Length; i++)
+        for (var i = 8; i < BaseItem.Length; i++)
         {
             BaseItem[i].SetActive(false);
         }
 
-        foreach (var item in SellableObject)
+        for(int i = 0; i < 8; index++, i++)
         {
+            //Debug.Log(index);
             //Debug.Log(item.name);
             //temp GameObject in BaseItem
-            GameObject Icon = BaseItem[index].transform.GetChild(0).gameObject;
-            GameObject ItemName = BaseItem[index].transform.GetChild(1).gameObject;
-            GameObject Price = BaseItem[index].transform.GetChild(2).gameObject;
-            GameObject BuyButton = BaseItem[index].transform.GetChild(3).gameObject;
-            GameObject SellButton = BaseItem[index].transform.GetChild(4).gameObject;
+            GameObject Icon = BaseItem[i].transform.GetChild(0).gameObject;
+            GameObject ItemName = BaseItem[i].transform.GetChild(1).gameObject;
+            GameObject Price = BaseItem[i].transform.GetChild(2).gameObject;
+            GameObject BuyButton = BaseItem[i].transform.GetChild(3).gameObject;
+            GameObject SellButton = BaseItem[i].transform.GetChild(4).gameObject;
+
+            if(SellableObject[index] == null) BaseItem[i].SetActive(false);
 
             //Debug.Log(BuyButton);
             //Load Sprite
@@ -53,22 +57,41 @@ public class ShopManager : MonoBehaviour
 
             //BaseIcon[index] = prefab;
 
-            //Set Parameter
             Icon.GetComponent<Image>().sprite = prefab;
-            ItemName.GetComponent<TextMeshProUGUI>().text = item.DisplayName;
-            Price.GetComponent<TextMeshProUGUI>().text = "" + item.Price.ToString();
+            ItemName.GetComponent<TextMeshProUGUI>().text = SellableObject[index].DisplayName;
+            Price.GetComponent<TextMeshProUGUI>().text = "" + SellableObject[index].Price.ToString();
 
+            //Debug.Log(SellableObject[index].DisplayName);
 
             var ID = index; //Solve Index outbound Bug 
+
+            BuyButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            SellButton.GetComponent<Button>().onClick.RemoveAllListeners();
+
             BuyButton.GetComponent<Button>().onClick.AddListener(() => BuyItem(ID));
             SellButton.GetComponent<Button>().onClick.AddListener(() => SellItem(ID));
 
-            index++; //Shift to another            
+            //index++; //Shift to another            
         }
+    }
+
+    public void NextPage()
+    {
+        PageIndex += 8;
+        if (PageIndex <= SellableObject.Length) GenerateItem(SellableObject.Length - 8);
+        else GenerateItem(PageIndex);
+    }
+
+    public void PreviousPage()
+    {       
+        PageIndex -= 8;
+        if(PageIndex <= 0) GenerateItem(0);
+        else GenerateItem(PageIndex);
     }
 
     public void BuyItem(int ItemID)
     {
+        if (BuyAblePanal.active == true || UnBuyAblePanal.active == true) return;
         Debug.Log("Transaction: " + (PlayerMoney.gold - SellableObject[ItemID].Price));
         if (EnableToBuy[ItemID] > 0 && PlayerMoney.gold >= SellableObject[ItemID].Price)
         {
@@ -89,7 +112,7 @@ public class ShopManager : MonoBehaviour
             }
             //EventManager.instance.pickupEvents.UpdateItem(SellableObject[ItemID], 1);
             //inventoryManager.UpdateItemAmount(SellableObject[ItemID], 1);
-            Debug.Log(SellableObject[ItemID]);
+            //Debug.Log(SellableObject[ItemID]);
 
         }
         else UnBuyAblePanal.SetActive(true);
@@ -97,6 +120,7 @@ public class ShopManager : MonoBehaviour
 
     public void SellItem(int ItemID)
     {
+        if (BuyAblePanal.active == true || UnBuyAblePanal.active == true) return;
         //Clone Player item in inventory from Inventory Manager
         Dictionary<ItemName, int> CloneItemAmount = inventoryManager.GetItemAmount();
         List<ItemInfoSO> CloneItems = inventoryManager.GetItems();
@@ -151,7 +175,8 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateItem();
+        GenerateItem(0);
+        PageIndex = 0;
     }
 
     // Update is called once per frame

@@ -6,7 +6,10 @@ public class ClassInfoSO : ScriptableObject
     [field: SerializeField] public string Id;
     [Header("Genaral")]
     [field: SerializeField] public string DisplayName;
+    [field: SerializeField] public int ClassTier;
     //[field: SerializeField] public int Mana ;
+    [Header("Requirement Setting")]
+    [field: SerializeField] public int RequirementLevel;
 
     [Header("Base Status")]
     [SerializeField] public StatBase Constitution;

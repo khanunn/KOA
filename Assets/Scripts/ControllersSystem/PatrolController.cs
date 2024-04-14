@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class PatrolController : MonoBehaviour
 {
@@ -11,30 +13,43 @@ public class PatrolController : MonoBehaviour
     bool patrolBusy = false;
     bool patrolDie = false;
     bool patrolMoveing = false;
-    Interactable target;
+    public Interactable target;
     const string WALK = "Walk";
     const string IDLE = "Idle";
     const string ATTACK = "Attack";
     const string DEATH = "Death";
+    [SerializeField] bool IsBuffCooldown = false;
+    [SerializeField] float BuffCdTimer = 0;
     //=====================================================//
     [Header("Moving")]
     [SerializeField] private float moveRadius;
     [SerializeField] private float ramdomDelayMin;
     [SerializeField] private float ramdomDelayMax;
+
+    //====================================================//
+    [Header("Aggro System")]
+    [SerializeField] float AggroTime;
+    [SerializeField] bool StartCheckAggro = false;
     //=====================================================//
     [Header("Attacking")]
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackDelay;
     [SerializeField] private float attackDistance;
+    public int Accuracy = 100;
     //====================================================//
     [Header("Damage")]
-    [SerializeField] private int punchDamage;
+    public int PhysicalDamage = 0;
     [SerializeField] private int meleeDamage;
+    public int Evade;
+    public int MagicDefend = 0;
+    public int PhysicalDefend = 0;
+    public int CritRate = 0;
+    public float CritDMG = 0;
     //====================================================//
     [Header("Infomation")]
     public MonsterInfoSO monsterInfoSO;
-    //====================================================//
-
+    public Interactable Enemy;
+    //====================================================//  
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -45,7 +60,16 @@ public class PatrolController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AggroTime = monsterInfoSO.AggroTime;
+        Evade = monsterInfoSO.Evade;
+        MagicDefend = monsterInfoSO.MagicDefend;
+        PhysicalDefend = monsterInfoSO.PhysicalDefend;
+        Accuracy = monsterInfoSO.Accuracy;
+        CritDMG = monsterInfoSO.CritDMG;
+        CritRate = monsterInfoSO.CritRate;
+        PhysicalDamage = monsterInfoSO.Damage;
+        Enemy = GetComponent<Interactable>();
+        //agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     // Update is called once per frame
@@ -53,7 +77,41 @@ public class PatrolController : MonoBehaviour
     {
         RandomToMove();
         PlayAnimations();
+
         FollowTarget();
+        AggroCheck();
+
+        if (AggroTime <= 0)
+        {
+            target = null;
+            animator.SetBool("Attack", false);
+            AggroTime = monsterInfoSO.AggroTime;
+            StartCheckAggro = false;            
+        }
+
+        if(IsBuffCooldown)
+        {
+            if (monsterInfoSO.SelfBuffStatus == null) return;
+            BuffCdTimer += Time.deltaTime;            
+            if(BuffCdTimer >= monsterInfoSO.SelfBuffStatusInterval)
+            {
+                BuffCdTimer = 0;
+                IsBuffCooldown = false;
+            }
+        }
+
+        if (GetComponent<Actor>().CurrentHealth <= 0 && !patrolDie) SetPatrolDie(true);
+    }
+
+    void AggroCheck()
+    {
+        if (!StartCheckAggro) return;
+        if (!target) return;
+
+        if (Vector3.Distance(target.transform.position, transform.position) > attackDistance)
+        {
+            AggroTime -= Time.deltaTime;            
+        }
     }
 
     void RandomToMove()
@@ -72,12 +130,26 @@ public class PatrolController : MonoBehaviour
     void FollowTarget()
     {
         if (target == null) return;
+
+        //Cancel this feature due to wierd attcking system
+
+        /*  if (agent.obstacleAvoidanceType != ObstacleAvoidanceType.LowQualityObstacleAvoidance)
+          {
+              agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance; //using for block player to pass though enemy 
+          }*/
+
+        if (agent.obstacleAvoidanceType == ObstacleAvoidanceType.LowQualityObstacleAvoidance)
+        {
+            agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; //using for block player to pass though enemy 
+        }
+
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
         if (Vector3.Distance(target.transform.position, transform.position) <= attackDistance)
         {
             if (target.interactionType == InteractableType.PLAYER)
             {
                 ReachDistance();
+                StartCheckAggro = true;
             }
         }
         else
@@ -87,7 +159,7 @@ public class PatrolController : MonoBehaviour
         }
     }
     //=============="หันหน้าไปยังทิศทางของเป้าหมาย"=====================//
-    void FaceToTarget()
+    public void FaceToTarget()
     {
         Vector3 direction = (agent.destination - target.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));
@@ -105,7 +177,7 @@ public class PatrolController : MonoBehaviour
 
         patrolBusy = true;
 
-        switch (target.interactionType)
+        /* switch (target.interactionType)
         {
             case InteractableType.PLAYER:
                 //Debug.Log("Interacted Player");
@@ -113,26 +185,90 @@ public class PatrolController : MonoBehaviour
                 Invoke(nameof(SendAttack), attackDelay);
                 Invoke(nameof(ResetBusy), attackSpeed);
                 break;
-        }
+        } */
     }
     //================โจมตี==========================//
     private void SendAttack()
     {
         //Debug.Log("Attacked Enemy");
         if (target == null) return;
-        target.myActor.TakeDamage(punchDamage);
-        target.myActor.DamageOnHealthBar();
-        SendPlayer();
+
+        // Calculate hit rate (Enemy hit rate = 100 % since it has no stat
+        int hitRate = Accuracy - target.myPlayer.Evade;
+        //Debug.LogWarning("Enemy hitrate = " + hitRate);
+        int randomNum = Random.Range(0, 100);
+        //Debug.LogWarning("Random Chance: " + randomNum);     
+
+        if (randomNum <= hitRate) {
+
+            //Dragon's Addition Code        
+            if (this.GetComponent<BossBehaviourScript>() != null) //Using for hitCount in BossBehaviourScript
+            {
+                BossBehaviourScript bossBehaviour = this.GetComponent<BossBehaviourScript>();
+                bossBehaviour.HitCount += 1;
+            }
+
+            int TotalDamage = monsterInfoSO.Damage - target.myPlayer.PhysicalDefend;
+            Vector3 position = target.transform.position;
+
+            int CritResult = Random.Range(0, 100);
+
+            if (CritResult <= CritRate)
+            {
+                TotalDamage = Mathf.RoundToInt(TotalDamage * CritDMG); //Crit DMG will start at 2 of TotalDamage                
+            }           
+
+            if (TotalDamage <= 0 )
+            {
+                EventManager.instance.playerEvents.AttackPopUp(position, "Block", Color.red);
+                this.GetComponent<AudioSource>().Play();
+                return;
+            }
+
+            int randomChance = 0;
+
+            //Using when Enemy have On hit effect
+            if (monsterInfoSO.OnHitEffect != null)
+            {
+                randomChance = Random.Range(0, 100);
+                if (randomChance >= monsterInfoSO.OnHitEffectChance) target.myStatus.AddStatus(monsterInfoSO.OnHitEffect);
+            }
+
+            //Using when Attack Player to gain buff
+            if(monsterInfoSO.SelfBuffStatus != null)
+            {
+                if (IsBuffCooldown) return;
+                randomChance = Random.Range(0, 100);
+                if (randomChance >= monsterInfoSO.SelfBuffStatusChance)
+                {
+                    Debug.Log("Enemy Healing In Progress");
+                    GetComponent<StatusManager>().AddStatus(monsterInfoSO.SelfBuffStatus);
+                    IsBuffCooldown = true;              
+                }
+            }
+
+            target.myActor.TakeDamage(TotalDamage);            
+            EventManager.instance.playerEvents.AttackPopUp(position, TotalDamage.ToString(), Color.red);
+            target.myActor.DamageOnHealthBar();
+            this.GetComponent<AudioSource>().Play();
+            SendPlayer();
+        }
+        else
+        {
+            Vector3 position = target.transform.position;
+            EventManager.instance.playerEvents.AttackPopUp(position, "Miss", Color.red);
+        }
+            
     }
     private void SendPlayer()
     {
         //target.myPlayer.SetPlayerHealth(punchDamage);
         //GiveDamageToPlayer(punchDamage);
 
-        if (target.myActor.currentHealth <= 0)
+        if (target.myActor.CurrentHealth <= 0)
         {
             //Debug.Log("Enemy DEATH");
-            target.myPlayer.SetPlayerDie(true);
+            //target.myPlayer.SetPlayerDie(true);
             //target.myActor.OnDeath();
             ResetTarget();
             ResetMoveing();
@@ -155,7 +291,7 @@ public class PatrolController : MonoBehaviour
         if (animator != null)
         {
             if (patrolBusy)
-            {
+            {                
                 animator.SetBool(ATTACK, true);
                 return;
             }
@@ -194,11 +330,13 @@ public class PatrolController : MonoBehaviour
 
     public void SetPatrolDie(bool die)
     {
+        Debug.Log("Boss Die");
         target = null;
         patrolDie = die;
         agent.enabled = !agent.enabled;
         capsuleCollider.enabled = !capsuleCollider.enabled;
         animator.SetTrigger(DEATH);
+        animator.Play(DEATH);
 
         //int gold = Random.Range(monsterInfoSO.GoldMin, monsterInfoSO.GoldMax);
         GiveRewardToPlayer(monsterInfoSO);
@@ -286,7 +424,18 @@ public class PatrolController : MonoBehaviour
             target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
             target.myPlayer.InteractableChange(this.gameObject);
             target.myPlayerSkill.SendAttackSkill();
-            Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
+        /*    GameObject PlayerTemp = GameObject.FindGameObjectWithTag("Player");
+            PlayerController PlayerControl = PlayerTemp.GetComponent<PlayerController>();
+            Debug.Log(PlayerControl);
+            SetTargetToPlayer(PlayerControl);*/
+            //Debug.Log("Target myPlayerSkill: " + target.myPlayerSkill);
+        }
+
+        if(other.tag == "PlayerSkill" && meshCollider != null)
+        {
+            target = FindFirstObjectByType<PlayerController>().GetComponent<Interactable>();
+            target.myPlayer.InteractableChange(this.gameObject);
+            target.myPlayerSkill.SendAttackSkill();
         }
     }
 

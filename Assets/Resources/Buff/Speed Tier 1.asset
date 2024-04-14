@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c6d9c7eb8acd1489f1367697ac274a, type: 3}
+  m_Name: Speed Tier 1
+  m_EditorClassIdentifier: 
+  <StatusID>k__BackingField: 0
+  <StatusType>k__BackingField: 0
+  <Intensity>k__BackingField: 7
+  <Duration>k__BackingField: 3
+  <Tier>k__BackingField: 1
+  <DisplayName>k__BackingField: Speed
+  <Desciption>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 21300000, guid: 91a12e488c9cbc640a2b190b5d990dcf,
+    type: 2}

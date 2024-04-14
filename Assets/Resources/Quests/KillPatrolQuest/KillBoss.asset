@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3467c6b38847248815a7d2083c3e20, type: 3}
+  m_Name: KillBoss
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: KillBoss
+  displayName: Rabbit Reindeer
+  levelRequirements: 5
+  questPrerequisites:
+  - {fileID: 11400000, guid: 096190962b77a2a4e9cafdebe9aa0090, type: 2}
+  TargetMonster: {fileID: 11400000, guid: 0ead3b86ce44a9e478f664ab9dcdc4b3, type: 2}
+  questStepPrefab:
+  - {fileID: 8424634330161713993, guid: 554cc2c1ecb1dc04ead4c5875f1cfb74, type: 3}
+  goldReward: 666
+  rubyReward: 10
+  expReward: 20000
+  <Items>k__BackingField:
+  - {fileID: 11400000, guid: 7057651b1d5b82d4aa76267f0e7cd1de, type: 2}
+  - {fileID: 11400000, guid: 8ccff327c7403a14bb75ae0220769784, type: 2}
+  - {fileID: 11400000, guid: 4e09a75472f0187479c9b43b53536351, type: 2}
+  <DialogueInfoSOStart>k__BackingField: {fileID: 11400000, guid: 26e74003dff16b94caf61435aa1115e6,
+    type: 2}
+  <DialogueInfoSOFinish>k__BackingField: {fileID: 11400000, guid: 3c176999532a5954da07367c0bc24cf2,
+    type: 2}
+  <DialogTitle>k__BackingField: Apocalypse Is here!
+  <DialogDescription>k__BackingField:
+  - "Abandon all hope!, \nEmbark on the perilous quest of the Apocalypse Cosmic Herror's
+    final trial, where the fabric of reality frays and dimensions collide. The lair
+    of the Harbinger of the Cosmic Abyss awaits, a cataclysmic entity fueled by primordial
+    energies and the discord of the universe. This otherworldly journey transcends
+    mortal comprehension, testing your strength, wisdom, and resolve amidst shifting
+    landscapes and twisted manifestations of cosmic chaos. The true challenge lies
+    at the pulsating core of the Abyss, where the Harbinger, a maelstrom of unfathomable
+    power, awaits. With allies by your side, confront the embodiment of cosmic entropy,
+    for only by vanquishing this force can the balance of existence be restored and
+    the cosmic herror quelled. The fate of reality hangs in the balance, and the
+    bravest souls must rise to banish the impending cosmic apocalypse."
+  - Excellent! This is the end of this Demo now. Thank you for playing

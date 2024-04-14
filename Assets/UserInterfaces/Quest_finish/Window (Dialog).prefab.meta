@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/UserInterfaces/Quest_finish/Window (Dialog).prefab.meta
-guid: 1530ee2d8fba1954e8945b0bbe4dfa04
-========
-guid: 4af3ab9868ad758428d5d83eac756902
->>>>>>>> Build-set:Assets/Login Screen/Canvas.prefab.meta
+guid: 9bbef16c74008124db67643db0206cf4
 PrefabImporter:
   externalObjects: {}
   userData: 

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3467c6b38847248815a7d2083c3e20, type: 3}
+  m_Name: KillPatrolQuest 1
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: KillPatrolQuest 1
+  displayName: Skeleton Zombie
+  levelRequirements: 1
+  questPrerequisites:
+  - {fileID: 11400000, guid: 79170aafdddebf04bbc6fc726f7ff42e, type: 2}
+  TargetMonster: {fileID: 11400000, guid: 56c1a953d0244374a8ffe7cc99e0e5d8, type: 2}
+  questStepPrefab:
+  - {fileID: 8424634330161713993, guid: ee3178c5615aa564ab7073eef0024ca9, type: 3}
+  goldReward: 50
+  rubyReward: 1
+  expReward: 2000
+  <Items>k__BackingField:
+  - {fileID: 11400000, guid: 7057651b1d5b82d4aa76267f0e7cd1de, type: 2}
+  - {fileID: 11400000, guid: 8ccff327c7403a14bb75ae0220769784, type: 2}
+  - {fileID: 11400000, guid: 4e09a75472f0187479c9b43b53536351, type: 2}
+  <DialogueInfoSOStart>k__BackingField: {fileID: 11400000, guid: 26e74003dff16b94caf61435aa1115e6,
+    type: 2}
+  <DialogueInfoSOFinish>k__BackingField: {fileID: 11400000, guid: 3c176999532a5954da07367c0bc24cf2,
+    type: 2}
+  <DialogTitle>k__BackingField: Ultimate Test
+  <DialogDescription>k__BackingField:
+  - Amidst the rugged landscapes of a realm steeped in mystery, a new threat emerges
+    from the depths of rocky crags and hidden caverns. Known only as the Rock Thrower
+    Beasts, these formidable creatures possess a savage strength matched only by
+    their relentless aggression. Towering over their surroundings, they hurl massive
+    boulders with deadly accuracy, turning the very earth into a weapon against unwary
+    travelers.
+  - Whispers of danger spread like wildfire as tales of the Rock Thrower Beasts'
+    ferocity echo through the land. Villages tremble at the distant rumble of falling
+    stones, knowing that the beasts draw ever closer. In the face of this peril,
+    brave souls are called upon to rise against the onslaught, their bravery the
+    only barrier between civilization and the untamed wilderness. With every step
+    into the unknown, these valiant adventurers must confront the Rock Thrower Beasts,
+    their skill and cunning tested against the relentless barrage of stone and fury.

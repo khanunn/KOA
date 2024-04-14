@@ -1,7 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 
 public class InventoryUI : DraggableUI
 {
+    public CurrencyManager currencyManager;
     protected override void Start()
     {
         base.Start();
@@ -20,5 +22,10 @@ public class InventoryUI : DraggableUI
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
+    }
+
+    private void Update()
+    {
+        currencyManager.UpdateGoldText();
     }
 }

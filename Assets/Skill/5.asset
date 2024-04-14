@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6959cf57385f7f2419faf857e8ea58fb, type: 3}
+  m_Name: 5
+  m_EditorClassIdentifier: 
+  <DisplayName>k__BackingField: Furious
+  <Icon>k__BackingField: {fileID: 21300000, guid: 16e5f66611d711248b5baccf9b463c85,
+    type: 3}
+  <SkillId>k__BackingField: 5
+  <SkillLevel>k__BackingField: 1
+  <SkillTier>k__BackingField: 2
+  <ManaCost>k__BackingField: 50
+  <BaseSkillValue>k__BackingField: 0
+  <CooldownSkill>k__BackingField: 60
+  <LifetimeVFX>k__BackingField: 30000
+  <SkillType>k__BackingField: 2
+  <StatusEffect>k__BackingField: {fileID: 11400000, guid: 2e62e912ca0b81144aee5c3c5c6b3baf,
+    type: 2}
+  <OnMousePositionSkill>k__BackingField: 0
+  <RequirementSkillID>k__BackingField: 4
+  <RequirementLevel>k__BackingField: 20
+  <RequirementWeapon>k__BackingField: 0
