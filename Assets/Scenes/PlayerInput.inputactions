@@ -1,0 +1,173 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "BasicAction",
+            "id": "b3ead331-b613-4ea5-ae7f-4bdd80f99d95",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "1129b544-d667-4cc1-b566-c94b4276af71",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "skill1",
+                    "type": "Button",
+                    "id": "2a44cd9d-1198-4c83-bab0-6486bdb0004a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "skill2",
+                    "type": "Button",
+                    "id": "479fc7e7-b781-4a66-adc7-f4ac825fafb3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "skill3",
+                    "type": "Button",
+                    "id": "9b166bcc-b04e-4073-8740-71e908d64777",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "skill4",
+                    "type": "Button",
+                    "id": "4fbf70d8-fef1-40ad-a549-93424d07a61f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "51ef9e80-6cc7-473b-8d27-170d9cd963c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "775d4d6e-2a36-44e5-a8cd-66e623359bca",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8c12d1f-1ff2-4452-b502-eee1c1f1f975",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f18790d-ebfe-4f79-b227-4e5b2123353f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "skill1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c55836d-aac4-466d-b225-813e195d6983",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "skill2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da09409c-17fd-48e2-ac84-27e65e6d0324",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "skill3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46bcd25e-6886-41cb-80ef-af6fb3e9f015",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "skill4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf61dc50-1a23-4e72-9a8e-2d8a1ef17737",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "SocialAction",
+            "id": "b05b990e-3c31-49d2-83bd-6bcaa0bc7d89",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "bf22c706-c6a7-49b0-b18e-04170032ab4c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f5960048-820f-40f0-a210-d5e781b59bee",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
