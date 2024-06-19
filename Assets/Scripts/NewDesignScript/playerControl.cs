@@ -11,7 +11,7 @@ public class playerControl : MonoBehaviour
     [SerializeField]private float groundOffset = 0.1f;
     ActorAction p_actor;
     ActorAction target_Actor;
-    bool isCombat;
+    bool isAutoCombat = false;
     void Awake()
     {
         p_Agent = GetComponent<NavMeshAgent>();
@@ -32,6 +32,14 @@ public class playerControl : MonoBehaviour
     }
     void Update()
     {
+        /*if(Input.GetKeyDown(KeyCode.F)){
+            if(!isAutoCombat){
+                isAutoCombat = true;
+            }else{
+                isAutoCombat = false;
+            }
+            
+        }*/
         if (p_actor.o_target != null)
         {
             p_Agent.SetDestination(p_actor.o_target.transform.position);
@@ -40,6 +48,7 @@ public class playerControl : MonoBehaviour
                 Debug.Log(target_Actor.o_type);
             }
         }
+        if(isAutoCombat){Debug.Log("Auto is on");}else{Debug.Log("Auto is off");}
     }
 
     public void Move(InputAction.CallbackContext context){

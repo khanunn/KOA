@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public bool PlayerDie { get; private set; }
     private Actor playerActor;
     private PlayerSkill playerSkill;
+    private AutoFightSystem auto;
+    public bool isAuto = false;
     public StatController statController;
     [Header("HitChangeSystem")]
     public int Accuracy = 50; //base Acc is 50
@@ -37,12 +39,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private ParticleSystem attackEffect;    
     private bool playerBusy = false;
+    public bool isReachDistance;
     public Interactable target { get; private set; }
     //=====================================================//
     [Header("Movement")]
     [SerializeField] private ParticleSystem clickEffect;
     [SerializeField] private LayerMask clickLayer;
     [SerializeField] private float lookRotationSpeed;
+    [SerializeField]private float groundOffset = 0.1f;
 
     //Disable Movement Player for using Skill
     public bool CanWalk = true;
@@ -73,7 +77,8 @@ public class PlayerController : MonoBehaviour
         input = new CustomAction();
         AssignInput();
         playerActor = GetComponent<Actor>();
-        playerSkill = GetComponent<PlayerSkill>();        
+        playerSkill = GetComponent<PlayerSkill>();
+        auto = GetComponentInChildren<AutoFightSystem>();        
     }
     // Start is called before the first frame update
     void Start()
@@ -89,6 +94,11 @@ public class PlayerController : MonoBehaviour
         FollowTarget();
         //PlayAnimations();
         if (playerActor.CurrentHealth <= 0 && !PlayerDie) SetPlayerDie(true);
+        if (isAuto && target == null){
+            if(auto.nearsestTarget != null){
+                target = auto.nearsestTarget.gameObject.GetComponent<Interactable>();
+            }else{isAuto = false;}
+        }
 
         PhysicalDefend = statController.v_pdef.statValue;
     }
@@ -101,6 +111,7 @@ public class PlayerController : MonoBehaviour
         input.Main.Talk.performed += ctx => SpaceToTalk();
         input.Main.Inventory.performed += ctx => PushToInventory();
         input.Main.CharInfo.performed += ctx => PushToCharacterInfo();
+        input.Main.Macro.performed += ctx => Macro();
     }
 
     void OnEnable()
@@ -154,6 +165,7 @@ public class PlayerController : MonoBehaviour
     //============================เคลื่อนที่ตัวละคร==========================//
     private void ClickToMove()
     {
+        isAuto = false;
         //Debug.Log("Click Success");
         if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
 
@@ -191,13 +203,13 @@ public class PlayerController : MonoBehaviour
 
                 if (clickEffect != null)
                 {
-                    Instantiate(clickEffect, hit.point += new Vector3(0, 0f, 0), clickEffect.transform.rotation);
+                    Instantiate(clickEffect, hit.point += new Vector3(0, groundOffset, 0), clickEffect.transform.rotation);
                 }
             }
             else
             {
                 //AnimMove(false,true); //เดิน
-                agent.SetDestination(hit.point);
+                agent.SetDestination(hit.point + hit.normal * groundOffset);
 
                 if (target != null)
                 {
@@ -219,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
                 if (clickEffect != null)
                 {
-                    Instantiate(clickEffect, hit.point += new Vector3(0, 1f, 0), clickEffect.transform.rotation);
+                    Instantiate(clickEffect, hit.point += new Vector3(0, groundOffset, 0), clickEffect.transform.rotation);
                 }
             }
         }
@@ -267,6 +279,7 @@ public class PlayerController : MonoBehaviour
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
         if (Vector3.Distance(target.transform.position, transform.position) <= targetDistance)
         {
+            isReachDistance = true;
             //Debug.Log("TargetDistance: "+targetDistance);
             ReachDistance();
             if (target != null && target.interactionType == InteractableType.NPC)
@@ -281,7 +294,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (CanWalk) { agent.SetDestination(target.transform.position); }
+            if (CanWalk) { agent.SetDestination(target.transform.position); isReachDistance = false;}
         }
     }
 
@@ -303,6 +316,7 @@ public class PlayerController : MonoBehaviour
             {
                 case InteractableType.ENEMY:
                     AnimAttack(true);
+                    
                     /* Invoke(nameof(SendAttack), attackDelay);
                     Invoke(nameof(ResetBusy), attackSpeed); */
                     break;
@@ -456,7 +470,35 @@ public class PlayerController : MonoBehaviour
     {
         EventManager.instance.inputEvents.StatPressed();
     }
-
+    private void Macro()
+    {
+        if(auto.nearsestTarget != null && !isAuto && !PlayerDie){
+            isAuto = true;
+            target = auto.nearsestTarget.gameObject.GetComponent<Interactable>();
+            if (target != null && target.interactionType == InteractableType.NPC)
+                {
+                    ResetBusy();
+                }
+                switch (target.interactionType)
+                {
+                    case InteractableType.ENEMY:
+                        targetDistance = attackDistance;
+                        break;
+                    case InteractableType.ITEM_QUEST:
+                        targetDistance = pickupDistance;
+                        break;
+                    case InteractableType.NPC:
+                        targetDistance = talkDistance;
+                        break;
+                    case InteractableType.ITEM_INVENTORY:
+                        targetDistance = pickupDistance;
+                        break;
+                }
+        }else{
+            ResetTarget();
+            isAuto = false;
+        }
+    }
     private void SendItem()
     {
         target.myItem.OnTakeItem();
@@ -465,6 +507,7 @@ public class PlayerController : MonoBehaviour
     }
     public async void SetPlayerDie(bool die)
     {
+        isAuto = false;
         target = null;
         PlayerDie = die;
         agent.enabled = !agent.enabled;

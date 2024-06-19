@@ -285,7 +285,20 @@ public class PlayerSkill : MonoBehaviour
 
     private void Update()
     {
-        SkillSystem();
+         SkillSystem();
+         /*
+        ////////////////////////////////////////////////////////////////////////////////////////////Hardcoding///////////
+        if(Player.isAuto && Player.isReachDistance){
+            if(skillCooldowns[0] == 0){
+                TryStartSkill(CurrentSkill[0], 0);
+            }else if(skillCooldowns[1] == 0){
+                TryStartSkill(CurrentSkill[1], 1);
+            }else if(skillCooldowns[2] == 0){
+                TryStartSkill(CurrentSkill[2], 2);
+            }else if(skillCooldowns[3] == 0){
+                TryStartSkill(CurrentSkill[3], 3);
+            }
+        }*/
 
         MaxCooldown = SkillMaxSetCD;
 

@@ -186,6 +186,17 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""53472018-5acb-4a31-9409-d45b8877aec5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a9263ac1-3df0-42d2-b5b0-17e6f7aa400e"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
