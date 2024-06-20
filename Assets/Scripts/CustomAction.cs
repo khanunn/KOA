@@ -82,6 +82,24 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Slot5"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1da379b-a0fd-46db-986d-a3b1e6f3e66f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slot6"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff55d804-c5ff-4bec-85d0-befbfb122d78"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Talk"",
                     ""type"": ""Button"",
                     ""id"": ""07806609-dafd-4756-a766-a181cb7d0fce"",
@@ -370,6 +388,28 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                     ""action"": ""Macro"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4402d2bd-bf2f-47e3-a88c-1b6d06a175a5"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f05a305-a0b3-4edd-ac78-0629a04b3e1c"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slot6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -460,6 +500,8 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         m_Main_Slot2 = m_Main.FindAction("Slot2", throwIfNotFound: true);
         m_Main_Slot3 = m_Main.FindAction("Slot3", throwIfNotFound: true);
         m_Main_Slot4 = m_Main.FindAction("Slot4", throwIfNotFound: true);
+        m_Main_Slot5 = m_Main.FindAction("Slot5", throwIfNotFound: true);
+        m_Main_Slot6 = m_Main.FindAction("Slot6", throwIfNotFound: true);
         m_Main_Talk = m_Main.FindAction("Talk", throwIfNotFound: true);
         m_Main_SysMenu = m_Main.FindAction("SysMenu", throwIfNotFound: true);
         m_Main_CharInfo = m_Main.FindAction("CharInfo", throwIfNotFound: true);
@@ -544,6 +586,8 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Slot2;
     private readonly InputAction m_Main_Slot3;
     private readonly InputAction m_Main_Slot4;
+    private readonly InputAction m_Main_Slot5;
+    private readonly InputAction m_Main_Slot6;
     private readonly InputAction m_Main_Talk;
     private readonly InputAction m_Main_SysMenu;
     private readonly InputAction m_Main_CharInfo;
@@ -564,6 +608,8 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         public InputAction @Slot2 => m_Wrapper.m_Main_Slot2;
         public InputAction @Slot3 => m_Wrapper.m_Main_Slot3;
         public InputAction @Slot4 => m_Wrapper.m_Main_Slot4;
+        public InputAction @Slot5 => m_Wrapper.m_Main_Slot5;
+        public InputAction @Slot6 => m_Wrapper.m_Main_Slot6;
         public InputAction @Talk => m_Wrapper.m_Main_Talk;
         public InputAction @SysMenu => m_Wrapper.m_Main_SysMenu;
         public InputAction @CharInfo => m_Wrapper.m_Main_CharInfo;
@@ -601,6 +647,12 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
             @Slot4.started += instance.OnSlot4;
             @Slot4.performed += instance.OnSlot4;
             @Slot4.canceled += instance.OnSlot4;
+            @Slot5.started += instance.OnSlot5;
+            @Slot5.performed += instance.OnSlot5;
+            @Slot5.canceled += instance.OnSlot5;
+            @Slot6.started += instance.OnSlot6;
+            @Slot6.performed += instance.OnSlot6;
+            @Slot6.canceled += instance.OnSlot6;
             @Talk.started += instance.OnTalk;
             @Talk.performed += instance.OnTalk;
             @Talk.canceled += instance.OnTalk;
@@ -653,6 +705,12 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
             @Slot4.started -= instance.OnSlot4;
             @Slot4.performed -= instance.OnSlot4;
             @Slot4.canceled -= instance.OnSlot4;
+            @Slot5.started -= instance.OnSlot5;
+            @Slot5.performed -= instance.OnSlot5;
+            @Slot5.canceled -= instance.OnSlot5;
+            @Slot6.started -= instance.OnSlot6;
+            @Slot6.performed -= instance.OnSlot6;
+            @Slot6.canceled -= instance.OnSlot6;
             @Talk.started -= instance.OnTalk;
             @Talk.performed -= instance.OnTalk;
             @Talk.canceled -= instance.OnTalk;
@@ -808,6 +866,8 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         void OnSlot2(InputAction.CallbackContext context);
         void OnSlot3(InputAction.CallbackContext context);
         void OnSlot4(InputAction.CallbackContext context);
+        void OnSlot5(InputAction.CallbackContext context);
+        void OnSlot6(InputAction.CallbackContext context);
         void OnTalk(InputAction.CallbackContext context);
         void OnSysMenu(InputAction.CallbackContext context);
         void OnCharInfo(InputAction.CallbackContext context);

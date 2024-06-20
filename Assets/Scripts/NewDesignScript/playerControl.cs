@@ -12,6 +12,7 @@ public class playerControl : MonoBehaviour
     ActorAction p_actor;
     ActorAction target_Actor;
     bool isAutoCombat = false;
+    GameObject[] targets;
     void Awake()
     {
         p_Agent = GetComponent<NavMeshAgent>();

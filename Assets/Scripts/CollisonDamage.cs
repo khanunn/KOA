@@ -11,11 +11,12 @@ public class CollisonDamage : MonoBehaviour
     [Header("Player Collison Damage")]
     [SerializeField] bool IsTargetPlayer = true;
     [SerializeField] PlayerSkill playerSkill;
+    GameObject PlayerTemp;
     bool IsAlreadyDamage = false;    
 
     private void Start()
     {
-        GameObject PlayerTemp = GameObject.FindGameObjectWithTag("Player").gameObject;
+        PlayerTemp = GameObject.FindGameObjectWithTag("Player").gameObject;
 
         playerSkill = PlayerTemp.GetComponent<PlayerSkill>();
     }
@@ -40,6 +41,7 @@ public class CollisonDamage : MonoBehaviour
         {
             if (IsTargetPlayer) return;
             if (other.GetComponent<Interactable>().interactionType != InteractableType.ENEMY) return;
+            other.gameObject.GetComponent<PatrolController>().target = PlayerTemp.GetComponent<Interactable>();
             //if (IsAlreadyDamage) return;            
 
             playerSkill = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerSkill>();

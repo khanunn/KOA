@@ -62,7 +62,7 @@ public class StatusManager : MonoBehaviour
     void Start()
     {
         //using for test boss skill 
-        EventManager.instance.healthEvents.HealthChange(5000);
+        //EventManager.instance.healthEvents.HealthChange(5000);
     }
 
     // Update is called once per frame

@@ -9,9 +9,6 @@ public class AutoFightSystem : MonoBehaviour
    [SerializeField]private float _radius;
    [SerializeField]private LayerMask _targetLayer;
    [SerializeField]private Vector3 _rayDir;
-   private InteractableType targetype;
-   
-
 
     void FixedUpdate()
     {

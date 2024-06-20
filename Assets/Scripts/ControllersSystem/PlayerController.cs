@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
-    CustomAction input;
+    public CustomAction input;
     public NavMeshAgent agent;
     Animator animator;
     //PatrolController patrolController;
@@ -61,9 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int CritRate = 0;
     [SerializeField] private int CritDMG = 0;
     //====================================================//
-    [Header("Health")]
-    [SerializeField] private int playerCurrentHealth;
-    [SerializeField] private int playerMaxHealth;
+    List<Interactable> _targets  = new List<Interactable>();      
     //====================================================//
     [Header("Mouse Position")]
     public Vector3 mousePositionInScene;
@@ -78,7 +76,8 @@ public class PlayerController : MonoBehaviour
         AssignInput();
         playerActor = GetComponent<Actor>();
         playerSkill = GetComponent<PlayerSkill>();
-        auto = GetComponentInChildren<AutoFightSystem>();        
+        auto = GetComponentInChildren<AutoFightSystem>();
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -145,7 +144,7 @@ public class PlayerController : MonoBehaviour
             return;
         } */
         if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
-
+        isAuto = false;
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
         {
@@ -349,7 +348,7 @@ public class PlayerController : MonoBehaviour
     void SendAttack()
     {
         //Debug.Log("Attacked Enemy");
-        if (target == null) return;
+        if (target == null || target.myActor == null) return;
 
         Accuracy = statController.v_acc.statValue;
         Evade = statController.v_evade.statValue;
@@ -473,6 +472,8 @@ public class PlayerController : MonoBehaviour
     private void Macro()
     {
         if(auto.nearsestTarget != null && !isAuto && !PlayerDie){
+            _targets.Add(target);
+            Debug.Log(_targets);
             isAuto = true;
             target = auto.nearsestTarget.gameObject.GetComponent<Interactable>();
             if (target != null && target.interactionType == InteractableType.NPC)
@@ -538,5 +539,8 @@ public class PlayerController : MonoBehaviour
         agent.speed = speed;
     }
 
+    public List<Interactable> GetTargets(){
+        return _targets;
+    }
     
 }

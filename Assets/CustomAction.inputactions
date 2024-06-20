@@ -60,6 +60,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Slot5",
+                    "type": "Button",
+                    "id": "c1da379b-a0fd-46db-986d-a3b1e6f3e66f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Slot6",
+                    "type": "Button",
+                    "id": "ff55d804-c5ff-4bec-85d0-befbfb122d78",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Talk",
                     "type": "Button",
                     "id": "07806609-dafd-4756-a766-a181cb7d0fce",
@@ -346,6 +364,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Macro",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4402d2bd-bf2f-47e3-a88c-1b6d06a175a5",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slot5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f05a305-a0b3-4edd-ac78-0629a04b3e1c",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slot6",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

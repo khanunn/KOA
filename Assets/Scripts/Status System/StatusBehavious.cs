@@ -70,10 +70,15 @@ public class StatusBehavious : MonoBehaviour
                 {
                     for (int i = (int)duration; duration > 0; i--)
                     {
-                        float totalDamage = target.GetComponent<Actor>().MaxHealth * (statusIntensity / 100);
-                        target.GetComponent<Actor>().TakeDamage((int)totalDamage);                        
-                        EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.green);
-                        await Task.Delay(1000);
+                        if (target.GetComponent<Actor>().CurrentHealth > 0)
+                        {
+
+                            float totalDamage = target.GetComponent<Actor>().MaxHealth * (statusIntensity / 100);
+                            target.GetComponent<Actor>().TakeDamage((int)totalDamage);
+                            EventManager.instance.playerEvents.AttackPopUp(target.transform.position, totalDamage.ToString(), Color.green);
+
+                            await Task.Delay(1000);
+                        }
                         //CheckTime -= 1;
                     }
                 }

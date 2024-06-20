@@ -158,9 +158,11 @@ public class PlayerSkill : MonoBehaviour
     {
         if (Player.PlayerDie) return;
 
+
         if (!isSkillPlaying)
         {
-            if (Input.GetKeyUp(KeyCode.Alpha1))
+            AssignSkillInput();
+            /*if (Input.GetKeyUp(KeyCode.Alpha1))
             {
                 TryStartSkill(CurrentSkill[0], 0);
                 //Debug.Log(CurrentSkill[0]);
@@ -195,7 +197,7 @@ public class PlayerSkill : MonoBehaviour
                 TryStartSkill(CurrentSkill[5], 5);
                 //Debug.Log(CurrentSkill[3]);
             }
-
+            */
         }
     }
 
@@ -287,7 +289,7 @@ public class PlayerSkill : MonoBehaviour
     {
          SkillSystem();
          /*
-        ////////////////////////////////////////////////////////////////////////////////////////////Hardcoding///////////
+        ////////////////If Auto can use skill////////////////Hardcoding///////////
         if(Player.isAuto && Player.isReachDistance){
             if(skillCooldowns[0] == 0){
                 TryStartSkill(CurrentSkill[0], 0);
@@ -330,8 +332,8 @@ public class PlayerSkill : MonoBehaviour
         Debug.Log("Test Skill LV: " + SkillData[Skill_ButtonID].SkillLevel);
         PlayerController controller = GetComponent<PlayerController>();
         int skillPhysicDamage = SkillData[Skill_ButtonID].BaseSkillValue + (SkillData[Skill_ButtonID].SkillLevel * 2) + statController.v_patk.statValue * 2;
-        Debug.Log("skill damage: " + skillPhysicDamage);
-        Debug.Log("skill Target: " + controller.target);
+        Debug.LogWarning("skill damage: " + skillPhysicDamage);
+        Debug.LogWarning("skill Target: " + controller.target);
 
         if (controller.target == null) return;
         controller.target.myActor.TakeDamage(skillPhysicDamage - controller.target.myPatrol.MagicDefend);
@@ -368,5 +370,33 @@ public class PlayerSkill : MonoBehaviour
         
         GetComponent<StatusManager>().AddStatus(prefab.StatusEffect);
     }
+    void AssignSkillInput(){
+        player.input.Main.Slot1.performed += ctx => UsingSkillSlot1();
+        player.input.Main.Slot2.performed += ctx => UsingSkillSlot2();
+        player.input.Main.Slot3.performed += ctx => UsingSkillSlot3();
+        player.input.Main.Slot4.performed += ctx => UsingSkillSlot4();
+        player.input.Main.Slot5.performed += ctx => UsingSkillSlot5();
+        player.input.Main.Slot6.performed += ctx => UsingSkillSlot6();
+    }
+
+    void UsingSkillSlot1(){
+         TryStartSkill(CurrentSkill[0], 0);
+    }
+    void UsingSkillSlot2(){
+         TryStartSkill(CurrentSkill[1], 1);
+    }
+    void UsingSkillSlot3(){
+         TryStartSkill(CurrentSkill[2], 2);
+    }
+    void UsingSkillSlot4(){
+         TryStartSkill(CurrentSkill[3], 3);
+    }
+    void UsingSkillSlot5(){
+         TryStartSkill(CurrentSkill[4], 4);
+    }
+    void UsingSkillSlot6(){
+         TryStartSkill(CurrentSkill[5], 5);
+    }
+
 }
 
