@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AutoFightSystem : MonoBehaviour
@@ -13,6 +15,7 @@ public class AutoFightSystem : MonoBehaviour
     void FixedUpdate()
     {
         targets = Physics.SphereCastAll(transform.position, _radius , _rayDir, 0 , _targetLayer);
+        Debug.Log(targets.Count());
         if(targets != null){
             nearsestTarget = GetNearest();
         }

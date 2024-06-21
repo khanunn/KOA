@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using System;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -61,7 +65,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int CritRate = 0;
     [SerializeField] private int CritDMG = 0;
     //====================================================//
-    List<Interactable> _targets  = new List<Interactable>();      
+    public List<Interactable> _targetsList  = new List<Interactable>();
+    public bool isTargetSerected;
     //====================================================//
     [Header("Mouse Position")]
     public Vector3 mousePositionInScene;
@@ -90,6 +95,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         FollowTarget();
         //PlayAnimations();
         if (playerActor.CurrentHealth <= 0 && !PlayerDie) SetPlayerDie(true);
@@ -98,7 +104,6 @@ public class PlayerController : MonoBehaviour
                 target = auto.nearsestTarget.gameObject.GetComponent<Interactable>();
             }else{isAuto = false;}
         }
-
         PhysicalDefend = statController.v_pdef.statValue;
     }
     
@@ -111,6 +116,7 @@ public class PlayerController : MonoBehaviour
         input.Main.Inventory.performed += ctx => PushToInventory();
         input.Main.CharInfo.performed += ctx => PushToCharacterInfo();
         input.Main.Macro.performed += ctx => Macro();
+        input.Main.AttackAction.performed += ctx => Action_NormalAttack();
     }
 
     void OnEnable()
@@ -143,6 +149,7 @@ public class PlayerController : MonoBehaviour
             EventManager.instance.inputEvents.InventoryItemOptionalClose();
             return;
         } */
+        isTargetSerected = false;
         if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
         isAuto = false;
         RaycastHit hit;
@@ -165,9 +172,9 @@ public class PlayerController : MonoBehaviour
     private void ClickToMove()
     {
         isAuto = false;
+        isTargetSerected = false;
         //Debug.Log("Click Success");
         if (EventSystem.current.IsPointerOverGameObject() || PlayerDie) { return; }//ถ้าคลิกโดนอินเตอร์เฟส จะถูกรีเทิน
-
         if (playerSkill.isSkillPlaying) { playerSkill.isSkillPlaying = false; }
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, clickLayer))
@@ -258,7 +265,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //==============================เคลื่อนที่ไปยังเป้าหมาย===============================//
-    void FollowTarget()
+    public void FollowTarget()
     {
         if (agent.velocity == Vector3.zero)
         {
@@ -276,7 +283,7 @@ public class PlayerController : MonoBehaviour
         if (playerSkill.isSkillPlaying) return;
         //PlayAnimations();
         //=============ระยะห่างเป้าหมายน้อยกว่าระยะโจมตี========================//
-        if (Vector3.Distance(target.transform.position, transform.position) <= targetDistance)
+        if (Vector3.Distance(target.transform.position, transform.position) <= targetDistance && isTargetSerected )
         {
             isReachDistance = true;
             //Debug.Log("TargetDistance: "+targetDistance);
@@ -284,7 +291,6 @@ public class PlayerController : MonoBehaviour
             if (target != null && target.interactionType == InteractableType.NPC)
             {
                 if (target.myQuestPoint.playerIsNear) return;
-
                 SendNpc(true);
                 //EventManager.instance.inputEvents.SubmitPressed();
                 SpaceToTalk();
@@ -293,7 +299,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (CanWalk) { agent.SetDestination(target.transform.position); isReachDistance = false;}
+            if (CanWalk && isTargetSerected) { agent.SetDestination(target.transform.position); isReachDistance = false;}
         }
     }
 
@@ -315,7 +321,9 @@ public class PlayerController : MonoBehaviour
             {
                 case InteractableType.ENEMY:
                     AnimAttack(true);
-                    
+                    if(!isTargetSerected){
+                        ResetBusy();
+                    } 
                     /* Invoke(nameof(SendAttack), attackDelay);
                     Invoke(nameof(ResetBusy), attackSpeed); */
                     break;
@@ -348,7 +356,7 @@ public class PlayerController : MonoBehaviour
     void SendAttack()
     {
         //Debug.Log("Attacked Enemy");
-        if (target == null || target.myActor == null) return;
+        if (target == null || target.myActor == null ) return;
 
         Accuracy = statController.v_acc.statValue;
         Evade = statController.v_evade.statValue;
@@ -471,9 +479,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Macro()
     {
+        isTargetSerected = true;
         if(auto.nearsestTarget != null && !isAuto && !PlayerDie){
-            _targets.Add(target);
-            Debug.Log(_targets);
             isAuto = true;
             target = auto.nearsestTarget.gameObject.GetComponent<Interactable>();
             if (target != null && target.interactionType == InteractableType.NPC)
@@ -498,6 +505,7 @@ public class PlayerController : MonoBehaviour
         }else{
             ResetTarget();
             isAuto = false;
+            isTargetSerected = false;
         }
     }
     private void SendItem()
@@ -537,10 +545,10 @@ public class PlayerController : MonoBehaviour
     public void MoveSpeed(float speed)
     {
         agent.speed = speed;
-    }
+    }    
 
-    public List<Interactable> GetTargets(){
-        return _targets;
+    private void Action_NormalAttack(){
+       
+        isTargetSerected = !isTargetSerected;
     }
-    
 }

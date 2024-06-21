@@ -188,6 +188,15 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c783f29-1a0d-4a74-b777-5299e0273e39"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -410,6 +419,17 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
                     ""action"": ""Slot6"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71400c31-d286-467c-be8e-b0aaab845242"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -512,6 +532,7 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         m_Main_PartyInfo = m_Main.FindAction("PartyInfo", throwIfNotFound: true);
         m_Main_Friends = m_Main.FindAction("Friends", throwIfNotFound: true);
         m_Main_Macro = m_Main.FindAction("Macro", throwIfNotFound: true);
+        m_Main_AttackAction = m_Main.FindAction("AttackAction", throwIfNotFound: true);
         // Equipment
         m_Equipment = asset.FindActionMap("Equipment", throwIfNotFound: true);
         m_Equipment_Preview = m_Equipment.FindAction("Preview", throwIfNotFound: true);
@@ -598,6 +619,7 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_PartyInfo;
     private readonly InputAction m_Main_Friends;
     private readonly InputAction m_Main_Macro;
+    private readonly InputAction m_Main_AttackAction;
     public struct MainActions
     {
         private @CustomAction m_Wrapper;
@@ -620,6 +642,7 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         public InputAction @PartyInfo => m_Wrapper.m_Main_PartyInfo;
         public InputAction @Friends => m_Wrapper.m_Main_Friends;
         public InputAction @Macro => m_Wrapper.m_Main_Macro;
+        public InputAction @AttackAction => m_Wrapper.m_Main_AttackAction;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -683,6 +706,9 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
             @Macro.started += instance.OnMacro;
             @Macro.performed += instance.OnMacro;
             @Macro.canceled += instance.OnMacro;
+            @AttackAction.started += instance.OnAttackAction;
+            @AttackAction.performed += instance.OnAttackAction;
+            @AttackAction.canceled += instance.OnAttackAction;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -741,6 +767,9 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
             @Macro.started -= instance.OnMacro;
             @Macro.performed -= instance.OnMacro;
             @Macro.canceled -= instance.OnMacro;
+            @AttackAction.started -= instance.OnAttackAction;
+            @AttackAction.performed -= instance.OnAttackAction;
+            @AttackAction.canceled -= instance.OnAttackAction;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -878,6 +907,7 @@ public partial class @CustomAction: IInputActionCollection2, IDisposable
         void OnPartyInfo(InputAction.CallbackContext context);
         void OnFriends(InputAction.CallbackContext context);
         void OnMacro(InputAction.CallbackContext context);
+        void OnAttackAction(InputAction.CallbackContext context);
     }
     public interface IEquipmentActions
     {

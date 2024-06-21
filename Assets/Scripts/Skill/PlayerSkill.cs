@@ -204,16 +204,16 @@ public class PlayerSkill : MonoBehaviour
     private void TryStartSkill(int skillId, int ButtonID)
     {
         if (!CanUseSkill) return;
-        // Check if the skill is not on cooldown
-        if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
-        {
-            // isSkillPlaying = true;
-            StartSkill(skillId, ButtonID);
-            Invoke("ResetSkill", 0.01f);
-            Skill_ID = skillId;
-            // Set cooldown for the skill
-            skillCooldowns[ButtonID] = MaxCooldown[ButtonID];
-        }
+            // Check if the skill is not on cooldown
+            if (skillCooldowns[ButtonID] == 0 && !isSkillPlaying)
+            {
+                // isSkillPlaying = true;
+                StartSkill(skillId, ButtonID);
+                Invoke("ResetSkill", 0.01f);
+                Skill_ID = skillId;
+                // Set cooldown for the skill
+                skillCooldowns[ButtonID] = MaxCooldown[ButtonID];
+            }
     }
 
     public void ResetSkill()
@@ -288,19 +288,7 @@ public class PlayerSkill : MonoBehaviour
     private void Update()
     {
          SkillSystem();
-         /*
-        ////////////////If Auto can use skill////////////////Hardcoding///////////
-        if(Player.isAuto && Player.isReachDistance){
-            if(skillCooldowns[0] == 0){
-                TryStartSkill(CurrentSkill[0], 0);
-            }else if(skillCooldowns[1] == 0){
-                TryStartSkill(CurrentSkill[1], 1);
-            }else if(skillCooldowns[2] == 0){
-                TryStartSkill(CurrentSkill[2], 2);
-            }else if(skillCooldowns[3] == 0){
-                TryStartSkill(CurrentSkill[3], 3);
-            }
-        }*/
+         
 
         MaxCooldown = SkillMaxSetCD;
 

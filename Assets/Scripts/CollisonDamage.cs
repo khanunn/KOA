@@ -12,7 +12,7 @@ public class CollisonDamage : MonoBehaviour
     [SerializeField] bool IsTargetPlayer = true;
     [SerializeField] PlayerSkill playerSkill;
     GameObject PlayerTemp;
-    bool IsAlreadyDamage = false;    
+    List<Interactable> _targetsList  = new List<Interactable>();      
 
     private void Start()
     {
@@ -39,9 +39,12 @@ public class CollisonDamage : MonoBehaviour
         
         if(other.tag == "Interactable")
         {
+            Interactable targetFocus = other.GetComponent<Interactable>();
             if (IsTargetPlayer) return;
             if (other.GetComponent<Interactable>().interactionType != InteractableType.ENEMY) return;
+            Interactable targetProp = other.GetComponent<Interactable>();
             other.gameObject.GetComponent<PatrolController>().target = PlayerTemp.GetComponent<Interactable>();
+            PlayerTemp.GetComponent<PlayerController>()._targetsList.Add(targetProp);
             //if (IsAlreadyDamage) return;            
 
             playerSkill = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerSkill>();
